@@ -7,34 +7,40 @@
 
 ## data structure
 
-* firebase
-* firebase does not allow arrays
+- firebase
+- firebase does not allow arrays
 
 ```js
-{
-  data: {
-    albums: {
-     id: {
-        name: string,
-        description: string,
-        date: string,
-        photos: {
-          id: {
-            photo_description: string,
-             urls: {
-                "full": string,
-                "regular": string-w=1080,
-                "small": string-w=400,
-                "thumb": string-w=200,
-              },
-            tags: {id: string, id: string},
-            likes: number,
-            liked_by_admin: bool,
-            created_at: timestamp-number,
-          }
-        }
-      }
+state = {
+  collections: {
+    random_album_id_1: {
+      name: 'Test album',
+      description: 'test description',
+      date: Date.now()
+    }
+  },
+  // dummy data
+  photos: {
+    random_photo_id_1: {
+      collection: 'random_album_1',
+      photo_description: 'test description',
+      urls: {
+        full: `${process.env.PUBLIC_URL}/images/random_photo_id_1/food.jpg`,
+        regular: `${
+          process.env.PUBLIC_URL
+        }/images/random_photo_id_1/food-regular.jpg`,
+        small: `${
+          process.env.PUBLIC_URL
+        }/images/random_photo_id_1/food-small.jpg`,
+        thumb: `${
+          process.env.PUBLIC_URL
+        }/images/random_photo_id_1/food-thumbnail.jpg`
+      },
+      tags: { clouds: true, sky: true },
+      likes: 12,
+      liked_by_admin: true,
+      created_at: Date.now()
     }
   }
-}
+};
 ```
