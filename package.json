@@ -1,8 +1,12 @@
 {
   "name": "anitavrhovac.com",
   "version": "0.1.0",
+  "homepage": "https://cristiancristea.com/anitavrhovac.com",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^1.4.3",
+    "@material-ui/icons": "^2.0.1",
+    "eslint-plugin-babel": "^5.1.0",
     "node-sass-chokidar": "^1.3.3",
     "npm-run-all": "^4.1.3",
     "prop-types": "^15.6.2",
