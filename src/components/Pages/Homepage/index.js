@@ -1,13 +1,11 @@
 import React from 'react';
+import Photos from './../../Photos';
 
-const Homepage = ({ latestPhotos }) => {
+const Homepage = ({ latestPhotos, albums }) => {
   return (
     <section className="latest-photos">
       <h2>Homepage</h2>
-      {latestPhotos.map((photo, i) => {
-        console.log(photo);
-        return <img key={photo.urls.small} src={photo.urls.small} />;
-      })}
+      <Photos photos={latestPhotos} albums={albums} />
     </section>
   );
 };
