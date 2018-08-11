@@ -10,7 +10,7 @@ const Album = ({ photos, albums, match }) => {
   return (
     <section className="latest-photos">
       <h2>{album.name}</h2>
-      <Photos photos={albumPhotos} />
+      <Photos photos={albumPhotos} singlePhoto={true} />
     </section>
   );
 };

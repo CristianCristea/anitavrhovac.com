@@ -1,30 +1,35 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import PhotoModal from './../PhotoModal';
 import './Photos.css';
 
-const Photos = ({ photos, albums }) => {
-  return (
-    <div className="photos">
-      {photos.map(photo => {
-        const { collectionName, location, urls, collection } = photo;
-        return (
-          <Link
-            to={`${process.env.PUBLIC_URL}/albums/${collection}`}
-            key={photo.urls.small}
-            className="photos__photo-card"
-          >
-            <figure className="photo">
-              <img src={urls.small} />
-              <figcaption className="photos__photo-details">
-                <p>{collectionName}</p>
-                <p>{location}</p>
-              </figcaption>
-            </figure>
-          </Link>
-        );
-      })}
-    </div>
-  );
-};
+// props { photos, albums, singlePhoto }
+class Photos extends React.Component {
+  state = {};
+
+  render() {
+    const { photos, singlePhoto } = this.props;
+
+    return (
+      <div className="photos">
+        {photos.map(photo => {
+          return (
+            <PhotoModal
+              key={photo.id}
+              photo={photo}
+              singlePhoto={singlePhoto}
+            />
+          );
+        })}
+      </div>
+    );
+  }
+}
 
 export default Photos;
+
+Photos.propTypes = {
+  photos: PropTypes.array,
+  albums: PropTypes.array,
+  singlePhoto: PropTypes.bool
+};
