@@ -1,6 +1,5 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import uuid from 'uuid';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Navbar } from './../Layout/';
 import Albums from './../Albums';
