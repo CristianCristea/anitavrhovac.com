@@ -1,70 +1,89 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
-import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import Modal from '@material-ui/core/Modal';
 import Paper from '@material-ui/core/Paper';
+import PhotoThumbnail from './../PhotoThumbnail';
+
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 class PhotoModal extends React.Component {
   state = {
-    open: false
+    open: false,
+    scrool: 'body',
+    currentPhoto: this.props.photo.sizes.regular
   };
 
-  handleOpen = e => {
-    if (this.props.singlePhoto) {
-      e.preventDefault();
-      this.setState({ open: true });
-    }
+  handleClickOpen = scroll => () => {
+    this.setState({ open: true, scroll });
   };
 
   handleClose = () => {
     this.setState({ open: false });
   };
 
+  handleShowPhoto = (e, photoSrc) => {
+    e.preventDefault();
+    this.setState({ currentPhoto: photoSrc });
+    // scroll to top when changing the photo in modal
+    this.modalPhoto.scrollIntoView();
+  };
+
   render() {
-    const {
-      urls,
-      collectionName,
-      location,
-      collection,
-      description
-    } = this.props.photo;
+    const { photo, album } = this.props;
+    const { likes, location, description } = photo;
 
     return (
       <div>
         <Link
-          to={`${process.env.PUBLIC_URL}/albums/${collection}`}
-          key={urls.small}
-          className="photos__photo-card"
-          onClick={this.handleOpen}
+          to={`#`}
+          className="photo__card"
+          onClick={this.handleClickOpen('body')}
         >
-          <figure className="photo">
-            <img src={urls.small} alt={description} />
-            <figcaption className="photos__photo-details">
-              <p>{collectionName}</p>
-              <p>{location}</p>
-            </figcaption>
-          </figure>
+          <PhotoThumbnail photo={photo} />
         </Link>
-        <Modal
-          aria-labelledby="simple-modal-title"
-          aria-describedby="simple-modal-description"
+        <Dialog
+          id="modalTop"
           open={this.state.open}
           onClose={this.handleClose}
+          scroll={this.state.scroll}
+          aria-labelledby="scroll-dialog-title"
         >
+          <DialogTitle id="scroll-dialog-title">{album.name}</DialogTitle>
           <Paper>
-            <figure className="photo">
-              <img src={urls.small} alt={description} />
-              <figcaption className="photos__photo-details">
-                <p>{collectionName}</p>
+            <figure
+              className="modal-photo"
+              ref={modalPhoto => (this.modalPhoto = modalPhoto)}
+            >
+              <img src={this.state.currentPhoto} alt={description} />
+              <figcaption className="modal-photo__details">
+                <p>{likes}</p>
                 <p>{location}</p>
               </figcaption>
             </figure>
+
+            {album.photos.map(photo => {
+              return (
+                // eslint-disable-next-line
+                <a
+                  key={photo.id}
+                  href="#"
+                  onClick={e => this.handleShowPhoto(e, photo.sizes.regular)}
+                >
+                  <PhotoThumbnail photo={photo} />;
+                </a>
+              );
+            })}
           </Paper>
-        </Modal>
+        </Dialog>
       </div>
     );
   }
 }
 
 export default PhotoModal;
+
+PhotoModal.propTypes = {
+  album: PropTypes.object.isRequired,
+  photo: PropTypes.object.isRequired
+};
