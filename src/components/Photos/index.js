@@ -1,35 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PhotoModal from './../PhotoModal';
+import { Link } from 'react-router-dom';
+import PhotoThumbnail from './../PhotoThumbnail';
 import './Photos.css';
 
-// props { photos, albums, singlePhoto }
-class Photos extends React.Component {
-  state = {};
-
-  render() {
-    const { photos, singlePhoto } = this.props;
-
-    return (
-      <div className="photos">
-        {photos.map(photo => {
-          return (
-            <PhotoModal
-              key={photo.id}
-              photo={photo}
-              singlePhoto={singlePhoto}
-            />
-          );
-        })}
-      </div>
-    );
-  }
-}
+const Photos = ({ photos }) => {
+  return (
+    <div className="photos">
+      {photos.map(photo => {
+        const photoLink = `${process.env.PUBLIC_URL}/photos/${photo.id}`;
+        return (
+          <div key={photo.id}>
+            <Link to={photoLink} className="photo__card">
+              <PhotoThumbnail photo={photo} />
+            </Link>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
 
 export default Photos;
 
 Photos.propTypes = {
-  photos: PropTypes.array,
-  albums: PropTypes.array,
-  singlePhoto: PropTypes.bool
+  photos: PropTypes.array
 };
