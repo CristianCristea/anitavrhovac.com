@@ -6,8 +6,9 @@ import Albums from './../Albums';
 import Album from './../Albums/Album';
 import Homepage from './../Pages/Homepage';
 import PageNotFound from './../Pages/PageNotFound';
+import Photo from './../Pages/Photo';
 import About from './../Pages/About';
-import { collections, photos } from './../../fixtures/photos';
+import { collections, photos } from './../../fixtures';
 
 class AppRouter extends Component {
   state = {
@@ -16,7 +17,7 @@ class AppRouter extends Component {
   };
 
   render() {
-    // sort desc
+    // sort all photos desc
     const latestPhotos = this.state.photos.sort((photo, nextPhoto) => {
       return nextPhoto.created_at - photo.created_at;
     });
@@ -30,21 +31,27 @@ class AppRouter extends Component {
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/`}
-              render={() => (
-                <Homepage latestPhotos={latestPhotos} albums={albums} />
-              )}
+              render={() => <Homepage latestPhotos={latestPhotos} />}
             />
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/albums`}
-              render={props => (
-                <Albums albums={albums} photos={photos} {...props} />
+              render={props => <Albums albums={albums} {...props} />}
+            />
+            <Route
+              path={`${process.env.PUBLIC_URL}/albums/:id`}
+              render={params => (
+                <Album albums={albums} photos={photos} {...params} />
               )}
             />
             <Route
-              path={`${process.env.PUBLIC_URL}/albums/:name`}
+              path={`${process.env.PUBLIC_URL}/photos/:id`}
               render={params => (
-                <Album albums={albums} photos={photos} {...params} />
+                <Photo
+                  photos={this.state.photos}
+                  albums={this.state.collections}
+                  {...params}
+                />
               )}
             />
             <Route path={`${process.env.PUBLIC_URL}/about`} component={About} />
