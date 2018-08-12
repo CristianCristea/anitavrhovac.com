@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Navbar } from './../Layout/';
-import Albums from './../Albums';
-import Album from './../Albums/Album';
+import Albums from './../Pages/Albums';
+import Album from './../Pages/Albums/Album';
 import Homepage from './../Pages/Homepage';
 import PageNotFound from './../Pages/PageNotFound';
 import Photo from './../Pages/Photo';
@@ -40,9 +40,7 @@ class AppRouter extends Component {
             />
             <Route
               path={`${process.env.PUBLIC_URL}/albums/:id`}
-              render={params => (
-                <Album albums={albums} photos={photos} {...params} />
-              )}
+              render={params => <Album albums={albums} {...params} />}
             />
             <Route
               path={`${process.env.PUBLIC_URL}/photos/:id`}
