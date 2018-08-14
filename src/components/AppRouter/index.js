@@ -9,11 +9,18 @@ import PageNotFound from './../Pages/PageNotFound';
 import Photo from './../Pages/Photo';
 import About from './../Pages/About';
 import { collections, photos } from './../../fixtures';
+import AddAlbum from '../AddAlbum';
 
 class AppRouter extends Component {
   state = {
     collections,
     photos
+  };
+
+  createAlbum = album => {
+    this.setState(prevState => {
+      return prevState.collections.concat(album);
+    });
   };
 
   render() {
@@ -53,6 +60,12 @@ class AppRouter extends Component {
               )}
             />
             <Route path={`${process.env.PUBLIC_URL}/about`} component={About} />
+            <Route
+              path={`${process.env.PUBLIC_URL}/anita/addAlbum`}
+              render={params => (
+                <AddAlbum createAlbum={this.createAlbum} {...params} />
+              )}
+            />
             <Route component={PageNotFound} />
           </Switch>
         </CssBaseline>
