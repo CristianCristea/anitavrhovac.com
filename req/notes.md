@@ -5,6 +5,10 @@
 3. user can like a photo
 4. user can search a photo - by tag, ...date, ...people
 
+hompage page - last photos - click photo - go to photos/photo_id, show photo and other phots from collection at the bottom, link to collection top,
+albums page - /albums show covers, on click go top album page - map through albums pass cover as photo and id for url
+album page - /albums/album_id show album photos, on photo click, open modal with photo and other phots from collection at the bottom,
+
 ## data structure
 
 - firebase
