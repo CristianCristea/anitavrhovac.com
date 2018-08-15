@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { Navbar } from './../Layout/';
-import Albums from './../Pages/Albums';
-import Album from './../Pages/Albums/Album';
-import Homepage from './../Pages/Homepage';
-import PageNotFound from './../Pages/PageNotFound';
-import Photo from './../Pages/Photo';
-import About from './../Pages/About';
-import { collections, photos } from './../../fixtures';
-import AddAlbum from '../AddAlbum';
+import { Navbar } from './../components/Layout/';
+import Albums from './../components/Pages/Albums';
+import Album from './../components/Pages/Albums/Album';
+import Homepage from './../components/Pages/Homepage';
+import PageNotFound from './../components/Pages/PageNotFound';
+import Photo from './../components/Pages/Photo';
+import About from './../components/Pages/About';
+import { collections, photos } from './../fixtures';
+import AddAlbum from '../components/AddAlbum';
 
 class AppRouter extends Component {
   state = {
