@@ -8,8 +8,6 @@ export const collections = [
     created_at: Date.now(),
     location: 'Mexico',
     cover: {
-      id: 'photo_cover_1',
-      photo_description: 'test description',
       sizes: {
         full: `${process.env.PUBLIC_URL}/images/random_photo_id_1/food.jpg`,
         regular: `${
@@ -21,12 +19,7 @@ export const collections = [
         thumb: `${
           process.env.PUBLIC_URL
         }/images/random_photo_id_1/food-thumbnail.jpg`
-      },
-      tags: ['clouds', 'sky'],
-      likes: 12,
-      liked_by_admin: true,
-      created_at: Date.now(),
-      location: 'Mexico'
+      }
     },
     photos: [
       {
@@ -164,7 +157,7 @@ export const photos = [
     liked_by_admin: true,
     created_at: Date.now(),
     location: 'Mexico',
-    collection: {
+    album: {
       id: 'collection_1',
       name: 'First album',
       description: 'First album description',
@@ -193,7 +186,7 @@ export const photos = [
     liked_by_admin: true,
     created_at: Date.now(),
     location: 'Mexico',
-    collection: {
+    album: {
       id: 'collection_1',
       name: 'First album',
       description: 'First album description',
@@ -223,7 +216,7 @@ export const photos = [
     liked_by_admin: true,
     created_at: Date.now(),
     location: 'Mexico',
-    collection: {
+    album: {
       id: 'collection_1',
       name: 'First album',
       description: 'First album description',
@@ -253,7 +246,7 @@ export const photos = [
     liked_by_admin: true,
     created_at: Date.now(),
     location: 'Mexico',
-    collection: {
+    album: {
       id: 'collection_2',
       name: 'Second album',
       description: 'second album description',
