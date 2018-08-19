@@ -9,7 +9,10 @@ import PageNotFound from './../components/Pages/PageNotFound';
 import Photo from './../components/Pages/Photo';
 import About from './../components/Pages/About';
 import { collections, photos } from './../fixtures';
-import AddAlbum from '../components/AddAlbum';
+import AdminAlbumForm from '../components/Admin/Album/Form';
+import AdminPhotoForm from '../components/Admin/Photo/Form';
+import AdminAlbum from '../components/Admin/Album';
+import Dashboard from '../components/Admin/Dashboard';
 
 class AppRouter extends Component {
   state = {
@@ -19,7 +22,7 @@ class AppRouter extends Component {
 
   createAlbum = album => {
     this.setState(prevState => {
-      return prevState.collections.concat(album);
+      return { collections: prevState.collections.concat(album) };
     });
   };
 
@@ -61,10 +64,24 @@ class AppRouter extends Component {
             />
             <Route path={`${process.env.PUBLIC_URL}/about`} component={About} />
             <Route
-              path={`${process.env.PUBLIC_URL}/anita/addAlbum`}
-              render={params => (
-                <AddAlbum createAlbum={this.createAlbum} {...params} />
-              )}
+              exact
+              path={`${process.env.PUBLIC_URL}/anita/dashboard`}
+              component={Dashboard}
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/anita/edit-album/:id`}
+              component={AdminAlbum}
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/anita/add-album`}
+              component={AdminAlbumForm}
+            />
+            <Route
+              exact
+              path={`${process.env.PUBLIC_URL}/anita/:id/add-photo`}
+              component={AdminPhotoForm}
             />
             <Route component={PageNotFound} />
           </Switch>
