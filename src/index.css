@@ -325,3 +325,7 @@ template {
   pointer-events: none;
   opacity: 0.5;
   text-decoration: none; }
+
+img {
+  max-width: 100%;
+  height: auto; }
