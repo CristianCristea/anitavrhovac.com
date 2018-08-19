@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PhotoThumbnail from './../../../PhotoThumbnail';
 
-const Album = ({ album }) => {
+const AlbumCover = ({ album }) => {
   return (
     <section className="album-cover">
       <div key={album.id}>
@@ -17,4 +17,4 @@ const Album = ({ album }) => {
   );
 };
 
-export default Album;
+export default AlbumCover;
