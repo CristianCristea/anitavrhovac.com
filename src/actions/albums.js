@@ -29,3 +29,18 @@ export const addAlbumPhoto = (id, photo) => ({
   id,
   photo
 });
+
+// edit photo to album
+export const editAlbumPhoto = (albumId, photoId, updates) => ({
+  type: 'EDIT_ALBUM_PHOTO',
+  albumId,
+  photoId,
+  updates
+});
+
+// delete photo from album
+export const deleteAlbumPhoto = (albumId, photoId) => ({
+  type: 'DELETE_ALBUM_PHOTO',
+  albumId,
+  photoId
+});
