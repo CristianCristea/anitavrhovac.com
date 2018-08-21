@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addAlbumPhoto } from './../../../../actions/albums';
 import FormErrors from './../../../FormErrors';
-import './PhotoForm.css';
+import './AddPhoto.css';
 
 /*
 add to coresp album
 add to photos */
 
-let PhotoForm = class extends Component {
+let AddPhoto = class extends Component {
   state = {
     // photo
     description: '',
@@ -46,7 +46,9 @@ let PhotoForm = class extends Component {
 
     switch (fieldName) {
       case 'location':
-        locationValid = !!(value.match(/[a-z]/gi) && value.length > 3);
+        locationValid = !!(
+          value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3
+        );
         fieldValidationErrors.location = locationValid ? '' : ' is invalid';
         break;
       case 'photo':
@@ -160,7 +162,6 @@ let PhotoForm = class extends Component {
             required
             onChange={this.fileSelectedHandler}
           />
-
           <button type="submit" disabled={!this.state.formValid}>
             Submit
           </button>
@@ -172,14 +173,13 @@ let PhotoForm = class extends Component {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  albumId: ownProps.match.params.id
+  albumId: ownProps.match.params.album_id
 });
 
-PhotoForm = connect(mapStateToProps)(PhotoForm);
-export default PhotoForm;
+AddPhoto = connect(mapStateToProps)(AddPhoto);
+export default AddPhoto;
 
-PhotoForm.defaultProps = {
-  edit: false,
+AddPhoto.defaultProps = {
   album: {
     location: ''
   }

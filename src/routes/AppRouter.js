@@ -9,10 +9,11 @@ import PageNotFound from './../components/Pages/PageNotFound';
 import Photo from './../components/Pages/Photo';
 import About from './../components/Pages/About';
 import { collections, photos } from './../fixtures';
-import AdminAlbumForm from '../components/Admin/Album/Form';
-import AdminPhotoForm from '../components/Admin/Photo/Form';
-import AdminAlbum from '../components/Admin/Album';
-import Dashboard from '../components/Admin/Dashboard';
+import AdminAlbumForm from './../components/Admin/Album/Form';
+import AdminPhotoForm from './../components/Admin/Photo/AddPhoto';
+import AdminAlbum from './../components/Admin/Album';
+import AdminPhoto from './../components/Admin/Photo';
+import Dashboard from './../components/Admin/Dashboard';
 
 class AppRouter extends Component {
   state = {
@@ -75,12 +76,19 @@ class AppRouter extends Component {
             />
             <Route
               exact
+              path={`${
+                process.env.PUBLIC_URL
+              }/anita/:album_id/edit-photo/:photo_id`}
+              component={AdminPhoto}
+            />
+            <Route
+              exact
               path={`${process.env.PUBLIC_URL}/anita/add-album`}
               component={AdminAlbumForm}
             />
             <Route
               exact
-              path={`${process.env.PUBLIC_URL}/anita/:id/add-photo`}
+              path={`${process.env.PUBLIC_URL}/anita/:album_id/add-photo`}
               component={AdminPhotoForm}
             />
             <Route component={PageNotFound} />

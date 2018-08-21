@@ -39,6 +39,41 @@ export const albumsReducer = (state = initialState, action) => {
         }
         return album;
       });
+    case 'EDIT_ALBUM_PHOTO':
+      return state.map(album => {
+        if (album.id === action.albumId) {
+          const photos = album.photos.map(photo => {
+            if (photo.id === action.photoId) {
+              return {
+                ...photo,
+                ...action.updates
+              };
+            }
+            return photo;
+          });
+          return {
+            ...album,
+            photos
+          };
+        }
+
+        return album;
+      });
+    case 'DELETE_ALBUM_PHOTO':
+      return state.map(album => {
+        if (album.id === action.albumId) {
+          const photos = album.photos.filter(
+            photo => photo.id !== action.photoId
+          );
+          return {
+            ...album,
+            photos
+          };
+        }
+
+        return album;
+      });
+
     default:
       return state;
   }
