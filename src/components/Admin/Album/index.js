@@ -5,9 +5,8 @@ import AlbumForm from './Form';
 import AdminPhotos from './../Photos';
 
 let AdminAlbum = ({ album, dispatch, match, history }) => {
-  /*
-display each photo with edit, delete, set cover btn
-*/
+  // display each photo with edit, delete, set cover btn
+  console.log(album);
   return (
     <div className="admin__album">
       <img src={`${album.cover.sizes.full}`} alt="" />
