@@ -18,6 +18,7 @@ let AlbumForm = class extends Component {
         full: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`
       }
     },
+    photos: this.props.album.photos,
     // form validation
     formErrors: {
       name: '',
@@ -60,35 +61,27 @@ let AlbumForm = class extends Component {
       formErrors: fieldValidationErrors,
       nameValid,
       descriptionValid,
-      locationValid,
-      selectedCoverValid
+      locationValid
     } = this.state;
-
-    const fileTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/pjpeg'];
 
     switch (fieldName) {
       case 'name':
-        nameValid = !!(value.match(/[a-z]/gi) && value.length > 3);
+        nameValid = !!(value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3);
         fieldValidationErrors.name = nameValid ? '' : ' is invalid';
         break;
       case 'description':
-        descriptionValid = !!(value.match(/[a-z]/gi) && value.length > 3);
+        descriptionValid = !!(
+          value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3
+        );
         fieldValidationErrors.description = descriptionValid
           ? ''
           : ' is invalid';
         break;
       case 'location':
-        locationValid = !!(value.match(/[a-z]/gi) && value.length > 3);
+        locationValid = !!(
+          value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3
+        );
         fieldValidationErrors.location = locationValid ? '' : ' is invalid';
-        break;
-      case 'selectedCover':
-        // check image type and size < 3MB
-        selectedCoverValid =
-          fileTypes.indexOf(value.type) !== -1 &&
-          (value.size / 1048576).toFixed(1) < 3;
-        fieldValidationErrors['cover photo'] = selectedCoverValid
-          ? ''
-          : ' is invalid';
         break;
       default:
         break;
@@ -123,6 +116,8 @@ let AlbumForm = class extends Component {
       ? cover
       : { sizes: { full: albumToEdit.cover.sizes.full } };
     let albumId = !edit ? uuid() : albumToEdit.id;
+    let albumPhotos = !edit ? [] : this.state.photos;
+
     const album = {
       id: albumId,
       created_at: Date.now(),
@@ -130,7 +125,7 @@ let AlbumForm = class extends Component {
       name,
       description,
       location,
-      photos: [],
+      photos: albumPhotos,
       publicAlbum
     };
 
@@ -216,7 +211,8 @@ AlbumForm.defaultProps = {
   album: {
     name: '',
     description: '',
-    location: ''
+    location: '',
+    photos: []
   }
 };
 
