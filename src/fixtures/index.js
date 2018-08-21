@@ -24,7 +24,7 @@ export const collections = [
     photos: [
       {
         id: 'photo_cover_1',
-        photo_description: 'test description',
+        description: 'test description',
         sizes: {
           full: `${process.env.PUBLIC_URL}/images/random_photo_id_1/food.jpg`,
           regular: `${
@@ -45,7 +45,7 @@ export const collections = [
       },
       {
         id: uuid(),
-        photo_description: 'test description',
+        description: 'test description',
         sizes: {
           full: `${
             process.env.PUBLIC_URL
@@ -68,7 +68,7 @@ export const collections = [
       },
       {
         id: uuid(),
-        photo_description: 'test description',
+        description: 'test description',
         sizes: {
           full: `${
             process.env.PUBLIC_URL
@@ -99,7 +99,7 @@ export const collections = [
     location: 'Mexico',
     cover: {
       id: 'photo_cover_2',
-      photo_description: 'test description',
+      description: 'test description',
       sizes: {
         full: `${
           process.env.PUBLIC_URL
@@ -123,7 +123,7 @@ export const collections = [
     photos: [
       {
         id: 'photo_cover_2',
-        photo_description: 'test description',
+        description: 'test description',
         sizes: {
           full: `${
             process.env.PUBLIC_URL
@@ -151,7 +151,7 @@ export const collections = [
 export const photos = [
   {
     id: 'photo_cover_1',
-    photo_description: 'test description',
+    description: 'test description',
     tags: ['clouds', 'sky'],
     likes: 12,
     liked_by_admin: true,
@@ -180,7 +180,7 @@ export const photos = [
 
   {
     id: uuid(),
-    photo_description: 'test description',
+    description: 'test description',
     tags: ['food', 'nature'],
     likes: 12,
     liked_by_admin: true,
@@ -210,7 +210,7 @@ export const photos = [
   },
   {
     id: uuid(),
-    photo_description: 'test description',
+    description: 'test description',
     tags: ['tomatos', 'food'],
     likes: 12,
     liked_by_admin: true,
@@ -240,7 +240,7 @@ export const photos = [
   },
   {
     id: 'photo_cover_2',
-    photo_description: 'test description',
+    description: 'test description',
     tags: ['avocado', 'eggs', 'food'],
     likes: 12,
     liked_by_admin: true,
