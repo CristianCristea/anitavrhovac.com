@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { deleteAlbumPhoto } from './../../../actions/albums';
+import { deleteAlbumPhoto, setAlbumCover } from './../../../actions/albums';
 // import './AdminAlbums.css';
 
 let AdminPhotos = ({ album, dispatch }) => {
@@ -15,11 +15,11 @@ let AdminPhotos = ({ album, dispatch }) => {
   }
 
   return (
-    <div className="admin__albums">
+    <div className="admin__photos">
       {album.photos.map(photo => {
         return (
           <div key={photo.id}>
-            <div className="admin__album">
+            <div className="admin__photo">
               <img src={photo.sizes.small} alt="" />
               <h3>Likes: {photo.likes}</h3>
               <h3>{photo.description}</h3>
@@ -29,12 +29,18 @@ let AdminPhotos = ({ album, dispatch }) => {
                 to={`${process.env.PUBLIC_URL}/anita/${album.id}/edit-photo/${
                   photo.id
                 }`}
-                className="admin__album__edit"
+                className="admin__photo--editBtn"
               >
                 Edit
               </Link>
               <button
-                className="delete"
+                className="admin__photo--setCoverBtn"
+                onClick={() => dispatch(setAlbumCover(album.id, photo.id))}
+              >
+                Set Cover
+              </button>
+              <button
+                className="admin__photo--deleteBtn"
                 onClick={() => dispatch(deleteAlbumPhoto(album.id, photo.id))}
               >
                 Delete

@@ -1,6 +1,5 @@
 import { collections } from './../fixtures';
-// set to empty array after dev
-const initialState = collections;
+const initialState = [];
 
 export const albumsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -73,7 +72,23 @@ export const albumsReducer = (state = initialState, action) => {
 
         return album;
       });
+    case 'SET_ALBUM_COVER':
+      return state.map(album => {
+        if (album.id === action.albumId) {
+          const sizes = album.photos.filter(
+            photo => photo.id === action.photoId
+          )[0].sizes;
 
+          return {
+            ...album,
+            cover: {
+              sizes
+            }
+          };
+        }
+
+        return album;
+      });
     default:
       return state;
   }

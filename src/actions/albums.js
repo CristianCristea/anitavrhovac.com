@@ -44,3 +44,10 @@ export const deleteAlbumPhoto = (albumId, photoId) => ({
   albumId,
   photoId
 });
+
+// set album cover
+export const setAlbumCover = (albumId, photoId) => ({
+  type: 'SET_ALBUM_COVER',
+  albumId,
+  photoId
+});
