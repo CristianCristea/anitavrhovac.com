@@ -5,9 +5,9 @@ import AdminAlbums from './../Albums';
 const Dashboard = () => {
   // create admin dashboard, navigation
   return (
-    <section>
-      <AdminAlbums />
+    <section className="dashboard">
       <Link to={`${process.env.PUBLIC_URL}/anita/add-album`}>Add album</Link>
+      <AdminAlbums />
     </section>
   );
 };

@@ -115,15 +115,17 @@ let AlbumForm = class extends Component {
     };
 
     // update the state
-    // this.props.createAlbum(album);
     if (!edit) {
       this.props.dispatch(addAlbum(album));
+      // redirect to edit album
+      this.props.history.push(
+        `${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`
+      );
     } else {
       this.props.dispatch(editAlbum(album.id, album));
+      // redirect to admin dashboard
+      this.props.history.push(`${process.env.PUBLIC_URL}/anita/dashboard`);
     }
-
-    // redirect to admin dashboard
-    this.props.history.push(`${process.env.PUBLIC_URL}/anita/dashboard`);
 
     // reset form
     this.resetForm();
