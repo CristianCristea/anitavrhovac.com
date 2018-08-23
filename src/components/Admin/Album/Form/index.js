@@ -26,7 +26,6 @@ let AlbumForm = class extends Component {
       location: ''
     },
     nameValid: false,
-    descriptionValid: false,
     locationValid: false,
     formValid: false
   };
@@ -49,7 +48,6 @@ let AlbumForm = class extends Component {
     this.setState(
       {
         nameValid: true,
-        descriptionValid: true,
         locationValid: true
       },
       this.validateForm
@@ -60,7 +58,6 @@ let AlbumForm = class extends Component {
     let {
       formErrors: fieldValidationErrors,
       nameValid,
-      descriptionValid,
       locationValid
     } = this.state;
 
@@ -68,14 +65,6 @@ let AlbumForm = class extends Component {
       case 'name':
         nameValid = !!(value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3);
         fieldValidationErrors.name = nameValid ? '' : ' is invalid';
-        break;
-      case 'description':
-        descriptionValid = !!(
-          value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3
-        );
-        fieldValidationErrors.description = descriptionValid
-          ? ''
-          : ' is invalid';
         break;
       case 'location':
         locationValid = !!(
@@ -91,7 +80,6 @@ let AlbumForm = class extends Component {
       {
         formErrors: fieldValidationErrors,
         nameValid: nameValid,
-        descriptionValid: descriptionValid,
         locationValid: locationValid
       },
       () => this.validateForm()
@@ -100,10 +88,7 @@ let AlbumForm = class extends Component {
 
   validateForm() {
     this.setState({
-      formValid:
-        this.state.nameValid &&
-        this.state.descriptionValid &&
-        this.state.locationValid
+      formValid: this.state.nameValid && this.state.locationValid
     });
   }
 
@@ -176,7 +161,6 @@ let AlbumForm = class extends Component {
             type="text"
             name="description"
             placeholder="description"
-            required
             value={this.state.description}
             onChange={this.handleTextInput}
           />
