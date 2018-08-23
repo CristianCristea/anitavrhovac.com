@@ -1,4 +1,5 @@
 import uuid from 'uuid';
+import moment from 'moment';
 
 export const collections = [
   {
@@ -7,6 +8,7 @@ export const collections = [
     description: 'First album description',
     created_at: Date.now(),
     location: 'Mexico',
+    publicAlbum: false,
     cover: {
       sizes: {
         full: `${process.env.PUBLIC_URL}/images/random_photo_id_1/food.jpg`,
@@ -49,7 +51,7 @@ export const collections = [
         sizes: {
           full: `${
             process.env.PUBLIC_URL
-          }/images/random_photo_id_2/edgar-castrejon-459807-unsplash.jpg`,
+          }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-full.jpg`,
           regular: `${
             process.env.PUBLIC_URL
           }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-regular.jpg`,
@@ -97,9 +99,8 @@ export const collections = [
     description: 'second album description',
     created_at: Date.now(),
     location: 'Mexico',
+    publicAlbum: false,
     cover: {
-      id: 'photo_cover_2',
-      description: 'test description',
       sizes: {
         full: `${
           process.env.PUBLIC_URL
@@ -122,8 +123,6 @@ export const collections = [
     },
     photos: [
       {
-        id: 'photo_cover_2',
-        description: 'test description',
         sizes: {
           full: `${
             process.env.PUBLIC_URL
@@ -145,6 +144,20 @@ export const collections = [
         location: 'Mexico'
       }
     ]
+  },
+  {
+    id: uuid(),
+    name: 'Test album',
+    description: 'Test album description',
+    created_at: moment().unix(),
+    location: 'Mexico',
+    publicAlbum: false,
+    cover: {
+      sizes: {
+        full: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`
+      }
+    },
+    photos: []
   }
 ];
 
