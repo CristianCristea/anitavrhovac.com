@@ -1,5 +1,5 @@
 import { collections } from './../fixtures';
-const initialState = [];
+const initialState = collections;
 
 export const albumsReducer = (state = initialState, action) => {
   switch (action.type) {
