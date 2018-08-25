@@ -6,7 +6,7 @@ export const collections = [
     id: 'collection_1',
     name: 'First album',
     description: 'First album description',
-    created_at: Date.now(),
+    created_at: moment().unix(),
     location: 'Mexico',
     publicAlbum: false,
     cover: {
@@ -25,7 +25,7 @@ export const collections = [
     },
     photos: [
       {
-        id: 'photo_cover_1',
+        id: 'photo_1',
         description: 'test description',
         sizes: {
           full: `${process.env.PUBLIC_URL}/images/random_photo_id_1/food.jpg`,
@@ -46,7 +46,7 @@ export const collections = [
         location: 'Mexico'
       },
       {
-        id: uuid(),
+        id: 'photo_2',
         description: 'test description',
         sizes: {
           full: `${
@@ -69,7 +69,7 @@ export const collections = [
         location: 'Mexico'
       },
       {
-        id: uuid(),
+        id: 'photo_3',
         description: 'test description',
         sizes: {
           full: `${
@@ -88,7 +88,7 @@ export const collections = [
         tags: ['tomatos', 'food'],
         likes: 12,
         liked_by_admin: true,
-        created_at: Date.now(),
+        created_at: moment().unix(),
         location: 'Mexico'
       }
     ]
@@ -97,7 +97,7 @@ export const collections = [
     id: 'collection_2',
     name: 'Second album',
     description: 'second album description',
-    created_at: Date.now(),
+    created_at: moment().unix(),
     location: 'Mexico',
     publicAlbum: false,
     cover: {
@@ -114,12 +114,7 @@ export const collections = [
         thumb: `${
           process.env.PUBLIC_URL
         }/images/random_photo_id_4/brooke-lark-229136-unsplash-thumbnail.jpg`
-      },
-      tags: ['avocado', 'eggs', 'food'],
-      likes: 12,
-      liked_by_admin: true,
-      created_at: Date.now(),
-      location: 'Mexico'
+      }
     },
     photos: [
       {
@@ -137,10 +132,11 @@ export const collections = [
             process.env.PUBLIC_URL
           }/images/random_photo_id_4/brooke-lark-229136-unsplash-thumbnail.jpg`
         },
+        id: 'photo_4',
         tags: ['avocado', 'eggs', 'food'],
         likes: 12,
         liked_by_admin: true,
-        created_at: Date.now(),
+        created_at: moment().unix(),
         location: 'Mexico'
       }
     ]
@@ -154,7 +150,10 @@ export const collections = [
     publicAlbum: false,
     cover: {
       sizes: {
-        full: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`
+        full: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`,
+        regular: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`,
+        small: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`,
+        thumb: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`
       }
     },
     photos: []
@@ -163,18 +162,17 @@ export const collections = [
 
 export const photos = [
   {
-    id: 'photo_cover_1',
+    id: 'photo_1',
     description: 'test description',
     tags: ['clouds', 'sky'],
     likes: 12,
     liked_by_admin: true,
-    created_at: Date.now(),
+    created_at: moment().unix(),
     location: 'Mexico',
     album: {
       id: 'collection_1',
       name: 'First album',
       description: 'First album description',
-      created_at: Date.now(),
       location: 'Mexico'
     },
     sizes: {
@@ -190,20 +188,18 @@ export const photos = [
       }/images/random_photo_id_1/food-thumbnail.jpg`
     }
   },
-
   {
-    id: uuid(),
+    id: 'photo_2',
     description: 'test description',
     tags: ['food', 'nature'],
     likes: 12,
     liked_by_admin: true,
-    created_at: Date.now(),
+    created_at: moment().unix(),
     location: 'Mexico',
     album: {
       id: 'collection_1',
       name: 'First album',
       description: 'First album description',
-      created_at: Date.now(),
       location: 'Mexico'
     },
     sizes: {
@@ -222,18 +218,17 @@ export const photos = [
     }
   },
   {
-    id: uuid(),
+    id: 'photo_3',
     description: 'test description',
     tags: ['tomatos', 'food'],
     likes: 12,
     liked_by_admin: true,
-    created_at: Date.now(),
+    created_at: moment().unix(),
     location: 'Mexico',
     album: {
       id: 'collection_1',
       name: 'First album',
       description: 'First album description',
-      created_at: Date.now(),
       location: 'Mexico'
     },
     sizes: {
@@ -252,18 +247,17 @@ export const photos = [
     }
   },
   {
-    id: 'photo_cover_2',
+    id: 'photo_4',
     description: 'test description',
     tags: ['avocado', 'eggs', 'food'],
     likes: 12,
     liked_by_admin: true,
-    created_at: Date.now(),
+    created_at: moment().unix(),
     location: 'Mexico',
     album: {
       id: 'collection_2',
       name: 'Second album',
       description: 'second album description',
-      created_at: Date.now(),
       location: 'Mexico'
     },
     sizes: {
