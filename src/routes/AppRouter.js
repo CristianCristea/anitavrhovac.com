@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { collections, photos } from './../fixtures';
 import { Navbar } from './../components/Layout/';
 import Albums from './../components/Pages/Albums';
 import Album from './../components/Pages/Albums/Album';
@@ -8,12 +9,11 @@ import Homepage from './../components/Pages/Homepage';
 import PageNotFound from './../components/Pages/PageNotFound';
 import Photo from './../components/Pages/Photo';
 import About from './../components/Pages/About';
-import { collections, photos } from './../fixtures';
-import AdminAlbumForm from './../components/Admin/Album/Form';
-import AdminPhotoForm from './../components/Admin/Photo/AddPhoto';
+import AdminAddPhoto from './../components/Admin/Photo/AddPhoto';
 import AdminAlbum from './../components/Admin/Album';
+import AdminAddAlbum from './../components/Admin/Album/AddAlbum';
 import AdminPhoto from './../components/Admin/Photo';
-import Dashboard from './../components/Admin/Dashboard';
+import AdminDashboard from './../components/Admin/Dashboard';
 
 class AppRouter extends Component {
   state = {
@@ -67,7 +67,7 @@ class AppRouter extends Component {
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/anita/dashboard`}
-              component={Dashboard}
+              component={AdminDashboard}
             />
             <Route
               exact
@@ -84,12 +84,12 @@ class AppRouter extends Component {
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/anita/add-album`}
-              component={AdminAlbumForm}
+              component={AdminAddAlbum}
             />
             <Route
               exact
               path={`${process.env.PUBLIC_URL}/anita/:album_id/add-photo`}
-              component={AdminPhotoForm}
+              component={AdminAddPhoto}
             />
             <Route component={PageNotFound} />
           </Switch>

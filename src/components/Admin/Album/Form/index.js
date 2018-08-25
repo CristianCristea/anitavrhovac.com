@@ -107,23 +107,23 @@ let AlbumForm = class extends Component {
       id: albumId,
       created_at: Date.now(),
       cover: editCover,
-      name,
-      description,
-      location,
+      name: name.trim(),
+      description: description.trim(),
+      location: location.trim(),
       photos: albumPhotos,
       publicAlbum
     };
 
     // update the state
     if (!edit) {
+      // add album and redirect to edit album
       this.props.dispatch(addAlbum(album));
-      // redirect to edit album
       this.props.history.push(
         `${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`
       );
     } else {
+      // redirect to admin dashboard after edit
       this.props.dispatch(editAlbum(album.id, album));
-      // redirect to admin dashboard
       this.props.history.push(`${process.env.PUBLIC_URL}/anita/dashboard`);
     }
 

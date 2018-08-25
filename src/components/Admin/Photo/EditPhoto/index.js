@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { editAlbumPhoto } from './../../../../actions/albums';
+import { editPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../FormErrors';
 import './EditPhoto.css';
+
+// TODO: in validateForm - do not submit form if nothing is changed
 
 let EditPhoto = class extends Component {
   state = {
@@ -65,28 +68,19 @@ let EditPhoto = class extends Component {
     );
   };
 
-  resetForm = () => {
-    this.setState({
-      description: '',
-      location: '',
-      tags: ''
-    });
-  };
-
   handleFormSubmit = e => {
     e.preventDefault();
     const { description, location, tags } = this.state;
     const photoUpdates = {
-      description,
-      location,
-      tags: tags.split(',')
+      description: description.trim(),
+      location: location.trim(),
+      tags: tags.split(',').map(tag => tag.trim())
     };
     // update the state
     this.props.dispatch(
       editAlbumPhoto(this.props.albumId, this.props.photo.id, photoUpdates)
     );
-
-    this.resetForm();
+    this.props.dispatch(editPhoto(this.props.photo.id, photoUpdates));
   };
 
   // add has-error css class if the field has an error

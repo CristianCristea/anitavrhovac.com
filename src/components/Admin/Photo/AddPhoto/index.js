@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
+import moment from 'moment';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { addAlbumPhoto } from './../../../../actions/albums';
+import { addPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../FormErrors';
 import './AddPhoto.css';
 
@@ -97,12 +99,13 @@ let AddPhoto = class extends Component {
   handleFormSubmit = e => {
     e.preventDefault();
     const { description, location, tags } = this.state;
-    const photo = {
+    const album = this.props.album;
+    const albumPhoto = {
       id: uuid(),
-      created_at: Date.now(),
-      description,
-      location,
-      tags: tags.split(','),
+      created_at: moment().unix(),
+      description: description.trim(),
+      location: location.trim(),
+      tags: tags.split(',').map(tag => tag.trim()),
       likes: 0,
       liked_by_admin: false,
       sizes: {
@@ -112,9 +115,18 @@ let AddPhoto = class extends Component {
         thumb: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`
       }
     };
-
+    const singlePhoto = Object.assign(albumPhoto, {
+      album: {
+        id: album.id,
+        name: album.name,
+        description: album.description,
+        location: album.location
+      }
+    });
+    console.log(albumPhoto, singlePhoto);
     // update the state
-    this.props.dispatch(addAlbumPhoto(this.props.albumId, photo));
+    this.props.dispatch(addAlbumPhoto(album.id, albumPhoto));
+    this.props.dispatch(addPhoto(singlePhoto));
 
     // send the actual photo to server with axios or use firebase sdk
     // set the album to database and redux only on success
@@ -127,7 +139,6 @@ let AddPhoto = class extends Component {
   }
 
   render() {
-    console.log(this.props.albumId);
     return (
       // render form validation errors
       <div className="photo-form">
@@ -173,14 +184,16 @@ let AddPhoto = class extends Component {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  albumId: ownProps.match.params.album_id
+  album: state.collections.filter(
+    collection => collection.id === ownProps.match.params.album_id
+  )[0]
 });
 
 AddPhoto = connect(mapStateToProps)(AddPhoto);
 export default AddPhoto;
 
-AddPhoto.defaultProps = {
-  album: {
-    location: ''
-  }
-};
+// AddPhoto.defaultProps = {
+//   album: {
+//     location: ''
+//   }
+// };
