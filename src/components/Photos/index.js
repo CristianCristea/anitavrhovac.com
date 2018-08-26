@@ -8,7 +8,9 @@ const Photos = ({ photos }) => {
   return (
     <div className="photos">
       {photos.map(photo => {
-        const photoLink = `${process.env.PUBLIC_URL}/photos/${photo.id}`;
+        const photoLink = `${process.env.PUBLIC_URL}/${photo.album.id}/${
+          photo.id
+        }`;
         return (
           <div key={photo.id}>
             <Link to={photoLink} className="photo__card">
