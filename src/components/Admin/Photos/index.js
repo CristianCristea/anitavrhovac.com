@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { deleteAlbumPhoto, setAlbumCover } from './../../../actions/albums';
+import { deletePhoto } from './../../../actions/photos';
 // import './AdminAlbums.css';
 
 let AdminPhotos = ({ album, dispatch }) => {
@@ -41,7 +42,10 @@ let AdminPhotos = ({ album, dispatch }) => {
               </button>
               <button
                 className="admin__photo--deleteBtn"
-                onClick={() => dispatch(deleteAlbumPhoto(album.id, photo.id))}
+                onClick={() => {
+                  dispatch(deleteAlbumPhoto(album.id, photo.id));
+                  dispatch(deletePhoto(photo.id));
+                }}
               >
                 Delete
               </button>
