@@ -7,7 +7,7 @@ const PhotoThumbnail = ({ photo }) => {
 
   return (
     <figure className="photo">
-      <img src={sizes.small} alt={description} />
+      <img src={sizes.full} alt={description} />
       <figcaption className="photo__details">
         <p>likes: {likes}</p>
         <p>{location}</p>
