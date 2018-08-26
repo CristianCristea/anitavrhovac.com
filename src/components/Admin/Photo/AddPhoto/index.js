@@ -28,6 +28,20 @@ let AddPhoto = class extends Component {
     formValid: false
   };
 
+  componentDidMount() {
+    this.validateInitialLocation();
+  }
+
+  // inherit location from album, set location as valid
+  validateInitialLocation = () => {
+    this.setState(
+      {
+        locationValid: true
+      },
+      this.validateForm
+    );
+  };
+
   handleTextInput = e => {
     const fieldName = e.currentTarget.name;
     const filedValue = e.currentTarget.value;
