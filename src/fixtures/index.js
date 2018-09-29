@@ -8,7 +8,7 @@ export const collections = [
     description: 'First album description',
     created_at: moment().unix(),
     location: 'Mexico',
-    publicAlbum: false,
+    publicAlbum: true,
     cover: {
       sizes: {
         full: `${process.env.PUBLIC_URL}/images/random_photo_id_1/food.jpg`,
@@ -99,7 +99,7 @@ export const collections = [
     description: 'second album description',
     created_at: moment().unix(),
     location: 'Mexico',
-    publicAlbum: false,
+    publicAlbum: true,
     cover: {
       sizes: {
         full: `${
@@ -147,7 +147,7 @@ export const collections = [
     description: 'Test album description',
     created_at: moment().unix(),
     location: 'Mexico',
-    publicAlbum: false,
+    publicAlbum: true,
     cover: {
       sizes: {
         full: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`,
@@ -205,7 +205,7 @@ export const photos = [
     sizes: {
       full: `${
         process.env.PUBLIC_URL
-      }/images/random_photo_id_2/edgar-castrejon-459807-unsplash.jpg`,
+      }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-full.jpg`,
       regular: `${
         process.env.PUBLIC_URL
       }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-regular.jpg`,
