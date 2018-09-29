@@ -1,6 +1,0 @@
-.photo__card:hover .photo__details {
-  opacity: 1; }
-
-.photo__details {
-  opacity: 0;
-  transition: all 0.4s; }
