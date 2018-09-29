@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
 import { addAlbum, editAlbum } from './../../../../actions/albums';
-import FormErrors from './../../../FormErrors';
+import FormErrors from './../../../common/FormErrors';
 import './AlbumForm.css';
 
 let AlbumForm = class extends Component {
@@ -121,14 +121,13 @@ let AlbumForm = class extends Component {
       this.props.history.push(
         `${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`
       );
+      // reset form
+      this.resetForm();
     } else {
       // redirect to admin dashboard after edit
       this.props.dispatch(editAlbum(album.id, album));
-      this.props.history.push(`${process.env.PUBLIC_URL}/anita/dashboard`);
+      // this.props.history.push(`${process.env.PUBLIC_URL}/anita/dashboard`);
     }
-
-    // reset form
-    this.resetForm();
   };
 
   resetForm = () => {

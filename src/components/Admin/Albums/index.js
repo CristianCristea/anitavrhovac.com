@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Grid from '@material-ui/core/Grid';
 import { deleteAlbum, publishAlbum } from './../../../actions/albums';
 import './AdminAlbums.css';
 
@@ -14,7 +15,7 @@ let AdminAlbums = ({ albums, dispatch }) => {
   }
 
   return (
-    <div className="admin__albums">
+    <Grid container className="admin__albums">
       {albums.map(album => {
         return (
           <div key={album.id}>
@@ -48,7 +49,7 @@ let AdminAlbums = ({ albums, dispatch }) => {
           </div>
         );
       })}
-    </div>
+    </Grid>
   );
 };
 

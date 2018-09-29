@@ -1,0 +1,9 @@
+.Navbar {
+  flex-grow: 1; }
+
+.Navbar__menu-button {
+  margin-left: -12px;
+  margin-right: 20px; }
+
+.Navbar__logo {
+  flex-grow: 1; }

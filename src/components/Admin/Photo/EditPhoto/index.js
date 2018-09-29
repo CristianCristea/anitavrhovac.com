@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { editAlbumPhoto } from './../../../../actions/albums';
 import { editPhoto } from './../../../../actions/photos';
-import FormErrors from './../../../FormErrors';
+import FormErrors from './../../../common/FormErrors';
 import './EditPhoto.css';
 
 // TODO: in validateForm - do not submit form if nothing is changed
@@ -120,7 +119,6 @@ let EditPhoto = class extends Component {
             Submit
           </button>
         </form>
-        <Link to={`${process.env.PUBLIC_URL}/anita/dashboard`}>Dashboard</Link>
       </div>
     );
   }
