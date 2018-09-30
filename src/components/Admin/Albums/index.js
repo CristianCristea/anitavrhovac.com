@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
+import { Image } from 'cloudinary-react';
 import { deleteAlbum, publishAlbum } from './../../../actions/albums';
 import './AdminAlbums.css';
 
@@ -20,7 +21,12 @@ let AdminAlbums = ({ albums, dispatch }) => {
         return (
           <div key={album.id}>
             <div className="admin__album">
-              <img src={album.cover.sizes.full} alt="" />
+              <Image
+                cloudName="dmz84tdv1"
+                publicId={album.cover.photo_public_id}
+                crop="scale"
+                width="400"
+              />
               <h3>{album.name}</h3>
               <h3>{album.description}</h3>
               <h3>{album.location}</h3>

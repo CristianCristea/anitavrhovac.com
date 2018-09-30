@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Image } from 'cloudinary-react';
 import AlbumForm from '../Form';
 import AdminPhotos from '../../Photos';
 
@@ -9,7 +10,12 @@ let AdminAlbum = ({ album, history }) => {
   // display each photo with edit, delete, set cover btn
   return (
     <div className="admin__album">
-      <img src={`${album.cover.sizes.full}`} alt="" />
+      <Image
+        cloudName="dmz84tdv1"
+        publicId={album.cover.photo_public_id}
+        crop="scale"
+        width="1000"
+      />
       <AlbumForm album={album} edit history={history} />
       <Link to={`${process.env.PUBLIC_URL}/anita/${album.id}/add-photo`}>
         Add Photo

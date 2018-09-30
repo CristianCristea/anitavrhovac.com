@@ -75,14 +75,15 @@ export const albumsReducer = (state = initialState, action) => {
     case 'SET_ALBUM_COVER':
       return state.map(album => {
         if (album.id === action.albumId) {
-          const sizes = album.photos.filter(
+          const newCover = album.photos.filter(
             photo => photo.id === action.photoId
-          )[0].sizes;
+          )[0];
 
           return {
             ...album,
             cover: {
-              sizes
+              photo_url: newCover.photo_url,
+              photo_public_id: newCover.photo_public_id
             }
           };
         }

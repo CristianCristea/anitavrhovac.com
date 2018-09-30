@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Image } from 'cloudinary-react';
 import { deleteAlbumPhoto, setAlbumCover } from './../../../actions/albums';
 import { deletePhoto } from './../../../actions/photos';
 // import './AdminAlbums.css';
@@ -21,7 +22,12 @@ let AdminPhotos = ({ album, dispatch }) => {
         return (
           <div key={photo.id}>
             <div className="admin__photo">
-              <img src={photo.sizes.small} alt="" />
+              <Image
+                cloudName="dmz84tdv1"
+                publicId={photo.photo_public_id}
+                crop="scale"
+                width="300"
+              />
               <h3>Likes: {photo.likes}</h3>
               <h3>{photo.description}</h3>
               <h3>{photo.location}</h3>
@@ -35,6 +41,7 @@ let AdminPhotos = ({ album, dispatch }) => {
                 Edit
               </Link>
               <button
+                disabled={album.cover.photo_public_id === photo.photo_public_id}
                 className="admin__photo--setCoverBtn"
                 onClick={() => dispatch(setAlbumCover(album.id, photo.id))}
               >
