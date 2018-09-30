@@ -10,36 +10,18 @@ export const collections = [
     location: 'Mexico',
     publicAlbum: true,
     cover: {
-      sizes: {
-        full: `${process.env.PUBLIC_URL}/images/random_photo_id_1/food.jpg`,
-        regular: `${
-          process.env.PUBLIC_URL
-        }/images/random_photo_id_1/food-regular.jpg`,
-        small: `${
-          process.env.PUBLIC_URL
-        }/images/random_photo_id_1/food-small.jpg`,
-        thumb: `${
-          process.env.PUBLIC_URL
-        }/images/random_photo_id_1/food-thumbnail.jpg`
-      }
+      photo_url:
+        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317339/food-regular_shipue.jpg',
+      photo_public_id: 'food-regular_shipue.jpg'
     },
     photos: [
       {
         id: 'photo_1',
         description: 'test description',
-        sizes: {
-          full: `${process.env.PUBLIC_URL}/images/random_photo_id_1/food.jpg`,
-          regular: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_1/food-regular.jpg`,
-          small: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_1/food-small.jpg`,
-          thumb: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_1/food-thumbnail.jpg`
-        },
-        tags: ['clouds', 'sky'],
+        photo_url:
+          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317339/food-regular_shipue.jpg',
+        photo_public_id: 'food-regular_shipue.jpg',
+        tags: ['food'],
         likes: 12,
         liked_by_admin: true,
         created_at: Date.now(),
@@ -48,20 +30,9 @@ export const collections = [
       {
         id: 'photo_2',
         description: 'test description',
-        sizes: {
-          full: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-full.jpg`,
-          regular: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-regular.jpg`,
-          small: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-small.jpg`,
-          thumb: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-thumbnail.jpg`
-        },
+        photo_url:
+          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317162/cel-lisboa-60315-unsplash-regular_jyixo8.jpg',
+        photo_public_id: 'cel-lisboa-60315-unsplash-regular_jyixo8',
         tags: ['food', 'nature'],
         likes: 12,
         liked_by_admin: true,
@@ -71,20 +42,9 @@ export const collections = [
       {
         id: 'photo_3',
         description: 'test description',
-        sizes: {
-          full: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_3/cel-lisboa-60315-unsplash.jpg`,
-          regular: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_3/cel-lisboa-60315-unsplash-regular.jpg`,
-          small: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_3/cel-lisboa-60315-unsplash-small.jpg`,
-          thumb: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_3/cel-lisboa-60315-unsplash-thumbnail.jpg`
-        },
+        photo_url:
+          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317147/edgar-castrejon-459807-unsplash-regular_wp1lyd.jpg',
+        photo_public_id: 'edgar-castrejon-459807-unsplash-regular_wp1lyd.jpg',
         tags: ['tomatos', 'food'],
         likes: 12,
         liked_by_admin: true,
@@ -101,38 +61,17 @@ export const collections = [
     location: 'Mexico',
     publicAlbum: true,
     cover: {
-      sizes: {
-        full: `${
-          process.env.PUBLIC_URL
-        }/images/random_photo_id_4/brooke-lark-229136-unsplash.jpg`,
-        regular: `${
-          process.env.PUBLIC_URL
-        }/images/random_photo_id_4/brooke-lark-229136-unsplash-regular.jpg`,
-        small: `${
-          process.env.PUBLIC_URL
-        }/images/random_photo_id_4/brooke-lark-229136-unsplash-small.jpg`,
-        thumb: `${
-          process.env.PUBLIC_URL
-        }/images/random_photo_id_4/brooke-lark-229136-unsplash-thumbnail.jpg`
-      }
+      photo_url:
+        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
+      photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw'
     },
     photos: [
       {
-        sizes: {
-          full: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_4/brooke-lark-229136-unsplash.jpg`,
-          regular: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_4/brooke-lark-229136-unsplash-regular.jpg`,
-          small: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_4/brooke-lark-229136-unsplash-small.jpg`,
-          thumb: `${
-            process.env.PUBLIC_URL
-          }/images/random_photo_id_4/brooke-lark-229136-unsplash-thumbnail.jpg`
-        },
         id: 'photo_4',
+        description: 'test description',
+        photo_url:
+          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
+        photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw',
         tags: ['avocado', 'eggs', 'food'],
         likes: 12,
         liked_by_admin: true,
@@ -149,12 +88,9 @@ export const collections = [
     location: 'Mexico',
     publicAlbum: true,
     cover: {
-      sizes: {
-        full: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`,
-        regular: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`,
-        small: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`,
-        thumb: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`
-      }
+      photo_url:
+        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317221/image-placeholder_bkadyj.jpg',
+      photo_public_id: 'image-placeholder_bkadyj'
     },
     photos: []
   }
@@ -164,7 +100,7 @@ export const photos = [
   {
     id: 'photo_1',
     description: 'test description',
-    tags: ['clouds', 'sky'],
+    tags: ['food'],
     likes: 12,
     liked_by_admin: true,
     created_at: moment().unix(),
@@ -175,18 +111,9 @@ export const photos = [
       description: 'First album description',
       location: 'Mexico'
     },
-    sizes: {
-      full: `${process.env.PUBLIC_URL}/images/random_photo_id_1/food.jpg`,
-      regular: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_1/food-regular.jpg`,
-      small: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_1/food-small.jpg`,
-      thumb: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_1/food-thumbnail.jpg`
-    }
+    photo_url:
+      'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317339/food-regular_shipue.jpg',
+    photo_public_id: 'food-regular_shipue.jpg'
   },
   {
     id: 'photo_2',
@@ -202,20 +129,9 @@ export const photos = [
       description: 'First album description',
       location: 'Mexico'
     },
-    sizes: {
-      full: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-full.jpg`,
-      regular: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-regular.jpg`,
-      small: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-small.jpg`,
-      thumb: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_2/edgar-castrejon-459807-unsplash-thumbnail.jpg`
-    }
+    photo_url:
+      'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317162/cel-lisboa-60315-unsplash-regular_jyixo8.jpg',
+    photo_public_id: 'cel-lisboa-60315-unsplash-regular_jyixo8'
   },
   {
     id: 'photo_3',
@@ -231,20 +147,9 @@ export const photos = [
       description: 'First album description',
       location: 'Mexico'
     },
-    sizes: {
-      full: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_3/cel-lisboa-60315-unsplash.jpg`,
-      regular: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_3/cel-lisboa-60315-unsplash-regular.jpg`,
-      small: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_3/cel-lisboa-60315-unsplash-small.jpg`,
-      thumb: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_3/cel-lisboa-60315-unsplash-thumbnail.jpg`
-    }
+    photo_url:
+      'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317147/edgar-castrejon-459807-unsplash-regular_wp1lyd.jpg',
+    photo_public_id: 'edgar-castrejon-459807-unsplash-regular_wp1lyd.jpg'
   },
   {
     id: 'photo_4',
@@ -260,19 +165,8 @@ export const photos = [
       description: 'second album description',
       location: 'Mexico'
     },
-    sizes: {
-      full: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_4/brooke-lark-229136-unsplash.jpg`,
-      regular: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_4/brooke-lark-229136-unsplash-regular.jpg`,
-      small: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_4/brooke-lark-229136-unsplash-small.jpg`,
-      thumb: `${
-        process.env.PUBLIC_URL
-      }/images/random_photo_id_4/brooke-lark-229136-unsplash-thumbnail.jpg`
-    }
+    photo_url:
+      'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
+    photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw'
   }
 ];
