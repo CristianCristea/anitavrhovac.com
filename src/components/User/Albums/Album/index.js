@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
+import { Image } from 'cloudinary-react';
 import PhotoThumbnail from './../../PhotoThumbnail';
 import './Album.css';
 
@@ -24,7 +25,9 @@ let Album = class extends Component {
     const albumLikes = album.photos.reduce((likes, photo) => {
       return (likes += photo.likes);
     }, 0);
-    const heroPhoto = isSinglePhoto ? photo.sizes.full : cover.sizes.full;
+    const heroPhoto = isSinglePhoto
+      ? photo.photo_public_id
+      : cover.photo_public_id;
     return (
       <section className="album-page">
         <Grid container spacing={8}>
@@ -33,7 +36,12 @@ let Album = class extends Component {
           </Grid>
         </Grid>
         <div className="album-page__hero">
-          <img src={heroPhoto} alt={description} />
+          <Image
+            cloudName="dmz84tdv1"
+            publicId={heroPhoto}
+            crop="scale"
+            width="1000"
+          />
         </div>
         <Grid container spacing={8} className="album-page">
           <Grid item xs={12}>

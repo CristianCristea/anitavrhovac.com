@@ -205,7 +205,7 @@ let AddPhoto = class extends Component {
       likes: 0,
       liked_by_admin: false,
       photo_url: this.state.secure_url,
-      photo_publicId: this.state.public_id
+      photo_public_id: this.state.public_id
     };
     const singlePhoto = Object.assign(albumPhoto, {
       album: {
@@ -223,6 +223,9 @@ let AddPhoto = class extends Component {
     // send the actual photo to server with axios
     // set the album to database and redux only on success
     this.resetForm();
+
+    // TODO: Add alertbar to confirm upload
+    alert('Photo added to album');
   };
 
   // add has-error css class if the field has an error
@@ -304,9 +307,3 @@ const mapStateToProps = (state, ownProps) => ({
 
 AddPhoto = connect(mapStateToProps)(AddPhoto);
 export default AddPhoto;
-
-// AddPhoto.defaultProps = {
-//   album: {
-//     location: ''
-//   }
-// };
