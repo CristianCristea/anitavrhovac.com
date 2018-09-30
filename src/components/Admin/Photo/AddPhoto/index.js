@@ -28,7 +28,7 @@ let AddPhoto = class extends Component {
       deletedUpload: false,
       // photo
       description: '',
-      tags: '',
+      tags: `${this.props.album.name}`,
       location: this.props.album.location,
       photo: {},
       // form validation
@@ -55,9 +55,11 @@ let AddPhoto = class extends Component {
 
   // *********** Upload file to Cloudinary ******************** //
   uploadFile(file) {
+    this.validatePhoto(file);
+
     const fd = new FormData();
     fd.append('upload_preset', this.state.unsignedUploadPreset);
-    fd.append('tags', 'browser_upload'); // Optional - add tag for image admin in Cloudinary
+    fd.append('tags', `${this.props.album.name}`); // Optional - add tag for image admin in Cloudinary
     fd.append('file', file);
 
     const config = {
@@ -136,14 +138,18 @@ let AddPhoto = class extends Component {
         locationValid = !!(
           value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3
         );
-        fieldValidationErrors.location = locationValid ? '' : ' is invalid';
+        fieldValidationErrors.location = locationValid
+          ? ''
+          : ' is invalid, use only letters, numbers and space';
         break;
       case 'photo':
         // check image type and size < 3MB
         photoValid =
           fileTypes.indexOf(value.type) !== -1 &&
           (value.size / 1048576).toFixed(1) < 3;
-        fieldValidationErrors['cover photo'] = photoValid ? '' : ' is invalid';
+        fieldValidationErrors['cover photo'] = photoValid
+          ? ''
+          : ' is invalid, use only photos smaller then 10MB';
         break;
       default:
         break;
@@ -159,26 +165,31 @@ let AddPhoto = class extends Component {
     );
   }
 
+  validatePhoto(photo) {
+    this.setState({ photo: this.photoInput.files[0] }, () =>
+      this.validateField('photo', this.state.photo)
+    );
+  }
+
   validateForm() {
     this.setState({
       formValid: this.state.locationValid && this.state.photoValid
     });
   }
 
-  fileSelectedHandler = e => {
-    // access the files(FileList obj) prop:
-    this.setState({ photo: e.target.files[0] }, () =>
-      this.validateField('photo', this.state.photo)
-    );
-  };
-
   resetForm = () => {
+    const album = this.props.album;
+
     this.setState({
       description: '',
-      location: '',
-      tags: '',
-      photo: {}
+      location: `${album.location}`,
+      tags: `${album.name}`,
+      photo: {},
+      deletedUpload: true,
+      photoValid: false,
+      formValid: false
     });
+    this.photoInput.value = null;
   };
 
   handleFormSubmit = e => {
@@ -193,15 +204,8 @@ let AddPhoto = class extends Component {
       tags: tags.split(',').map(tag => tag.trim()),
       likes: 0,
       liked_by_admin: false,
-      // change sizes obj to url strings
-      // photo_url: this.state.secure_url,
-      // photo_publicId: this.state.public_id
-      sizes: {
-        full: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`,
-        regular: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`,
-        small: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`,
-        thumb: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`
-      }
+      photo_url: this.state.secure_url,
+      photo_publicId: this.state.public_id
     };
     const singlePhoto = Object.assign(albumPhoto, {
       album: {
@@ -211,12 +215,12 @@ let AddPhoto = class extends Component {
         location: album.location
       }
     });
-    console.log(albumPhoto, singlePhoto);
+
     // update the state
     this.props.dispatch(addAlbumPhoto(album.id, albumPhoto));
     this.props.dispatch(addPhoto(singlePhoto));
 
-    // send the actual photo to server with axios or use firebase sdk
+    // send the actual photo to server with axios
     // set the album to database and redux only on success
     this.resetForm();
   };
