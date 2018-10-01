@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import AppRouter from './routes/AppRouter';
 import registerServiceWorker from './registerServiceWorker';
+import './firebase/firebase';
 import './index.css';
 
 const store = configureStore();
