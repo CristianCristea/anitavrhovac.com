@@ -3,9 +3,7 @@ import thunk from 'redux-thunk';
 import { albumsReducer } from './../reducers/albums';
 import { photosReducer } from './../reducers/photos';
 
-const composeEnhancers =
-  window.__REDUX_DEVTOOLS_EXTENSION__COMPOSE__ || compose;
-
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 export default () => {
   const store = createStore(
     combineReducers({
