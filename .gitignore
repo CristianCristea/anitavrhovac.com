@@ -12,6 +12,9 @@
 # env var
 .env*
 
+# req
+/req
+
 # misc
 .DS_Store
 .env.local

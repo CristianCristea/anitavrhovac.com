@@ -11,41 +11,59 @@ album page - /albums/album_id show album photos, on photo click, open modal with
 
 ## data structure
 
-- firebase
-- firebase does not allow arrays
+- redux store
 
 ```js
 state = {
-  collections: {
-    random_album_id_1: {
-      name: 'Test album',
-      description: 'test description',
-      date: Date.now()
-    }
-  },
-  // dummy data
-  photos: {
-    random_photo_id_1: {
-      collection: 'random_album_1',
-      photo_description: 'test description',
-      urls: {
-        full: `${process.env.PUBLIC_URL}/images/random_photo_id_1/food.jpg`,
-        regular: `${
-          process.env.PUBLIC_URL
-        }/images/random_photo_id_1/food-regular.jpg`,
-        small: `${
-          process.env.PUBLIC_URL
-        }/images/random_photo_id_1/food-small.jpg`,
-        thumb: `${
-          process.env.PUBLIC_URL
-        }/images/random_photo_id_1/food-thumbnail.jpg`
+  collections: [
+    {
+      id: 'collection_1',
+      name: 'First album',
+      description: 'First album description',
+      created_at: moment().unix(),
+      location: 'Mexico',
+      publicAlbum: true,
+      cover: {
+        photo_url:
+          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317339/food-regular_shipue.jpg',
+        photo_public_id: 'food-regular_shipue.jpg'
       },
-      tags: { clouds: true, sky: true },
+      photos: [
+        {
+          id: 'photo_1',
+          description: 'test description',
+          photo_url:
+            'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317339/food-regular_shipue.jpg',
+          photo_public_id: 'food-regular_shipue.jpg',
+          tags: ['food'],
+          likes: 12,
+          liked_by_admin: true,
+          created_at: Date.now(),
+          location: 'Mexico'
+        }
+      ]
+    }
+  ],
+  photos: [
+    {
+      id: 'photo_1',
+      description: 'test description',
+      tags: ['food'],
       likes: 12,
       liked_by_admin: true,
-      created_at: Date.now()
-    }
-  }
+      created_at: moment().unix(),
+      location: 'Mexico',
+      album: {
+        id: 'collection_1',
+        name: 'First album',
+        description: 'First album description',
+        location: 'Mexico'
+      },
+      photo_url:
+        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317339/food-regular_shipue.jpg',
+      photo_public_id: 'food-regular_shipue.jpg'
+    },
+  ];
 };
 ```
 
@@ -123,3 +141,11 @@ copyright
 _FormErrors_
 _Icons_
 _PageNotFound_
+
+Workflow
+
+1. create-react-app
+2. data structure
+3. components - design big picture
+4. set up test and real database - firebase
+5. set up env vars
