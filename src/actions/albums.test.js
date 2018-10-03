@@ -1,7 +1,11 @@
-// import moment from 'moment';
+import moment from 'moment';
+import configureMockStore from 'redux-mock-store';
+import thunk from 'redux-thunk';
+import database from './../firebase/firebase';
 import { collections } from './../fixtures';
 import {
   addAlbum,
+  startAddAlbum,
   editAlbum,
   deleteAlbum,
   publishAlbum,
@@ -11,15 +15,90 @@ import {
   setAlbumCover
 } from './albums';
 
+const createMockStore = configureMockStore([thunk]);
+
 describe('album actions', () => {
-  // add album with data
-  it('should setup add album with passed values action object', () => {
+  it('should setup add album  action object with passed values', () => {
     const action = addAlbum(collections[2]);
 
     expect(action).toEqual({
       type: 'ADD_ALBUM',
       album: collections[2]
     });
+  });
+
+  // use done() for async tests
+  it('should add album to database and store', done => {
+    const store = createMockStore({});
+    const albumData = {
+      name: 'TEst name',
+      description: 'Test desc',
+      location: 'test loc',
+      publicAlbum: 'false',
+      cover: {
+        photo_url:
+          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317221/image-placeholder_bkadyj.jpg',
+        photo_public_id: 'image-placeholder_bkadyj'
+      },
+      created_at: moment().unix()
+    };
+
+    store
+      .dispatch(startAddAlbum(albumData))
+      .then(() => {
+        const actions = store.getActions(); // returns array of actions
+        expect(actions[0]).toEqual({
+          type: 'ADD_ALBUM',
+          album: {
+            id: expect.any(String),
+            ...albumData
+          }
+        });
+
+        return database.ref(`collections/${actions[0].album.id}`).once('value');
+      })
+      .then(snapshot => {
+        // firebase does not support arrays and doesnt store empty objects
+        // removed photos array
+        expect(snapshot.val()).toEqual(albumData);
+        done();
+      });
+  });
+
+  it('should add album with defaults to database and store', done => {
+    const store = createMockStore({});
+    const albumDefaultData = {
+      name: '',
+      description: '',
+      location: '',
+      publicAlbum: false,
+      created_at: '',
+      cover: {
+        photo_url:
+          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317221/image-placeholder_bkadyj.jpg',
+        photo_public_id: 'image-placeholder_bkadyj'
+      }
+    };
+    store
+      .dispatch(startAddAlbum(albumDefaultData))
+      .then(() => {
+        const actions = store.getActions(); // returns array of actions
+        expect(actions[0]).toEqual({
+          type: 'ADD_ALBUM',
+          album: {
+            id: expect.any(String),
+            ...albumDefaultData
+          }
+        });
+
+        return database.ref(`collections/${actions[0].album.id}`).once('value');
+      })
+      .then(snapshot => {
+        // firebase does not support arrays and doesnt store empty objects
+        // removed photos array
+        expect(snapshot.val()).toEqual(albumDefaultData);
+        done();
+      });
   });
 
   // edit album

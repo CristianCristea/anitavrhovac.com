@@ -1,8 +1,50 @@
+import database from './../firebase/firebase';
+
 // add album
 export const addAlbum = album => ({
   type: 'ADD_ALBUM',
   album
 });
+
+export const startAddAlbum = (albumData = {}) => {
+  // function gets called internally by redux with dispatch as arg
+  return dispatch => {
+    // default album
+    const {
+      name = '',
+      description = '',
+      location = '',
+      publicAlbum = false,
+      created_at = '',
+      cover = {
+        // photo_url = '',
+        // photo_public_id = ''
+      }
+    } = albumData;
+    const album = {
+      name,
+      description,
+      location,
+      publicAlbum,
+      cover,
+      created_at
+    };
+    // add data to firebase
+    // return the promise to be able to chain another in the tests
+    return database
+      .ref('collections')
+      .push(album)
+      .then(ref => {
+        // dispatch ADD_ALBUM to update redux store
+        dispatch(
+          addAlbum({
+            id: ref.key,
+            ...album
+          })
+        );
+      });
+  };
+};
 
 // edit
 export const editAlbum = (id, updates) => ({
