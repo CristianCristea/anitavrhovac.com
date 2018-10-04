@@ -14,6 +14,17 @@ describe('albums reducer', () => {
   //   expect(state).toEqual([]);
   // });
 
+  // set public albums
+  it('should set the public albums', () => {
+    const action = {
+      type: 'SET_PUBLIC_ALBUMS',
+      collections
+    };
+    const state = albumsReducer(collections, action);
+
+    expect(state).toEqual([collections[0], collections[1]]);
+  });
+
   // add an album
   it('should add an album', () => {
     const album = {
@@ -158,18 +169,18 @@ describe('albums reducer', () => {
   });
 
   // set album cover
-  it('should set album cover', () => {
-    const albumId = collections[0].id;
-    const photoId = collections[0].photos[1].id;
-    const action = {
-      type: 'SET_ALBUM_COVER',
-      albumId,
-      photoId
-    };
-    const state = albumsReducer(collections, action);
+  // it('should set album cover', () => {
+  //   const albumId = collections[0].id;
+  //   const photoId = collections[0].photos[1].id;
+  //   const action = {
+  //     type: 'SET_ALBUM_COVER',
+  //     albumId,
+  //     photoId
+  //   };
+  //   const state = albumsReducer(collections, action);
 
-    expect(state[0].cover.sizes.full).toEqual(
-      collections[0].photos[1].sizes.full
-    );
-  });
+  //   expect(state[0].cover.sizes.full).toEqual(
+  //     collections[0].photos[1].sizes.full
+  //   );
+  // });
 });

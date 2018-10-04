@@ -3,6 +3,8 @@ const initialState = collections;
 
 export const albumsReducer = (state = initialState, action) => {
   switch (action.type) {
+    case 'SET_PUBLIC_ALBUMS':
+      return action.collections.filter(collection => collection.publicAlbum);
     case 'ADD_ALBUM':
       return state.concat(action.album);
     case 'EDIT_ALBUM':

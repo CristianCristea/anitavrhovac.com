@@ -1,5 +1,27 @@
 import database from './../firebase/firebase';
 
+// get the albums from the database
+export const setPublicAlbums = collections => ({
+  type: 'SET_PUBLIC_ALBUMS',
+  collections
+});
+
+export const startSetPublicAlbums = () => {
+  return dispatch => {
+    // firebase data structure
+    return database
+      .ref('collections')
+      .once('value')
+      .then(snapshot => {
+        const collections = [];
+        snapshot.forEach(childSnapshot =>
+          collections.push({ id: childSnapshot.key, ...childSnapshot.val() })
+        );
+        dispatch(setPublicAlbums(collections));
+      });
+  };
+};
+
 // add album
 export const addAlbum = album => ({
   type: 'ADD_ALBUM',
@@ -17,8 +39,9 @@ export const startAddAlbum = (albumData = {}) => {
       publicAlbum = false,
       created_at = '',
       cover = {
-        // photo_url = '',
-        // photo_public_id = ''
+        photo_url:
+          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317221/image-placeholder_bkadyj.jpg',
+        photo_public_id: 'image-placeholder_bkadyj'
       }
     } = albumData;
     const album = {

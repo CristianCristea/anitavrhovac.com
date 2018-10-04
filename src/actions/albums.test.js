@@ -4,6 +4,8 @@ import thunk from 'redux-thunk';
 import database from './../firebase/firebase';
 import { collections } from './../fixtures';
 import {
+  setPublicAlbums,
+  startSetPublicAlbums,
   addAlbum,
   startAddAlbum,
   editAlbum,
@@ -16,8 +18,64 @@ import {
 } from './albums';
 
 const createMockStore = configureMockStore([thunk]);
+// set test data to firebase
+// use done() to run the test after the data is set in firebase
+beforeEach(done => {
+  const albumsData = {};
+
+  // firebase does not accept arrays
+  // structure data for firebase - id: {}
+  collections.forEach(
+    ({
+      id,
+      name,
+      description,
+      created_at,
+      location,
+      publicAlbum,
+      cover,
+      photos = []
+    }) => {
+      albumsData[id] = {
+        name,
+        description,
+        created_at,
+        location,
+        publicAlbum,
+        cover,
+        photos
+      };
+    }
+  );
+  database
+    .ref('collections')
+    .set(albumsData)
+    .then(() => done());
+});
 
 describe('album actions', () => {
+  it('should set public albums', () => {
+    const action = setPublicAlbums(collections);
+
+    expect(action).toEqual({
+      type: 'SET_PUBLIC_ALBUMS',
+      collections
+    });
+  });
+
+  it('should set the albums from the database', done => {
+    const store = createMockStore({});
+
+    store.dispatch(startSetPublicAlbums()).then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: 'SET_PUBLIC_ALBUMS',
+        collections
+      });
+    });
+    done();
+  });
+
   it('should setup add album  action object with passed values', () => {
     const action = addAlbum(collections[2]);
 
