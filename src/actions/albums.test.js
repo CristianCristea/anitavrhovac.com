@@ -9,7 +9,9 @@ import {
   addAlbum,
   startAddAlbum,
   editAlbum,
+  startEditAlbum,
   deleteAlbum,
+  startDeleteAlbum,
   publishAlbum,
   addAlbumPhoto,
   editAlbumPhoto,
@@ -54,28 +56,6 @@ beforeEach(done => {
 });
 
 describe('album actions', () => {
-  it('should set public albums', () => {
-    const action = setPublicAlbums(collections);
-
-    expect(action).toEqual({
-      type: 'SET_PUBLIC_ALBUMS',
-      collections
-    });
-  });
-
-  it('should set the albums from the database', done => {
-    const store = createMockStore({});
-
-    store.dispatch(startSetPublicAlbums()).then(() => {
-      const actions = store.getActions();
-      expect(actions[0]).toEqual({
-        type: 'SET_PUBLIC_ALBUMS',
-        collections
-      });
-    });
-    done();
-  });
-
   it('should setup add album  action object with passed values', () => {
     const action = addAlbum(collections[2]);
 
@@ -123,42 +103,6 @@ describe('album actions', () => {
       });
   });
 
-  it('should add album with defaults to database and store', done => {
-    const store = createMockStore({});
-    const albumDefaultData = {
-      name: '',
-      description: '',
-      location: '',
-      publicAlbum: false,
-      created_at: '',
-      cover: {
-        photo_url:
-          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317221/image-placeholder_bkadyj.jpg',
-        photo_public_id: 'image-placeholder_bkadyj'
-      }
-    };
-    store
-      .dispatch(startAddAlbum(albumDefaultData))
-      .then(() => {
-        const actions = store.getActions(); // returns array of actions
-        expect(actions[0]).toEqual({
-          type: 'ADD_ALBUM',
-          album: {
-            id: expect.any(String),
-            ...albumDefaultData
-          }
-        });
-
-        return database.ref(`collections/${actions[0].album.id}`).once('value');
-      })
-      .then(snapshot => {
-        // firebase does not support arrays and doesnt store empty objects
-        // removed photos array
-        expect(snapshot.val()).toEqual(albumDefaultData);
-        done();
-      });
-  });
-
   // edit album
   it('should setup edit album action object', () => {
     const action = editAlbum('test_id', {
@@ -176,6 +120,39 @@ describe('album actions', () => {
     });
   });
 
+  it('should updated the album in the database', done => {
+    const store = createMockStore({});
+    const id = collections[1].id;
+    const updates = {
+      name: 'Edited name',
+      publicAlbum: true,
+      cover: {
+        photo_url:
+          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317339/food-regular_shipue.jpg',
+        photo_public_id: 'food-regular_shipue.jpg'
+      }
+    };
+    const actions = store.getActions();
+
+    store
+      .dispatch(startEditAlbum(id, updates))
+      .then(() => {
+        expect(actions[0]).toEqual({
+          type: 'EDIT_ALBUM',
+          id,
+          updates
+        });
+
+        return database.ref(`collections/${id}`).once('value');
+      })
+      .then(snapshot => {
+        expect(snapshot.val().name).toEqual(updates.name);
+        expect(snapshot.val().cover).toEqual(updates.cover);
+        expect(snapshot.val().publicAlbum).toEqual(updates.publicAlbum);
+        done();
+      });
+  });
+
   // delete album
   it('should setup delete album action object', () => {
     const action = deleteAlbum('test_album_id');
@@ -186,14 +163,24 @@ describe('album actions', () => {
     });
   });
 
-  // publish album
-  it('should setup publish album action object', () => {
-    const action = publishAlbum('test_album_id');
+  it('should remove album from database', done => {
+    const store = createMockStore({});
+    const id = collections[1].id;
+    store
+      .dispatch(startDeleteAlbum(id))
+      .then(() => {
+        const actions = store.getActions();
+        expect(actions[0]).toEqual({
+          type: 'DELETE_ALBUM',
+          id
+        });
 
-    expect(action).toEqual({
-      type: 'PUBLISH_ALBUM',
-      id: 'test_album_id'
-    });
+        return database.ref(`collections/${id}`).once('value');
+      })
+      .then(snapshot => {
+        expect(snapshot.val()).toBeFalsy();
+        done();
+      });
   });
 
   // add album photo
@@ -238,14 +225,18 @@ describe('album actions', () => {
     });
   });
 
-  // set album cover
-  it('should setup set album cover action object', () => {
-    const action = setAlbumCover('album_id', 'photo_id');
-
-    expect(action).toEqual({
-      type: 'SET_ALBUM_COVER',
-      albumId: 'album_id',
-      photoId: 'photo_id'
-    });
+  it('should fetch the albums from firebase', done => {
+    const store = createMockStore({});
+    store
+      .dispatch(startSetPublicAlbums())
+      .then(() => {
+        const actions = store.getActions();
+        expect(actions[0]).toEqual({
+          type: 'SET_PUBLIC_ALBUMS',
+          collections
+        });
+      })
+      .catch(err => console.log(err));
+    done();
   });
 });

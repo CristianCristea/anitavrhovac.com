@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import uuid from 'uuid';
+// import uuid from 'uuid';
 import { connect } from 'react-redux';
-import { addAlbum, editAlbum } from './../../../../actions/albums';
+import { startAddAlbum, editAlbum } from './../../../../actions/albums';
 import FormErrors from './../../../common/FormErrors';
 import './AlbumForm.css';
-
+// TODO: refactor redirect to edit album based on id from firebase
 let AlbumForm = class extends Component {
   state = {
     // album
@@ -14,9 +14,9 @@ let AlbumForm = class extends Component {
     location: this.props.album.location,
     publicAlbum: false,
     cover: {
-      sizes: {
-        full: `${process.env.PUBLIC_URL}/images/image-placeholder.jpg`
-      }
+      photo_url:
+        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317221/image-placeholder_bkadyj.jpg',
+      photo_public_id: 'image-placeholder_bkadyj'
     },
     photos: this.props.album.photos,
     // form validation
@@ -97,14 +97,15 @@ let AlbumForm = class extends Component {
 
     const { edit, album: albumToEdit } = this.props;
     const { name, description, location, cover, publicAlbum } = this.state;
+    // change sizes
+
     let editCover = !edit
       ? cover
       : { sizes: { full: albumToEdit.cover.sizes.full } };
-    let albumId = !edit ? uuid() : albumToEdit.id;
+    // let albumId = !edit ? uuid() : albumToEdit.id;
     let albumPhotos = !edit ? [] : this.state.photos;
 
     const album = {
-      id: albumId,
       created_at: Date.now(),
       cover: editCover,
       name: name.trim(),
@@ -117,9 +118,10 @@ let AlbumForm = class extends Component {
     // update the state
     if (!edit) {
       // add album and redirect to edit album
-      this.props.dispatch(addAlbum(album));
+      this.props.dispatch(startAddAlbum(album));
       this.props.history.push(
-        `${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`
+        // `${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`
+        `${process.env.PUBLIC_URL}/anita/dashboard`
       );
       // reset form
       this.resetForm();
@@ -200,6 +202,3 @@ AlbumForm.defaultProps = {
     photos: []
   }
 };
-
-// user input: name, description, location, cover - photo-file
-// generate: id, created_at,

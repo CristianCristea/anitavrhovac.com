@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { Image } from 'cloudinary-react';
-import { deleteAlbum, publishAlbum } from './../../../actions/albums';
+import { startDeleteAlbum, startEditAlbum } from './../../../actions/albums';
 import './AdminAlbums.css';
 
 let AdminAlbums = ({ albums, dispatch }) => {
@@ -38,7 +38,7 @@ let AdminAlbums = ({ albums, dispatch }) => {
               </Link>
               <button
                 className="delete"
-                onClick={() => dispatch(deleteAlbum(album.id))}
+                onClick={() => dispatch(startDeleteAlbum(album.id))}
               >
                 Delete
               </button>
@@ -46,7 +46,9 @@ let AdminAlbums = ({ albums, dispatch }) => {
               {!album.publicAlbum && (
                 <button
                   className="publish"
-                  onClick={() => dispatch(publishAlbum(album.id))}
+                  onClick={() =>
+                    dispatch(startEditAlbum(album.id, { publicAlbum: true }))
+                  }
                 >
                   Publish
                 </button>

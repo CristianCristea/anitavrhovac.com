@@ -1,3 +1,5 @@
+// setLastAddedPhotos - and test
+
 // add photo
 export const addPhoto = photo => ({
   type: 'ADD_PHOTO',

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
-import { deleteAlbumPhoto, setAlbumCover } from './../../../actions/albums';
+import { deleteAlbumPhoto, startEditAlbum } from './../../../actions/albums';
 import { deletePhoto } from './../../../actions/photos';
 // import './AdminAlbums.css';
 
@@ -19,19 +19,28 @@ let AdminPhotos = ({ album, dispatch }) => {
   return (
     <div className="admin__photos">
       {album.photos.map(photo => {
+        const {
+          id,
+          photo_public_id,
+          photo_url,
+          likes,
+          description,
+          location,
+          tags
+        } = photo;
         return (
-          <div key={photo.id}>
+          <div key={id}>
             <div className="admin__photo">
               <Image
                 cloudName="dmz84tdv1"
-                publicId={photo.photo_public_id}
+                publicId={photo_public_id}
                 crop="scale"
                 width="300"
               />
-              <h3>Likes: {photo.likes}</h3>
-              <h3>{photo.description}</h3>
-              <h3>{photo.location}</h3>
-              <p>{photo.tags}</p>
+              <h3>Likes: {likes}</h3>
+              <h3>{description}</h3>
+              <h3>{location}</h3>
+              <p>{tags}</p>
               <Link
                 to={`${process.env.PUBLIC_URL}/anita/${album.id}/edit-photo/${
                   photo.id
@@ -41,9 +50,13 @@ let AdminPhotos = ({ album, dispatch }) => {
                 Edit
               </Link>
               <button
-                disabled={album.cover.photo_public_id === photo.photo_public_id}
+                disabled={album.cover.photo_public_id === photo_public_id}
                 className="admin__photo--setCoverBtn"
-                onClick={() => dispatch(setAlbumCover(album.id, photo.id))}
+                onClick={() =>
+                  dispatch(
+                    startEditAlbum(album.id, { photo_public_id, photo_url })
+                  )
+                }
               >
                 Set Cover
               </button>
@@ -64,10 +77,7 @@ let AdminPhotos = ({ album, dispatch }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  albums: state.collections
-});
-AdminPhotos = connect(mapStateToProps)(AdminPhotos);
+AdminPhotos = connect()(AdminPhotos);
 
 export default AdminPhotos;
 

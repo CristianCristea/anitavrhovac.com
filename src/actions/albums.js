@@ -8,15 +8,19 @@ export const setPublicAlbums = collections => ({
 
 export const startSetPublicAlbums = () => {
   return dispatch => {
-    // firebase data structure
     return database
       .ref('collections')
       .once('value')
       .then(snapshot => {
         const collections = [];
-        snapshot.forEach(childSnapshot =>
-          collections.push({ id: childSnapshot.key, ...childSnapshot.val() })
-        );
+
+        snapshot.forEach(childSnapshot => {
+          collections.push({
+            id: childSnapshot.key,
+            ...childSnapshot.val()
+          });
+        });
+
         dispatch(setPublicAlbums(collections));
       });
   };
@@ -76,17 +80,33 @@ export const editAlbum = (id, updates) => ({
   updates
 });
 
+export const startEditAlbum = (id, updates) => {
+  return dispatch => {
+    return database
+      .ref(`collections/${id}`)
+      .update(updates)
+      .then(() => {
+        dispatch(editAlbum(id, updates));
+      });
+  };
+};
+
 // delete
 export const deleteAlbum = id => ({
   type: 'DELETE_ALBUM',
   id
 });
 
-// publish
-export const publishAlbum = id => ({
-  type: 'PUBLISH_ALBUM',
-  id
-});
+export const startDeleteAlbum = id => {
+  return dispatch => {
+    return database
+      .ref(`collections/${id}`)
+      .remove()
+      .then(() => {
+        dispatch(deleteAlbum(id));
+      });
+  };
+};
 
 // add photo to album
 export const addAlbumPhoto = (id, photo) => ({
@@ -106,13 +126,6 @@ export const editAlbumPhoto = (albumId, photoId, updates) => ({
 // delete photo from album
 export const deleteAlbumPhoto = (albumId, photoId) => ({
   type: 'DELETE_ALBUM_PHOTO',
-  albumId,
-  photoId
-});
-
-// set album cover
-export const setAlbumCover = (albumId, photoId) => ({
-  type: 'SET_ALBUM_COVER',
   albumId,
   photoId
 });

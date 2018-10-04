@@ -29,11 +29,11 @@ let AdminAlbum = ({ album, history }) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  return {
-    album: state.collections.filter(
-      album => album.id === ownProps.match.params.id
-    )[0]
-  };
+  const album = state.collections.filter(
+    album => album.id === ownProps.match.params.id
+  )[0];
+  album.photos = [];
+  return { album };
 };
 
 AdminAlbum = connect(mapStateToProps)(AdminAlbum);

@@ -4,15 +4,15 @@ import { collections } from './../fixtures';
 import { albumsReducer } from './albums';
 
 describe('albums reducer', () => {
-  // state is initialized with dummy data
-  // it('should initiate state', () => {
-  //   const action = {
-  //     type: '@@INIT'
-  //   };
-  //   const state = albumsReducer(undefined, action);
+  // state is initialized
+  it('should initiate state', () => {
+    const action = {
+      type: '@@INIT'
+    };
+    const state = albumsReducer(undefined, action);
 
-  //   expect(state).toEqual([]);
-  // });
+    expect(state).toEqual({});
+  });
 
   // set public albums
   it('should set the public albums', () => {
@@ -22,7 +22,7 @@ describe('albums reducer', () => {
     };
     const state = albumsReducer(collections, action);
 
-    expect(state).toEqual([collections[0], collections[1]]);
+    expect(state).toEqual(action.collections);
   });
 
   // add an album
@@ -92,17 +92,6 @@ describe('albums reducer', () => {
     expect(state[0].description).toEqual(updates.description);
   });
 
-  // publish an album
-  it('should publish an album', () => {
-    const id = collections[0].id;
-    const action = {
-      type: 'PUBLISH_ALBUM',
-      id
-    };
-    const state = albumsReducer(collections, action);
-    expect(state[0].publicAlbum).toBeTruthy();
-  });
-
   // add photo to an album
   it('should add a photo to an album', () => {
     const photo = {
@@ -167,20 +156,4 @@ describe('albums reducer', () => {
     expect(state[0].photos[0].location).toEqual(updates.location);
     expect(state[0].photos[0].tags).toEqual(updates.tags);
   });
-
-  // set album cover
-  // it('should set album cover', () => {
-  //   const albumId = collections[0].id;
-  //   const photoId = collections[0].photos[1].id;
-  //   const action = {
-  //     type: 'SET_ALBUM_COVER',
-  //     albumId,
-  //     photoId
-  //   };
-  //   const state = albumsReducer(collections, action);
-
-  //   expect(state[0].cover.sizes.full).toEqual(
-  //     collections[0].photos[1].sizes.full
-  //   );
-  // });
 });
