@@ -86,13 +86,12 @@ export const collections = [
     description: 'Test album description',
     created_at: moment().unix(),
     location: 'Mexico',
-    publicAlbum: true,
+    publicAlbum: false,
     cover: {
       photo_url:
         'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317221/image-placeholder_bkadyj.jpg',
       photo_public_id: 'image-placeholder_bkadyj'
-    },
-    photos: []
+    }
   }
 ];
 
