@@ -48,6 +48,7 @@ let Album = class extends Component {
             <div className="album-page__hero-details">
               <h2>{name}</h2>
               <h2>{location}</h2>
+              <h2>{description}</h2>
               <h2>Likes: {albumLikes}</h2>
             </div>
           </Grid>
@@ -73,15 +74,19 @@ let Album = class extends Component {
   }
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  album: state.collections.filter(
+const mapStateToProps = (state, ownProps) => {
+  const album = state.collections.filter(
     album => album.id === ownProps.match.params.album_id
-  )[0],
-  photo: state.photos.filter(
-    photo => photo.id === ownProps.match.params.photo_id
-  )[0],
-  isSinglePhoto: !!ownProps.match.params.photo_id
-});
+  )[0];
+  album.photos = album.photos || [];
+  return {
+    album,
+    photo: state.photos.filter(
+      photo => photo.id === ownProps.match.params.photo_id
+    )[0],
+    isSinglePhoto: !!ownProps.match.params.photo_id
+  };
+};
 
 Album = connect(mapStateToProps)(Album);
 export default Album;
