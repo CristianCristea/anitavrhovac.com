@@ -21,8 +21,28 @@ export const startSetAlbums = () => {
           });
         });
 
+        // convert album.photos to array
+        let albumPhotos = [];
+        collections.forEach(collection => {
+          if (collection.photos) {
+            for (let photo in collection.photos) {
+              albumPhotos.push({
+                id: photo,
+                tags: collection.photos[photo].tags.values(),
+                ...collection.photos[photo]
+              });
+            }
+            // assign a copy of albumPhotos
+            collection.photos = albumPhotos.slice(0);
+          }
+          albumPhotos.length = 0;
+        });
+
         dispatch(setAlbums(collections));
       });
+
+    // set last photos
+    // conver photos and tags
   };
 };
 
