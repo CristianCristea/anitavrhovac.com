@@ -1,4 +1,3 @@
-import uuid from 'uuid';
 import moment from 'moment';
 
 export const collections = [
@@ -81,7 +80,7 @@ export const collections = [
     ]
   },
   {
-    id: uuid(),
+    id: 'collection_3',
     name: 'Test album',
     description: 'Test album description',
     created_at: moment().unix(),
