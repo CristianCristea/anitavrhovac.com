@@ -32,7 +32,7 @@ const mapStateToProps = (state, ownProps) => {
   const album = state.collections.filter(
     album => album.id === ownProps.match.params.id
   )[0];
-  album.photos = [];
+  album.photos = album.photos || [];
   return { album };
 };
 
