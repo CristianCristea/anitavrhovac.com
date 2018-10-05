@@ -4,15 +4,14 @@ import thunk from 'redux-thunk';
 import database from './../firebase/firebase';
 import { collections } from './../fixtures';
 import {
-  setPublicAlbums,
-  startSetPublicAlbums,
+  setAlbums,
+  startSetAlbums,
   addAlbum,
   startAddAlbum,
   editAlbum,
   startEditAlbum,
   deleteAlbum,
   startDeleteAlbum,
-  publishAlbum,
   addAlbumPhoto,
   editAlbumPhoto,
   deleteAlbumPhoto,
@@ -225,14 +224,22 @@ describe('album actions', () => {
     });
   });
 
+  it('should setup set albums action object', () => {
+    const action = setAlbums(collections);
+    expect(action).toEqual({
+      type: 'SET_ALBUMS',
+      collections
+    });
+  });
+
   it('should fetch the albums from firebase', done => {
     const store = createMockStore({});
     store
-      .dispatch(startSetPublicAlbums())
+      .dispatch(startSetAlbums())
       .then(() => {
         const actions = store.getActions();
         expect(actions[0]).toEqual({
-          type: 'SET_PUBLIC_ALBUMS',
+          type: 'SET_ALBUMS',
           collections
         });
       })

@@ -1,12 +1,12 @@
 import database from './../firebase/firebase';
 
 // get the albums from the database
-export const setPublicAlbums = collections => ({
-  type: 'SET_PUBLIC_ALBUMS',
+export const setAlbums = collections => ({
+  type: 'SET_ALBUMS',
   collections
 });
 
-export const startSetPublicAlbums = () => {
+export const startSetAlbums = () => {
   return dispatch => {
     return database
       .ref('collections')
@@ -21,7 +21,7 @@ export const startSetPublicAlbums = () => {
           });
         });
 
-        dispatch(setPublicAlbums(collections));
+        dispatch(setAlbums(collections));
       });
   };
 };
