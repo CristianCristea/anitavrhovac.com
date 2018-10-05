@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { editAlbumPhoto } from './../../../../actions/albums';
-import { editPhoto } from './../../../../actions/photos';
+import { startEditPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../common/FormErrors';
 import './EditPhoto.css';
 
@@ -77,9 +76,8 @@ let EditPhoto = class extends Component {
     };
     // update the state
     this.props.dispatch(
-      editAlbumPhoto(this.props.albumId, this.props.photo.id, photoUpdates)
+      startEditPhoto(this.props.photo.id, this.props.albumId, photoUpdates)
     );
-    this.props.dispatch(editPhoto(this.props.photo.id, photoUpdates));
   };
 
   // add has-error css class if the field has an error

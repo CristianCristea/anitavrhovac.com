@@ -1,5 +1,5 @@
 import database from './../firebase/firebase';
-import { addAlbumPhoto, deleteAlbumPhoto } from './albums';
+import { addAlbumPhoto, deleteAlbumPhoto, editAlbumPhoto } from './albums';
 
 // setLastAddedPhotos - and test
 
@@ -114,3 +114,21 @@ export const editPhoto = (id, updates) => ({
   id,
   updates
 });
+
+export const startEditPhoto = (photoId, albumId, photoUpdates) => {
+  return dispatch => {
+    database
+      .ref(`photos/${photoId}`)
+      .update(photoUpdates)
+      .then(() => {
+        dispatch(editPhoto(photoId, photoUpdates));
+      });
+
+    database
+      .ref(`collections/${albumId}/photos/${photoId}`)
+      .update(photoUpdates)
+      .then(() => {
+        dispatch(editAlbumPhoto(albumId, photoId, photoUpdates));
+      });
+  };
+};

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 import EditPhoto from './EditPhoto';
 
-let AdminPhoto = ({ albumId, photo, dispatch, match, history }) => {
+let AdminPhoto = ({ albumId, photo, history }) => {
   /*
 display each photo with edit, delete, set cover btn
 */
