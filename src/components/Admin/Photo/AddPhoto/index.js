@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import uuid from 'uuid';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
-import { addAlbumPhoto } from './../../../../actions/albums';
-import { addPhoto } from './../../../../actions/photos';
+import { startAddPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../common/FormErrors';
 import './AddPhoto.css';
 
@@ -26,9 +24,10 @@ let AddPhoto = class extends Component {
       public_id: null,
       delete_token: '',
       deletedUpload: false,
+      uploadComplete: false,
       // photo
       description: '',
-      tags: `${this.props.album.name}`,
+      tags: `${this.props.album.name}, ${this.props.album.location}`,
       location: this.props.album.location,
       photo: {},
       // form validation
@@ -46,8 +45,6 @@ let AddPhoto = class extends Component {
       this.photoInput = element;
     };
   }
-
-  state = {};
 
   componentDidMount() {
     this.validateInitialLocation();
@@ -70,17 +67,18 @@ let AddPhoto = class extends Component {
       headers: {
         'X-Requested-With': 'XMLHttpRequest'
       },
-      folder: 'test album',
       data: fd,
       onUploadProgress: e => {
         let percentCompleted = Math.round((e.loaded * 100) / e.total);
+        this.setState({
+          uploadComplete: percentCompleted === 100 ? true : false
+        });
         console.log(percentCompleted + '%');
       }
     };
 
     axios(config)
       .then(resp => {
-        console.log(resp.data);
         const { secure_url, public_id, delete_token } = resp.data;
         this.setState({
           secure_url,
@@ -99,9 +97,12 @@ let AddPhoto = class extends Component {
         `https://api.cloudinary.com/v1_1/${
           this.state.cloudName
         }/delete_by_token`,
-        { token: this.state.delete_token }
+        { token }
       )
-      .then(resp => this.setState({ deletedUpload: true }))
+      .then(() => {
+        this.setState({ deletedUpload: true });
+        this.photoInput.value = null;
+      })
       .catch(err => console.log(err));
   }
 
@@ -164,7 +165,7 @@ let AddPhoto = class extends Component {
       this.validateForm
     );
   }
-
+  // TODO: refactor
   validatePhoto(photo) {
     this.setState({ photo: this.photoInput.files[0] }, () =>
       this.validateField('photo', this.state.photo)
@@ -196,8 +197,7 @@ let AddPhoto = class extends Component {
     e.preventDefault();
     const { description, location, tags } = this.state;
     const album = this.props.album;
-    const albumPhoto = {
-      id: uuid(),
+    const photoData = {
       created_at: moment().unix(),
       description: description.trim(),
       location: location.trim(),
@@ -207,18 +207,9 @@ let AddPhoto = class extends Component {
       photo_url: this.state.secure_url,
       photo_public_id: this.state.public_id
     };
-    const singlePhoto = Object.assign(albumPhoto, {
-      album: {
-        id: album.id,
-        name: album.name,
-        description: album.description,
-        location: album.location
-      }
-    });
 
     // update the state
-    this.props.dispatch(addAlbumPhoto(album.id, albumPhoto));
-    this.props.dispatch(addPhoto(singlePhoto));
+    this.props.dispatch(startAddPhoto(album, photoData));
 
     // send the actual photo to server with axios
     // set the album to database and redux only on success
@@ -270,7 +261,10 @@ let AddPhoto = class extends Component {
             ref={this.setPhotoInputRef}
             onChange={() => this.uploadFile(this.photoInput.files[0])}
           />
-          <button type="submit" disabled={!this.state.formValid}>
+          <button
+            type="submit"
+            disabled={!this.state.formValid && this.state.uploadComplete}
+          >
             Submit
           </button>
         </form>
@@ -284,7 +278,7 @@ let AddPhoto = class extends Component {
                 width="300"
               />
               <button
-                onClick={() => this.deleteUploadedFile(this.delete_token)}
+                onClick={() => this.deleteUploadedFile(this.state.delete_token)}
               >
                 Delete
               </button>
@@ -292,7 +286,7 @@ let AddPhoto = class extends Component {
           )}
         <Link to={`${process.env.PUBLIC_URL}/anita/dashboard`}>Dashboard</Link>
         <Link to={`${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`}>
-          Back to edit abum
+          Back to edit album
         </Link>
       </div>
     );

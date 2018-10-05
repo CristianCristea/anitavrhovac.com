@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
-import { deleteAlbumPhoto, startEditAlbum } from './../../../actions/albums';
-import { deletePhoto } from './../../../actions/photos';
+import { startEditAlbum } from './../../../actions/albums';
+import { startDeletePhoto } from './../../../actions/photos';
 // import './AdminAlbums.css';
 
 let AdminPhotos = ({ album, dispatch }) => {
@@ -63,8 +63,7 @@ let AdminPhotos = ({ album, dispatch }) => {
               <button
                 className="admin__photo--deleteBtn"
                 onClick={() => {
-                  dispatch(deleteAlbumPhoto(album.id, photo.id));
-                  dispatch(deletePhoto(photo.id));
+                  dispatch(startDeletePhoto(album.id, photo.id));
                 }}
               >
                 Delete
