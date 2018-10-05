@@ -86,6 +86,7 @@ let AddPhoto = class extends Component {
           delete_token,
           deletedUpload: false
         });
+        this.validateForm();
       })
       .catch(err => console.log(err));
   }
@@ -100,8 +101,9 @@ let AddPhoto = class extends Component {
         { token }
       )
       .then(() => {
-        this.setState({ deletedUpload: true });
+        this.setState({ deletedUpload: true, uploadComplete: false });
         this.photoInput.value = null;
+        this.validateForm();
       })
       .catch(err => console.log(err));
   }
@@ -174,7 +176,10 @@ let AddPhoto = class extends Component {
 
   validateForm() {
     this.setState({
-      formValid: this.state.locationValid && this.state.photoValid
+      formValid:
+        this.state.locationValid &&
+        this.state.photoValid &&
+        this.state.uploadComplete
     });
   }
 
@@ -261,10 +266,7 @@ let AddPhoto = class extends Component {
             ref={this.setPhotoInputRef}
             onChange={() => this.uploadFile(this.photoInput.files[0])}
           />
-          <button
-            type="submit"
-            disabled={!this.state.formValid && this.state.uploadComplete}
-          >
+          <button type="submit" disabled={!this.state.formValid}>
             Submit
           </button>
         </form>

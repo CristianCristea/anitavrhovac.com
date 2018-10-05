@@ -41,13 +41,15 @@ let AlbumForm = class extends Component {
 
   // on edit album, set album as valid
   editAlbumInitialValidation = () => {
-    this.setState(
-      {
-        nameValid: true,
-        locationValid: true
-      },
-      this.validateForm
-    );
+    if (this.props.edit) {
+      this.setState(
+        {
+          nameValid: true,
+          locationValid: true
+        },
+        this.validateForm
+      );
+    }
   };
 
   validateField(fieldName, value) {
