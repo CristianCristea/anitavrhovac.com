@@ -20,7 +20,6 @@ export const startAddPhoto = (album = {}, photoData = {}) => {
     photo_url = '',
     photo_public_id = ''
   } = photoData;
-
   const photo = {
     created_at,
     description,
@@ -31,14 +30,12 @@ export const startAddPhoto = (album = {}, photoData = {}) => {
     photo_url,
     photo_public_id
   };
-
   const {
     id,
     name,
     description: albumDescription,
     location: albumLocation
   } = album;
-
   const singlePhoto = Object.assign(
     {},
     {
@@ -51,12 +48,10 @@ export const startAddPhoto = (album = {}, photoData = {}) => {
       }
     }
   );
-
   let newPhotoKey = database
     .ref()
     .child('photos')
     .push().key;
-
   let photos = {};
 
   photos[`photos/${newPhotoKey}`] = singlePhoto;
