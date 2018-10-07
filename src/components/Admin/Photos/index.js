@@ -28,6 +28,10 @@ let AdminPhotos = ({ album, dispatch }) => {
           location,
           tags
         } = photo;
+
+        const newCover = {
+          cover: { photo_public_id, photo_url }
+        };
         return (
           <div key={id}>
             <div className="admin__photo">
@@ -52,11 +56,7 @@ let AdminPhotos = ({ album, dispatch }) => {
               <button
                 disabled={album.cover.photo_public_id === photo_public_id}
                 className="admin__photo--setCoverBtn"
-                onClick={() =>
-                  dispatch(
-                    startEditAlbum(album.id, { photo_public_id, photo_url })
-                  )
-                }
+                onClick={() => dispatch(startEditAlbum(album.id, newCover))}
               >
                 Set Cover
               </button>
