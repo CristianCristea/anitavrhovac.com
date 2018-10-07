@@ -2,12 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
-import EditPhoto from './EditPhoto';
+import EditPhotoForm from './EditPhotoForm';
 
+// *********** render edit photo  ******************** //
 let AdminPhoto = ({ albumId, photo, history }) => {
-  /*
-display each photo with edit, delete, set cover btn
-*/
   return (
     <div className="admin__photo">
       <Image
@@ -16,7 +14,7 @@ display each photo with edit, delete, set cover btn
         crop="scale"
         width="800"
       />
-      <EditPhoto photo={photo} edit history={history} albumId={albumId} />
+      <EditPhotoForm photo={photo} edit history={history} albumId={albumId} />
       <Link to={`${process.env.PUBLIC_URL}/anita/edit-album/${albumId}`}>
         Back to album
       </Link>

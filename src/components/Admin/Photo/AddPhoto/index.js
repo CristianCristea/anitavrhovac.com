@@ -18,8 +18,8 @@ let AddPhoto = class extends Component {
 
     this.state = {
       // cloudinary config - move to env variables
-      cloudName: 'dmz84tdv1',
-      unsignedUploadPreset: 'jbnmqzan',
+      cloudName: process.env.REACT_APP_CLOUD_NAME,
+      unsignedUploadPreset: process.env.REACT_APP_UNSIGNED_UPLOAD_PRESET,
       // uploaded photo
       public_id: null,
       delete_token: '',
@@ -56,7 +56,7 @@ let AddPhoto = class extends Component {
 
     const fd = new FormData();
     fd.append('upload_preset', this.state.unsignedUploadPreset);
-    fd.append('tags', `${this.props.album.name}`); // Optional - add tag for image admin in Cloudinary
+    fd.append('tags', `${(this.props.album.name, this.props.album.location)}`); // Optional - add tag for image admin in Cloudinary
     fd.append('file', file);
 
     const config = {
@@ -108,7 +108,7 @@ let AddPhoto = class extends Component {
       .catch(err => console.log(err));
   }
 
-  // inherit location from album, set location as valid
+  // *********** inherit location from album, set location as valid ******************** //
   validateInitialLocation = () => {
     this.setState(
       {
@@ -213,18 +213,14 @@ let AddPhoto = class extends Component {
       photo_public_id: this.state.public_id
     };
 
-    // update the state
     this.props.dispatch(startAddPhoto(album, photoData));
-
-    // send the actual photo to server with axios
-    // set the album to database and redux only on success
     this.resetForm();
 
     // TODO: Add alertbar to confirm upload
     alert('Photo added to album');
   };
 
-  // add has-error css class if the field has an error
+  // *********** add has-error css class if the field has an error ******************** //
   hasError(error) {
     return error.length === 0 ? '' : 'has-error';
   }
@@ -233,7 +229,7 @@ let AddPhoto = class extends Component {
     const { album } = this.props;
     const { public_id } = this.state;
     return (
-      // render form validation errors
+      // *********** render form validation errors ******************** //
       <div className="photo-form">
         <FormErrors formErrors={this.state.formErrors} />
         <form onSubmit={this.handleFormSubmit}>
