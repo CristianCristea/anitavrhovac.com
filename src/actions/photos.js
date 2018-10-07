@@ -62,18 +62,8 @@ export const startAddPhoto = (album = {}, photoData = {}) => {
       .ref()
       .update(photos)
       .then(() => {
-        dispatch(
-          addAlbumPhoto({
-            id: newPhotoKey,
-            ...photo
-          })
-        );
-        dispatch(
-          addPhoto({
-            id: newPhotoKey,
-            ...singlePhoto
-          })
-        );
+        dispatch(addAlbumPhoto(album.id, { id: newPhotoKey, ...photo }));
+        dispatch(addPhoto({ id: newPhotoKey, ...singlePhoto }));
       });
   };
 };
@@ -119,7 +109,7 @@ export const startEditPhoto = (photoId, albumId, photoUpdates) => {
         dispatch(editPhoto(photoId, photoUpdates));
       });
 
-    database
+    return database
       .ref(`collections/${albumId}/photos/${photoId}`)
       .update(photoUpdates)
       .then(() => {
