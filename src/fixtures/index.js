@@ -63,21 +63,7 @@ export const collections = [
       photo_url:
         'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
       photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw'
-    },
-    photos: [
-      {
-        id: 'photo_4',
-        description: 'test description',
-        photo_url:
-          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
-        photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw',
-        tags: ['avocado', 'eggs', 'food'],
-        likes: 12,
-        liked_by_admin: true,
-        created_at: moment().unix(),
-        location: 'Mexico'
-      }
-    ]
+    }
   },
   {
     id: 'collection_3',
@@ -158,7 +144,7 @@ export const photos = [
     created_at: moment().unix(),
     location: 'Mexico',
     album: {
-      id: 'collection_2',
+      id: 'collection_1',
       name: 'Second album',
       description: 'second album description',
       location: 'Mexico'
