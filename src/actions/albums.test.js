@@ -14,37 +14,28 @@ import {
   startDeleteAlbum,
   addAlbumPhoto,
   editAlbumPhoto,
-  deleteAlbumPhoto,
-  setAlbumCover
+  deleteAlbumPhoto
 } from './albums';
+
+// TODO: tests for cover change and publish album
 
 const createMockStore = configureMockStore([thunk]);
 // set test data to firebase
 // use done() to run the test after the data is set in firebase
 beforeEach(done => {
   const albumsData = {};
-
+  /*-------------------album/photos not added correctly----------------------------*/
   // firebase does not accept arrays
   // structure data for firebase - id: {}
   collections.forEach(
-    ({
-      id,
-      name,
-      description,
-      created_at,
-      location,
-      publicAlbum,
-      cover,
-      photos = []
-    }) => {
+    ({ id, name, description, created_at, location, publicAlbum, cover }) => {
       albumsData[id] = {
         name,
         description,
         created_at,
         location,
         publicAlbum,
-        cover,
-        photos
+        cover
       };
     }
   );
