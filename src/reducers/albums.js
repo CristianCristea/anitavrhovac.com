@@ -62,6 +62,13 @@ export const albumsReducer = (state = initialState, action) => {
 
         return album;
       });
+    case 'DELETE_ALBUM_PHOTOS':
+      return state.map(album => {
+        if (album.id === action.albumId) {
+          delete album.photos;
+        }
+        return album;
+      });
     default:
       return state;
   }

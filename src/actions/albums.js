@@ -1,11 +1,13 @@
 import database from './../firebase/firebase';
 
+// TODO: when delete album delete the album photos from Photos - database
+
 // get the albums from the database
 export const setAlbums = collections => ({
   type: 'SET_ALBUMS',
   collections
 });
-
+// change to startSetData - set the photos too
 export const startSetAlbums = () => {
   return dispatch => {
     return database
@@ -149,3 +151,20 @@ export const deleteAlbumPhoto = (albumId, photoId) => ({
   albumId,
   photoId
 });
+
+// delete all photos from an album
+export const deleteAlbumPhotos = albumId => ({
+  type: 'DELETE_ALBUM_PHOTOS',
+  albumId
+});
+
+export const startDeleteAlbumPhotos = albumId => {
+  return dispatch => {
+    return database
+      .ref(`collections/${albumId}/photos`)
+      .remove()
+      .then(() => {
+        dispatch(deleteAlbumPhotos(albumId));
+      });
+  };
+};

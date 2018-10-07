@@ -135,6 +135,17 @@ describe('albums reducer', () => {
     ]);
   });
 
+  it('should delete all photos from an album', () => {
+    const albumId = collections[0].id;
+    const action = {
+      type: 'DELETE_ALBUM_PHOTOS',
+      albumId
+    };
+    const state = albumsReducer(collections, action);
+
+    expect(state[0].photos).toBeFalsy();
+  });
+
   // edit photo from an album
   it('should edit photo from an album', () => {
     const albumId = collections[0].id;
