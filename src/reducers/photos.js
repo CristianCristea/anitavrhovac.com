@@ -1,5 +1,4 @@
-import { photos } from './../fixtures';
-const initialState = photos;
+const initialState = {};
 
 export const photosReducer = (state = initialState, action) => {
   switch (action.type) {
