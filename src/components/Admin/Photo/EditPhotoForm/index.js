@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { startEditPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../common/FormErrors';
-import './EditPhoto.css';
+import './EditPhotoForm.scss';
 
 // TODO: in validateForm - do not submit form if nothing is changed
 
-let EditPhoto = class extends Component {
+let EditPhotoForm = class extends Component {
   state = {
     // photo
     description: this.props.photo.description,
@@ -56,7 +56,7 @@ let EditPhoto = class extends Component {
     });
   }
 
-  // on edit album, set album as valid
+  // *********** on edit album, set album as valid ******************** //
   editPhotoInitialValidation = () => {
     this.setState(
       {
@@ -80,7 +80,7 @@ let EditPhoto = class extends Component {
     );
   };
 
-  // add has-error css class if the field has an error
+  // *********** add has-error css class if the field has an error ******************** //
   hasError(error) {
     return error.length === 0 ? '' : 'has-error';
   }
@@ -127,10 +127,10 @@ const mapStateToProps = (state, ownProps) => ({
   photo: ownProps.photo
 });
 
-EditPhoto = connect(mapStateToProps)(EditPhoto);
-export default EditPhoto;
+EditPhotoForm = connect(mapStateToProps)(EditPhotoForm);
+export default EditPhotoForm;
 
-EditPhoto.defaultProps = {
+EditPhotoForm.defaultProps = {
   location: '',
   description: '',
   tags: ''
