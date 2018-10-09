@@ -1,6 +1,5 @@
 import database from './../firebase/firebase';
-
-// TODO: when delete album delete the album photos from Photos - database
+import { deletePhotos } from './photos';
 
 // get the albums from the database
 export const setAlbums = collections => ({
@@ -42,9 +41,6 @@ export const startSetAlbums = () => {
 
         dispatch(setAlbums(collections));
       });
-
-    // set last photos
-    // conver photos and tags
   };
 };
 
@@ -119,13 +115,14 @@ export const deleteAlbum = id => ({
   id
 });
 
-export const startDeleteAlbum = id => {
+export const startDeleteAlbum = album => {
   return dispatch => {
     return database
-      .ref(`collections/${id}`)
+      .ref(`collections/${album.id}`)
       .remove()
       .then(() => {
-        dispatch(deleteAlbum(id));
+        dispatch(deleteAlbum(album.id));
+        dispatch(deletePhotos(album.photos));
       });
   };
 };
@@ -153,18 +150,25 @@ export const deleteAlbumPhoto = (albumId, photoId) => ({
 });
 
 // delete all photos from an album
-export const deleteAlbumPhotos = albumId => ({
+export const deleteAlbumPhotos = album => ({
   type: 'DELETE_ALBUM_PHOTOS',
-  albumId
+  album
 });
 
-export const startDeleteAlbumPhotos = albumId => {
+export const startDeleteAlbumPhotos = album => {
+  const photosToDelete = {};
+  album.photos.forEach(photo => {
+    photosToDelete[`photos`] = null;
+    photosToDelete[`collections/${album.id}/photos/${photo.id}`] = null;
+  });
+
   return dispatch => {
     return database
-      .ref(`collections/${albumId}/photos`)
-      .remove()
+      .ref()
+      .update(photosToDelete)
       .then(() => {
-        dispatch(deleteAlbumPhotos(albumId));
+        dispatch(deleteAlbumPhotos(album));
+        dispatch(deletePhotos(album.photos));
       });
   };
 };

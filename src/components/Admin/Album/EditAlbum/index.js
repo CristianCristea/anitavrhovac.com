@@ -4,10 +4,11 @@ import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 import AlbumForm from '../Form';
 import AdminPhotos from '../../Photos';
-import { deleteAlbumPhotos } from '../../../../actions/albums';
+import { startDeleteAlbumPhotos } from '../../../../actions/albums';
+import './EditAlbum.scss';
 
-// edit album page
-let AdminAlbum = ({ album, history, dispatch }) => {
+// *********** Edit album page ******************** //
+let AdminAlbum = ({ album, photos, history, dispatch }) => {
   // display each photo with edit, delete, set cover btn
   return (
     <div className="admin__album">
@@ -24,7 +25,7 @@ let AdminAlbum = ({ album, history, dispatch }) => {
       <Link to={`${process.env.PUBLIC_URL}/anita/dashboard`}>
         Back to dashboard
       </Link>
-      <button onClick={() => dispatch(deleteAlbumPhotos(album.id))}>
+      <button onClick={() => dispatch(startDeleteAlbumPhotos(album))}>
         Delete all photos
       </button>
       <AdminPhotos album={album} />
@@ -37,7 +38,10 @@ const mapStateToProps = (state, ownProps) => {
     album => album.id === ownProps.match.params.id
   )[0];
   album.photos = album.photos || [];
-  return { album };
+  return {
+    album,
+    photos: state.photos
+  };
 };
 
 AdminAlbum = connect(mapStateToProps)(AdminAlbum);

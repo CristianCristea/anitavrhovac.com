@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 import { startEditAlbum } from './../../../actions/albums';
 import { startDeletePhoto } from './../../../actions/photos';
-// import './AdminAlbums.css';
+import './AdminPhotos.scss';
 
 let AdminPhotos = ({ album, dispatch }) => {
   if (album.photos.length === 0) {
@@ -63,6 +63,7 @@ let AdminPhotos = ({ album, dispatch }) => {
               <button
                 className="admin__photo--deleteBtn"
                 onClick={() => {
+                  console.log(photo.id);
                   dispatch(startDeletePhoto(album.id, photo.id));
                 }}
               >

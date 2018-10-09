@@ -1,6 +1,8 @@
-const initialState = {};
+const initialState = [];
 
 export const albumsReducer = (state = initialState, action) => {
+  // TODO: refactor setAlbums and setPhotos in one setData function
+  // 2 database requests
   switch (action.type) {
     case 'SET_ALBUMS':
       return action.collections;
@@ -64,7 +66,7 @@ export const albumsReducer = (state = initialState, action) => {
       });
     case 'DELETE_ALBUM_PHOTOS':
       return state.map(album => {
-        if (album.id === action.albumId) {
+        if (album.id === action.album.id) {
           delete album.photos;
         }
         return album;
