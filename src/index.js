@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
 import AppRouter from './routes/AppRouter';
 import { startSetAlbums } from './actions/albums';
+import { startSetPhotos } from './actions/photos';
 import registerServiceWorker from './registerServiceWorker';
 import './firebase/firebase';
 import './index.css';
@@ -17,7 +18,9 @@ const jsx = (
 
 ReactDOM.render(<p>Loading...</p>, document.getElementById('root'));
 
-store.dispatch(startSetAlbums()).then(() => {
-  ReactDOM.render(jsx, document.getElementById('root'));
+store.dispatch(startSetPhotos()).then(() => {
+  store.dispatch(startSetAlbums()).then(() => {
+    ReactDOM.render(jsx, document.getElementById('root'));
+  });
 });
 registerServiceWorker();
