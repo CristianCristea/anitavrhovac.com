@@ -5,8 +5,8 @@ import Button from '@material-ui/core/Button';
 import AdminAlbums from './../Albums';
 import './Dashboard.css';
 
+// *********** Admin dashboard  ******************** //
 const Dashboard = () => {
-  // create admin dashboard, navigation
   const AddAlbum = props => (
     <Link to={`${process.env.PUBLIC_URL}/anita/add-album`} {...props} />
   );

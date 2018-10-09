@@ -6,6 +6,8 @@ import { startAddAlbum, startEditAlbum } from './../../../../actions/albums';
 import FormErrors from './../../../common/FormErrors';
 import './AlbumForm.css';
 // TODO: refactor redirect to edit album based on id from firebase
+
+// *********** Album form - use for add and edit album ******************** //
 let AlbumForm = class extends Component {
   state = {
     // album
@@ -115,7 +117,6 @@ let AlbumForm = class extends Component {
       // add album and redirect to dashboard
       this.props.dispatch(startAddAlbum(newAlbum));
       this.props.history.push(`${process.env.PUBLIC_URL}/anita/dashboard`);
-      // reset form
       this.resetForm();
     } else {
       // redirect to admin dashboard after edit

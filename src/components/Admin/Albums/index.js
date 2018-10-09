@@ -7,12 +7,10 @@ import { Image } from 'cloudinary-react';
 import { startDeleteAlbum, startEditAlbum } from './../../../actions/albums';
 import './AdminAlbums.css';
 
+// *********** Album thumbnails  ******************** //
 let AdminAlbums = ({ albums, dispatch }) => {
   if (albums.length === 0) {
-    return (
-      <p>No albums</p>
-      // redirect to addAlbum
-    );
+    return <p>No albums</p>;
   }
 
   return (
@@ -22,7 +20,7 @@ let AdminAlbums = ({ albums, dispatch }) => {
           <div key={album.id}>
             <div className="admin__album">
               <Image
-                cloudName="dmz84tdv1"
+                cloudName={process.env.REACT_APP_CLOUD_NAME}
                 publicId={album.cover.photo_public_id}
                 crop="scale"
                 width="400"
@@ -38,11 +36,11 @@ let AdminAlbums = ({ albums, dispatch }) => {
               </Link>
               <button
                 className="delete"
-                onClick={() => dispatch(startDeleteAlbum(album.id))}
+                onClick={() => dispatch(startDeleteAlbum(album))}
               >
                 Delete
               </button>
-              {/* render publish btn is not published */}
+              {/* render publish btn if the album is not public*/}
               {!album.publicAlbum && (
                 <button
                   className="publish"

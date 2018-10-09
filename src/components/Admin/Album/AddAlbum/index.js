@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import AlbumForm from './../Form';
 
-// add album page
+// *********** Add album page ******************** //
 let AddAlbum = ({ history }) => {
   return (
     <div className="admin__add_album">

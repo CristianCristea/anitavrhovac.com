@@ -5,6 +5,7 @@ import Photos from './../Photos';
 import Typography from '@material-ui/core/Typography';
 import './Homepage.css';
 
+// *********** Homepage - last added photos  ******************** //
 let Homepage = ({ latestPhotos, publicAlbums }) => {
   // display only public photos
   const latestPublicPhotos = latestPhotos.filter(photo => {

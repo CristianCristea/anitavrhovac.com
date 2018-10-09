@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Image } from 'cloudinary-react';
 import './PhotoThumbnail.css';
 
+// *********** Photo thumbnail used in Photos  ******************** //
 const PhotoThumbnail = ({ photo }) => {
   const { description, location, photo_public_id, likes } = photo;
 

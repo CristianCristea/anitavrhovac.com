@@ -5,7 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import PhotoThumbnail from './../PhotoThumbnail';
 import './Photos.css';
 
-// dispaly a list of photos for users
+// *********** User list photos  ******************** //
 const Photos = ({ photos }) => {
   return (
     <Grid container justify="flex-start" className="photos">
