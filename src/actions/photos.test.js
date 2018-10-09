@@ -3,15 +3,17 @@ import thunk from 'redux-thunk';
 import moment from 'moment';
 import database from './../firebase/firebase';
 import { collections, photos } from './../fixtures';
-import { addAlbumPhoto } from './albums';
+import { addAlbumPhoto, startDeleteAlbumPhotos } from './albums';
 import {
   addPhoto,
   editPhoto,
   deletePhoto,
+  deletePhotos,
   startEditPhoto,
   startDeletePhoto,
   startAddPhoto
 } from './photos';
+// TODO: separate all the test suites - add, edit, delete, fetch
 
 const createMockStore = configureMockStore([thunk]);
 // set test data to firebase - photos
@@ -188,6 +190,117 @@ describe('photos', () => {
     });
   });
 
+  // *********** delte photos action object ******************** //
+  it('should setup delete photos action object', () => {
+    const photos = collections[0].photos;
+    const action = deletePhotos(photos);
+
+    expect(action).toEqual({
+      type: 'DELETE_PHOTOS',
+      photos
+    });
+  });
+
+  // *********** add album photo - database ******************** //
+  it('should add photo to firebase - album/photos', done => {
+    const photo = {
+      description: '********',
+      tags: ['avocado', 'eggs', 'food'],
+      likes: 12,
+      liked_by_admin: true,
+      created_at: moment().unix(),
+      location: 'Mexico',
+      photo_url:
+        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
+      photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw'
+    };
+
+    const { id, description, name, location } = collections[2];
+    const albumData = { id, description, name, location };
+    const store = createMockStore({});
+
+    store.dispatch(startAddPhoto(collections[2], photo)).then(() => {
+      const actions = store.getActions();
+      expect(actions[0].type).toEqual('ADD_ALBUM_PHOTO');
+      expect(actions[0].id).toEqual('collection_3');
+      expect(actions[0].photo).toEqual({ id: expect.any(String), ...photo });
+
+      database
+        .ref(`collections/${albumData.id}/photos/${actions[0].photo.id}`)
+        .once('value')
+        .then(snapshot => {
+          expect(snapshot.val()).toEqual({ ...photo });
+        });
+
+      done();
+    });
+  });
+
+  // FIXME: check for photo in photos not in albums
+  // *********** add photo - database ******************** //
+  it('should add photo to firebase - photos', done => {
+    const photo = {
+      description: '********',
+      tags: ['avocado', 'eggs', 'food'],
+      likes: 12,
+      liked_by_admin: true,
+      created_at: moment().unix(),
+      location: 'Mexico',
+      photo_url:
+        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
+      photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw'
+    };
+
+    const { id, description, name, location } = collections[2];
+    const albumData = { id, description, name, location };
+    const store = createMockStore({});
+
+    store.dispatch(startAddPhoto(collections[2], photo)).then(() => {
+      const actions = store.getActions();
+      expect(actions[1]).toEqual({
+        type: 'ADD_PHOTO',
+        photo: {
+          id: expect.any(String),
+          ...photo,
+          album: { ...albumData }
+        }
+      });
+
+      database
+        .ref(`photos/${actions[1].photo.id}`)
+        .once('value')
+        .then(snapshot => {
+          expect(snapshot.val()).toEqual({ ...photo, album: { ...albumData } });
+        });
+
+      done();
+    });
+  });
+
+  // *********** delete photos if the album is deleted - database ******************** //
+  it('should delete all the album photos from database, when the album is deleted', done => {
+    const store = createMockStore({});
+    const album = collections[0];
+
+    store.dispatch(startDeleteAlbumPhotos(album)).then(() => {
+      const actions = store.getActions();
+
+      expect(actions[1]).toEqual({
+        type: 'DELETE_PHOTOS',
+        photos: album.photos
+      });
+
+      database
+        .ref('photos')
+        .once('value')
+        .then(snapshot => {
+          const databasePhotos = snapshot.val() || {};
+          expect(Object.keys(databasePhotos)).not.toEqual(actions[1].photos);
+          done();
+        });
+    });
+  });
+
   // *********** delete album photo - database ******************** //
   it('should delete the photo from firebase - album/photos', done => {
     const store = createMockStore({});
@@ -232,82 +345,6 @@ describe('photos', () => {
           expect(snapshot.val()).toBeFalsy();
           done();
         });
-    });
-  });
-
-  // *********** add album photo - database ******************** //
-  it('should add photo to firebase - album/photos', done => {
-    const photo = {
-      description: '********',
-      tags: ['avocado', 'eggs', 'food'],
-      likes: 12,
-      liked_by_admin: true,
-      created_at: moment().unix(),
-      location: 'Mexico',
-      photo_url:
-        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
-      photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw'
-    };
-
-    const { id, description, name, location } = collections[2];
-    const albumData = { id, description, name, location };
-    const store = createMockStore({});
-
-    store.dispatch(startAddPhoto(collections[2], photo)).then(() => {
-      const actions = store.getActions();
-      expect(actions[0].type).toEqual('ADD_ALBUM_PHOTO');
-      expect(actions[0].id).toEqual('collection_3');
-      expect(actions[0].photo).toEqual({ id: expect.any(String), ...photo });
-
-      database
-        .ref(`collections/${albumData.id}/photos/${actions[0].photo.id}`)
-        .once('value')
-        .then(snapshot => {
-          expect(snapshot.val()).toEqual({ ...photo });
-        });
-
-      done();
-    });
-  });
-
-  // *********** add photo - database ******************** //
-  it('should add photo to firebase - photos', done => {
-    const photo = {
-      description: '********',
-      tags: ['avocado', 'eggs', 'food'],
-      likes: 12,
-      liked_by_admin: true,
-      created_at: moment().unix(),
-      location: 'Mexico',
-      photo_url:
-        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
-      photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw'
-    };
-
-    const { id, description, name, location } = collections[2];
-    const albumData = { id, description, name, location };
-    const store = createMockStore({});
-
-    store.dispatch(startAddPhoto(collections[2], photo)).then(() => {
-      const actions = store.getActions();
-      expect(actions[1]).toEqual({
-        type: 'ADD_PHOTO',
-        photo: {
-          id: expect.any(String),
-          ...photo,
-          album: { ...albumData }
-        }
-      });
-
-      database
-        .ref(`photos/${actions[1].photo.id}`)
-        .once('value')
-        .then(snapshot => {
-          console.log(snapshot.val());
-          expect(snapshot.val()).toEqual({ ...photo, album: { ...albumData } });
-        });
-
-      done();
     });
   });
 });

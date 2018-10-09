@@ -14,7 +14,9 @@ import {
   startDeleteAlbum,
   addAlbumPhoto,
   editAlbumPhoto,
-  deleteAlbumPhoto
+  deleteAlbumPhoto,
+  deleteAlbumPhotos,
+  startDeleteAlbumPhotos
 } from './albums';
 
 const createMockStore = configureMockStore([thunk]);
@@ -43,7 +45,7 @@ beforeEach(done => {
     .then(() => done());
 });
 
-describe('album actions', () => {
+describe('create album', () => {
   it('should setup add album  action object with passed values', () => {
     const action = addAlbum(collections[2]);
 
@@ -90,8 +92,9 @@ describe('album actions', () => {
         done();
       });
   });
+});
 
-  // edit album
+describe('update album', () => {
   it('should setup edit album action object', () => {
     const action = editAlbum('test_id', {
       name: 'Edited album name',
@@ -108,7 +111,7 @@ describe('album actions', () => {
     });
   });
 
-  it('should updated the album in the database', done => {
+  it('should updated the album in the database and store', done => {
     const store = createMockStore({});
     const id = collections[1].id;
     const updates = {
@@ -140,8 +143,9 @@ describe('album actions', () => {
         done();
       });
   });
+});
 
-  // delete album
+describe('remove album', () => {
   it('should setup delete album action object', () => {
     const action = deleteAlbum('test_album_id');
 
@@ -153,25 +157,27 @@ describe('album actions', () => {
 
   it('should remove album from database', done => {
     const store = createMockStore({});
-    const id = collections[1].id;
+    const album = collections[1];
     store
-      .dispatch(startDeleteAlbum(id))
+      .dispatch(startDeleteAlbum(album))
       .then(() => {
         const actions = store.getActions();
         expect(actions[0]).toEqual({
           type: 'DELETE_ALBUM',
-          id
+          id: album.id
         });
 
-        return database.ref(`collections/${id}`).once('value');
+        return database.ref(`collections/${album.id}`).once('value');
       })
       .then(snapshot => {
         expect(snapshot.val()).toBeFalsy();
         done();
       });
   });
+});
 
-  // add album photo
+// TODO: add database test
+describe('add photo to album', () => {
   it('should setup add photo to album action object', () => {
     const action = addAlbumPhoto(collections[0].id, collections[0].photos[0]);
 
@@ -181,8 +187,9 @@ describe('album actions', () => {
       photo: collections[0].photos[0]
     });
   });
-
-  // edit album photo
+});
+// TODO: add database test
+describe('update album photo', () => {
   it('should setup edit album photo action object', () => {
     const action = editAlbumPhoto('album_id', 'photo_id', {
       location: 'New location',
@@ -201,8 +208,10 @@ describe('album actions', () => {
       }
     });
   });
+});
 
-  // delete photo from album
+// TODO: add database test
+describe('remove photo from album', () => {
   it('should setup delete album photo action object', () => {
     const action = deleteAlbumPhoto('album_id', 'photo_id');
 
@@ -212,7 +221,43 @@ describe('album actions', () => {
       photoId: 'photo_id'
     });
   });
+});
 
+describe('delete all the photos from the album', () => {
+  it('should setup delete photos from an album action object', () => {
+    const album = collections[0];
+    const action = deleteAlbumPhotos(album);
+
+    expect(action).toEqual({
+      type: 'DELETE_ALBUM_PHOTOS',
+      album
+    });
+  });
+
+  it('should delete all the album photos from database', done => {
+    const store = createMockStore({});
+    const album = collections[0];
+
+    store.dispatch(startDeleteAlbumPhotos(album)).then(() => {
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual({
+        type: 'DELETE_ALBUM_PHOTOS',
+        album
+      });
+
+      return database
+        .ref(`collections/${album.id}/photos`)
+        .once('value')
+        .then(snapshot => {
+          expect(snapshot.val()).toBeFalsy();
+          done();
+        });
+    });
+  });
+});
+
+describe('fetch albums from databse', () => {
   it('should setup set albums action object', () => {
     const action = setAlbums(collections);
     expect(action).toEqual({

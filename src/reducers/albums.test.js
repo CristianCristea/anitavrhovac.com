@@ -11,7 +11,7 @@ describe('albums reducer', () => {
     };
     const state = albumsReducer(undefined, action);
 
-    expect(state).toEqual({});
+    expect(state).toEqual([]);
   });
 
   // set public albums
@@ -136,10 +136,10 @@ describe('albums reducer', () => {
   });
 
   it('should delete all photos from an album', () => {
-    const albumId = collections[0].id;
+    const album = collections[0];
     const action = {
       type: 'DELETE_ALBUM_PHOTOS',
-      albumId
+      album
     };
     const state = albumsReducer(collections, action);
 
