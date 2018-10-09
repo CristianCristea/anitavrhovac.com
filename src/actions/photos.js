@@ -1,7 +1,29 @@
 import database from './../firebase/firebase';
 import { addAlbumPhoto, deleteAlbumPhoto, editAlbumPhoto } from './albums';
 
-// setLastAddedPhotos - and test
+export const setPhotos = photos => ({
+  type: 'SET_PHOTOS',
+  photos
+});
+
+export const startSetPhotos = () => {
+  return dispatch => {
+    return database
+      .ref('photos')
+      .once('value')
+      .then(snapshot => {
+        const photos = [];
+
+        snapshot.forEach(childSnapshot => {
+          photos.push({
+            id: childSnapshot.key,
+            ...childSnapshot
+          });
+        });
+        dispatch(setPhotos(photos));
+      });
+  };
+};
 
 // add photo
 export const addPhoto = photo => ({
@@ -72,6 +94,11 @@ export const startAddPhoto = (album = {}, photoData = {}) => {
 export const deletePhoto = id => ({
   type: 'DELETE_PHOTO',
   id
+});
+
+export const deletePhotos = photos => ({
+  type: 'DELETE_PHOTOS',
+  photos
 });
 
 // removes only the data from the database and store not from cloudinary
