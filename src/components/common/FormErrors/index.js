@@ -1,5 +1,5 @@
 import React from 'react';
-import './FormErrors.css';
+import './FormErrors.scss';
 
 const FormErrors = ({ formErrors }) => {
   return (

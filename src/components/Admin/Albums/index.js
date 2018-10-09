@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { Image } from 'cloudinary-react';
 import { startDeleteAlbum, startEditAlbum } from './../../../actions/albums';
-import './AdminAlbums.css';
+import './AdminAlbums.scss';
 
 // *********** Album thumbnails  ******************** //
 let AdminAlbums = ({ albums, dispatch }) => {

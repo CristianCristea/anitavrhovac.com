@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Image } from 'cloudinary-react';
-import './PhotoThumbnail.css';
+import './PhotoThumbnail.scss';
 
 // *********** Photo thumbnail used in Photos  ******************** //
 const PhotoThumbnail = ({ photo }) => {

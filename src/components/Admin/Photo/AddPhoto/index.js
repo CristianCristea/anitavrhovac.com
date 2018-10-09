@@ -6,7 +6,7 @@ import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
 import { startAddPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../common/FormErrors';
-import './AddPhoto.css';
+import './AddPhoto.scss';
 
 /*
 add to coresp album

@@ -63,7 +63,6 @@ let AdminPhotos = ({ album, dispatch }) => {
               <button
                 className="admin__photo--deleteBtn"
                 onClick={() => {
-                  console.log(photo.id);
                   dispatch(startDeletePhoto(album.id, photo.id));
                 }}
               >

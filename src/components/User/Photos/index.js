@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import PhotoThumbnail from './../PhotoThumbnail';
-import './Photos.css';
+import './Photos.scss';
 
 // *********** User list photos  ******************** //
 const Photos = ({ photos }) => {

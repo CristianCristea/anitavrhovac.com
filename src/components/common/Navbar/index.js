@@ -8,14 +8,19 @@ import {
   Button
 } from '@material-ui/core';
 import SearchIcon from './../Icons/Search';
-import './Navbar.css';
+import './Navbar.scss';
 
 export default function Navbar() {
   const albumsLink = props => (
     <Link to={`${process.env.PUBLIC_URL}/albums`} {...props} />
   );
+
   const aboutLink = props => (
     <Link to={`${process.env.PUBLIC_URL}/about`} {...props} />
+  );
+
+  const dashboardLink = props => (
+    <Link to={`${process.env.PUBLIC_URL}/anita/dashboard`} {...props} />
   );
 
   return (
@@ -32,8 +37,12 @@ export default function Navbar() {
           >
             <SearchIcon />
           </IconButton>
+          {/*remove albums btn on admin view*/}
           <Button color="inherit" component={albumsLink}>
             Albums
+          </Button>
+          <Button color="inherit" component={dashboardLink}>
+            Dashboard
           </Button>
           <Button color="inherit" component={aboutLink}>
             About

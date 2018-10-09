@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Grid from '@material-ui/core/Grid';
 import Photos from './../Photos';
 import Typography from '@material-ui/core/Typography';
-import './Homepage.css';
+import './Homepage.scss';
 
 // *********** Homepage - last added photos  ******************** //
 let Homepage = ({ latestPhotos, publicAlbums }) => {

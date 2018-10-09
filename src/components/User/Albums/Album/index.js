@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { Image } from 'cloudinary-react';
 import PhotoThumbnail from './../../PhotoThumbnail';
-import './Album.css';
+import './Album.scss';
 
 // display a single album
 let Album = class extends Component {

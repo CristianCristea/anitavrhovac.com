@@ -4,7 +4,7 @@ import moment from 'moment';
 import { connect } from 'react-redux';
 import { startAddAlbum, startEditAlbum } from './../../../../actions/albums';
 import FormErrors from './../../../common/FormErrors';
-import './AlbumForm.css';
+import './AlbumForm.scss';
 // TODO: refactor redirect to edit album based on id from firebase
 
 // *********** Album form - use for add and edit album ******************** //
