@@ -61,8 +61,8 @@ export const collections = [
     publicAlbum: true,
     cover: {
       photo_url:
-        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
-      photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw'
+        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317221/image-placeholder_bkadyj.jpg',
+      photo_public_id: 'image-placeholder_bkadyj'
     }
   },
   {

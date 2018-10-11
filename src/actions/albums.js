@@ -157,10 +157,12 @@ export const deleteAlbumPhotos = album => ({
 
 export const startDeleteAlbumPhotos = album => {
   const photosToDelete = {};
+  // delete all album photos from photos
   album.photos.forEach(photo => {
-    photosToDelete[`photos`] = null;
-    photosToDelete[`collections/${album.id}/photos/${photo.id}`] = null;
+    photosToDelete[`photos/${photo.id}`] = null;
   });
+  // delete all photos from collection
+  photosToDelete[`collections/${album.id}/photos`] = null;
 
   return dispatch => {
     return database
