@@ -167,9 +167,9 @@ let AddPhoto = class extends Component {
       this.validateForm
     );
   }
-  // TODO: refactor
+
   validatePhoto(photo) {
-    this.setState({ photo: this.photoInput.files[0] }, () =>
+    this.setState({ photo }, () =>
       this.validateField('photo', this.state.photo)
     );
   }
