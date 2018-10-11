@@ -4,7 +4,11 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { Image } from 'cloudinary-react';
-import { startDeleteAlbum, startEditAlbum } from './../../../actions/albums';
+import {
+  startDeleteAlbum,
+  startDeleteAlbumPhotos,
+  startEditAlbum
+} from './../../../actions/albums';
 import './AdminAlbums.scss';
 
 // *********** Album thumbnails  ******************** //
@@ -36,7 +40,10 @@ let AdminAlbums = ({ albums, dispatch }) => {
               </Link>
               <button
                 className="delete"
-                onClick={() => dispatch(startDeleteAlbum(album))}
+                onClick={() => {
+                  dispatch(startDeleteAlbum(album));
+                  dispatch(startDeleteAlbumPhotos(album));
+                }}
               >
                 Delete
               </button>
