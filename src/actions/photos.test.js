@@ -13,7 +13,6 @@ import {
   startDeletePhoto,
   startAddPhoto
 } from './photos';
-// TODO: separate all the test suites - add, edit, delete, fetch
 
 const createMockStore = configureMockStore([thunk]);
 
