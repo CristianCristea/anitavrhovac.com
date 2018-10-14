@@ -41,8 +41,7 @@ firebase.auth().onAuthStateChanged(user => {
     // do stuff when logged out
     // remove user id from store
     store.dispatch(logout());
-    // redirect if on dashboard
-    history.push(`${process.env.PUBLIC_URL}/`);
+    // PrivateRoute will redirect automatically to homepage after logout
   }
 });
 
