@@ -1,5 +1,6 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Router, Switch, Route } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Navbar from './../components/common/Navbar';
 import Albums from './../components/User/Albums';
@@ -12,12 +13,23 @@ import AdminAlbum from '../components/Admin/Album/EditAlbum';
 import AdminAddAlbum from './../components/Admin/Album/AddAlbum';
 import AdminPhoto from './../components/Admin/Photo';
 import AdminDashboard from './../components/Admin/Dashboard';
+import AdminLogin from './../components/Admin/Login';
+
+export const history = createHistory();
 
 const AppRouter = () => (
-  <BrowserRouter>
+  // add history manually
+  // to access the history in auth().onAuthStateChanged
+  // to use history - use Router not BrowserRouter
+  <Router history={history}>
     <CssBaseline>
       <Navbar />
       <Switch>
+        <Route
+          exact
+          path={`${process.env.PUBLIC_URL}/anita`}
+          component={AdminLogin}
+        />
         <Route exact path={`${process.env.PUBLIC_URL}/`} component={Homepage} />
         <Route
           exact
@@ -65,7 +77,7 @@ const AppRouter = () => (
         <Route component={PageNotFound} />
       </Switch>
     </CssBaseline>
-  </BrowserRouter>
+  </Router>
 );
 
 export default AppRouter;
