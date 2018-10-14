@@ -1,6 +1,6 @@
 const initialState = [];
 
-export const albumsReducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
   // TODO: refactor setAlbums and setPhotos in one setData function
   // 2 database requests
   switch (action.type) {

@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 import moment from 'moment';
 import { photos } from './../fixtures';
-import { photosReducer } from './photos';
+import photosReducer from './photos';
 
 describe('photos reducer', () => {
   // add photo

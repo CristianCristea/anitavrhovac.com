@@ -1,6 +1,6 @@
 const initialState = [];
 
-export const photosReducer = (state = initialState, action) => {
+export default (state = initialState, action) => {
   switch (action.type) {
     case 'SET_PHOTOS':
       return action.photos;

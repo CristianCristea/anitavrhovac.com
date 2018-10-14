@@ -1,7 +1,7 @@
 import moment from 'moment';
 import uuid from 'uuid';
 import { collections } from './../fixtures';
-import { albumsReducer } from './albums';
+import albumsReducer from './albums';
 
 describe('albums reducer', () => {
   // state is initialized
