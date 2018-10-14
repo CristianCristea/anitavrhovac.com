@@ -12,7 +12,6 @@ import SearchIcon from './../Icons/Search';
 import { startLogout } from './../../../actions/auth';
 import './Navbar.scss';
 
-// TODO: change nav for admin
 const Navbar = ({ isAuthenticated }) => {
   const albumsLink = props => (
     <Link to={`${process.env.PUBLIC_URL}/albums`} {...props} />
