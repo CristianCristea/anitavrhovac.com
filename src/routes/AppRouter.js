@@ -14,6 +14,7 @@ import AdminAddAlbum from './../components/Admin/Album/AddAlbum';
 import AdminPhoto from './../components/Admin/Photo';
 import AdminDashboard from './../components/Admin/Dashboard';
 import AdminLogin from './../components/Admin/Login';
+import PrivateRoute from './PrivateRoute';
 
 export const history = createHistory();
 
@@ -25,11 +26,41 @@ const AppRouter = () => (
     <CssBaseline>
       <Navbar />
       <Switch>
+        {/*  admin routes */}
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/anita`}
           component={AdminLogin}
         />
+        <PrivateRoute
+          exact
+          path={`${process.env.PUBLIC_URL}/anita/dashboard`}
+          component={AdminDashboard}
+        />
+        <PrivateRoute
+          exact
+          path={`${process.env.PUBLIC_URL}/anita/add-album`}
+          component={AdminAddAlbum}
+        />
+        <PrivateRoute
+          exact
+          path={`${process.env.PUBLIC_URL}/anita/edit-album/:id`}
+          component={AdminAlbum}
+        />
+        <PrivateRoute
+          exact
+          path={`${process.env.PUBLIC_URL}/anita/:album_id/add-photo`}
+          component={AdminAddPhoto}
+        />
+        <PrivateRoute
+          exact
+          path={`${
+            process.env.PUBLIC_URL
+          }/anita/:album_id/edit-photo/:photo_id`}
+          component={AdminPhoto}
+        />
+
+        {/*  public routes */}
         <Route exact path={`${process.env.PUBLIC_URL}/`} component={Homepage} />
         <Route
           exact
@@ -42,33 +73,6 @@ const AppRouter = () => (
           component={Album}
         />
         <Route path={`${process.env.PUBLIC_URL}/about`} component={About} />
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/anita/dashboard`}
-          component={AdminDashboard}
-        />
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/anita/edit-album/:id`}
-          component={AdminAlbum}
-        />
-        <Route
-          exact
-          path={`${
-            process.env.PUBLIC_URL
-          }/anita/:album_id/edit-photo/:photo_id`}
-          component={AdminPhoto}
-        />
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/anita/add-album`}
-          component={AdminAddAlbum}
-        />
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/anita/:album_id/add-photo`}
-          component={AdminAddPhoto}
-        />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/:album_id/:photo_id`}

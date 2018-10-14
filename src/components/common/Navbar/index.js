@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
   AppBar,
@@ -8,9 +9,11 @@ import {
   Button
 } from '@material-ui/core';
 import SearchIcon from './../Icons/Search';
+import { startLogout } from './../../../actions/auth';
 import './Navbar.scss';
 
-export default function Navbar() {
+// TODO: change nav for admin
+const Navbar = ({ isAuthenticated }) => {
   const albumsLink = props => (
     <Link to={`${process.env.PUBLIC_URL}/albums`} {...props} />
   );
@@ -37,18 +40,30 @@ export default function Navbar() {
           >
             <SearchIcon />
           </IconButton>
-          {/*remove albums btn on admin view*/}
           <Button color="inherit" component={albumsLink}>
             Albums
           </Button>
-          <Button color="inherit" component={dashboardLink}>
-            Dashboard
-          </Button>
+          {isAuthenticated && (
+            <Button color="inherit" component={dashboardLink}>
+              Dashboard
+            </Button>
+          )}
           <Button color="inherit" component={aboutLink}>
             About
           </Button>
+          {isAuthenticated && (
+            <Button color="inherit" onClick={startLogout()}>
+              Log out
+            </Button>
+          )}
         </Toolbar>
       </AppBar>
     </nav>
   );
-}
+};
+
+const mapStateToProps = state => ({
+  isAuthenticated: !!state.auth.uid
+});
+
+export default connect(mapStateToProps)(Navbar);
