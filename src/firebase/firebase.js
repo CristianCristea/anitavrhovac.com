@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/database';
+import 'firebase/auth';
 
 // Initialize Firebase
 const config = {
@@ -14,5 +15,6 @@ const config = {
 firebase.initializeApp(config);
 
 const database = firebase.database();
+const emailAuthProvider = new firebase.auth.EmailAuthProvider();
 
-export { firebase, database as default };
+export { firebase, emailAuthProvider, database as default };
