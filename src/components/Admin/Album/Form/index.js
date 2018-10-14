@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { startAddAlbum, startEditAlbum } from './../../../../actions/albums';
 import FormErrors from './../../../common/FormErrors';
 import './AlbumForm.scss';
-// TODO: refactor redirect to edit album based on id from firebase
 
 // *********** Album form - use for add and edit album ******************** //
 let AlbumForm = class extends Component {
@@ -115,13 +114,15 @@ let AlbumForm = class extends Component {
     // update the state
     if (!edit) {
       // add album and redirect to dashboard
+      // TODO: refactor redirect to edit album based on id from firebase
       this.props.dispatch(startAddAlbum(newAlbum));
+      // this.props.history.push(`${process.env.PUBLIC_URL}/anita/edit-album/${newAlbum.id}`);
       this.props.history.push(`${process.env.PUBLIC_URL}/anita/dashboard`);
       this.resetForm();
     } else {
-      // redirect to admin dashboard after edit
       this.props.dispatch(startEditAlbum(albumToEdit.id, albumUpdates));
       // display info - album updated
+      alert('Album updated!');
     }
   };
 
