@@ -15,6 +15,7 @@ import AdminPhoto from './../components/Admin/Photo';
 import AdminDashboard from './../components/Admin/Dashboard';
 import AdminLogin from './../components/Admin/Login';
 import PrivateRoute from './PrivateRoute';
+import PublicRoute from './PublicRoute';
 
 export const history = createHistory();
 
@@ -27,7 +28,7 @@ const AppRouter = () => (
       <Navbar />
       <Switch>
         {/*  admin routes */}
-        <Route
+        <PublicRoute
           exact
           path={`${process.env.PUBLIC_URL}/anita`}
           component={AdminLogin}
@@ -72,7 +73,11 @@ const AppRouter = () => (
           path={`${process.env.PUBLIC_URL}/albums/:album_id`}
           component={Album}
         />
-        <Route path={`${process.env.PUBLIC_URL}/about`} component={About} />
+        <Route
+          exact
+          path={`${process.env.PUBLIC_URL}/about`}
+          component={About}
+        />
         <Route
           exact
           path={`${process.env.PUBLIC_URL}/:album_id/:photo_id`}
