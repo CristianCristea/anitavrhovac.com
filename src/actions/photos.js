@@ -96,7 +96,7 @@ export const deletePhoto = id => ({
   id
 });
 
-export const deletePhotos = photos => ({
+export const deletePhotos = (photos = []) => ({
   type: 'DELETE_PHOTOS',
   photos
 });

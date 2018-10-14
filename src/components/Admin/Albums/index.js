@@ -42,7 +42,7 @@ let AdminAlbums = ({ albums, dispatch }) => {
                 className="delete"
                 onClick={() => {
                   dispatch(startDeleteAlbum(album));
-                  dispatch(startDeleteAlbumPhotos(album));
+                  album.photos && dispatch(startDeleteAlbumPhotos(album));
                 }}
               >
                 Delete
