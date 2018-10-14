@@ -42,11 +42,7 @@ firebase.auth().onAuthStateChanged(user => {
     // remove user id from store
     store.dispatch(logout());
     // redirect if on dashboard
-    if (
-      history.location.pathname === `${process.env.PUBLIC_URL}/anita/dashboard`
-    ) {
-      history.push(`${process.env.PUBLIC_URL}/`);
-    }
+    history.push(`${process.env.PUBLIC_URL}/`);
   }
 });
 
