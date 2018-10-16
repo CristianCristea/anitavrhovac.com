@@ -19,8 +19,8 @@ const jsx = (
 
 ReactDOM.render(<p>Loading...</p>, document.getElementById('root'));
 
-store.dispatch(startSetPhotos()).then(() => {
-  store.dispatch(startSetAlbums()).then(() => {
+store.dispatch(startSetAlbums()).then(() => {
+  store.dispatch(startSetPhotos()).then(() => {
     ReactDOM.render(jsx, document.getElementById('root'));
   });
 });

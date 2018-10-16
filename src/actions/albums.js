@@ -8,9 +8,11 @@ export const setAlbums = collections => ({
 });
 // change to startSetData - set the photos too
 export const startSetAlbums = () => {
+  const uid = process.env.REACT_APP_FIREBASE_USER_ID;
+
   return dispatch => {
     return database
-      .ref('collections')
+      .ref(`${uid}/collections`)
       .once('value')
       .then(snapshot => {
         const collections = [];
@@ -52,7 +54,8 @@ export const addAlbum = album => ({
 
 export const startAddAlbum = (albumData = {}) => {
   // function gets called internally by redux with dispatch as arg
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
     // default album
     const {
       name = '',
@@ -77,7 +80,7 @@ export const startAddAlbum = (albumData = {}) => {
     // add data to firebase
     // return the promise to be able to chain another in the tests
     return database
-      .ref('collections')
+      .ref(`${uid}/collections`)
       .push(album)
       .then(ref => {
         // dispatch ADD_ALBUM to update redux store
@@ -99,9 +102,11 @@ export const editAlbum = (id, updates) => ({
 });
 
 export const startEditAlbum = (id, updates) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+
     return database
-      .ref(`collections/${id}`)
+      .ref(`${uid}/collections/${id}`)
       .update(updates)
       .then(() => {
         dispatch(editAlbum(id, updates));
@@ -116,9 +121,11 @@ export const deleteAlbum = id => ({
 });
 
 export const startDeleteAlbum = album => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+
     return database
-      .ref(`collections/${album.id}`)
+      .ref(`${uid}/collections/${album.id}`)
       .remove()
       .then(() => {
         dispatch(deleteAlbum(album.id));
@@ -156,15 +163,16 @@ export const deleteAlbumPhotos = album => ({
 });
 
 export const startDeleteAlbumPhotos = album => {
-  const photosToDelete = {};
-  // delete all album photos from photos
-  album.photos.forEach(photo => {
-    photosToDelete[`photos/${photo.id}`] = null;
-  });
-  // delete all photos from collection
-  photosToDelete[`collections/${album.id}/photos`] = null;
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    const photosToDelete = {};
+    // delete all album photos from photos
+    album.photos.forEach(photo => {
+      photosToDelete[`${uid}/photos/${photo.id}`] = null;
+    });
+    // delete all photos from collection
+    photosToDelete[`${uid}/collections/${album.id}/photos`] = null;
 
-  return dispatch => {
     return database
       .ref()
       .update(photosToDelete)

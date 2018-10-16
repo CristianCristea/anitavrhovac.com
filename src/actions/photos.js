@@ -7,9 +7,11 @@ export const setPhotos = photos => ({
 });
 
 export const startSetPhotos = () => {
+  const uid = process.env.REACT_APP_FIREBASE_USER_ID;
+
   return dispatch => {
     return database
-      .ref('photos')
+      .ref(`${uid}/photos`)
       .once('value')
       .then(snapshot => {
         const photos = [];
@@ -17,7 +19,7 @@ export const startSetPhotos = () => {
         snapshot.forEach(childSnapshot => {
           photos.push({
             id: childSnapshot.key,
-            ...childSnapshot
+            ...childSnapshot.val()
           });
         });
         dispatch(setPhotos(photos));
@@ -70,16 +72,19 @@ export const startAddPhoto = (album = {}, photoData = {}) => {
       }
     }
   );
-  let newPhotoKey = database
-    .ref()
-    .child('photos')
-    .push().key;
   let photos = {};
 
-  photos[`photos/${newPhotoKey}`] = singlePhoto;
-  photos[`collections/${album.id}/photos/${newPhotoKey}`] = photo;
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
 
-  return dispatch => {
+    let newPhotoKey = database
+      .ref()
+      .child(`${uid}/photos`)
+      .push().key;
+
+    photos[`${uid}/photos/${newPhotoKey}`] = singlePhoto;
+    photos[`${uid}/collections/${album.id}/photos/${newPhotoKey}`] = photo;
+
     return database
       .ref()
       .update(photos)
@@ -104,12 +109,13 @@ export const deletePhotos = (photos = []) => ({
 // removes only the data from the database and store not from cloudinary
 // TODO: delete from cloudinary
 export const startDeletePhoto = (albumId, photoId) => {
-  let photos = {};
+  return (dispatch, getState) => {
+    let photos = {};
+    const uid = getState().auth.uid;
 
-  photos[`photos/${photoId}`] = null;
-  photos[`collections/${albumId}/photos/${photoId}`] = null;
+    photos[`${uid}/photos/${photoId}`] = null;
+    photos[`${uid}/collections/${albumId}/photos/${photoId}`] = null;
 
-  return dispatch => {
     return database
       .ref()
       .update(photos)
@@ -128,16 +134,18 @@ export const editPhoto = (id, updates) => ({
 });
 
 export const startEditPhoto = (photoId, albumId, photoUpdates) => {
-  return dispatch => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+
     database
-      .ref(`photos/${photoId}`)
+      .ref(`${uid}/photos/${photoId}`)
       .update(photoUpdates)
       .then(() => {
         dispatch(editPhoto(photoId, photoUpdates));
       });
 
     return database
-      .ref(`collections/${albumId}/photos/${photoId}`)
+      .ref(`${uid}/collections/${albumId}/photos/${photoId}`)
       .update(photoUpdates)
       .then(() => {
         dispatch(editAlbumPhoto(albumId, photoId, photoUpdates));
