@@ -7,7 +7,7 @@ import { startSetAlbums } from './actions/albums';
 import { startSetPhotos } from './actions/photos';
 import { login, logout } from './actions/auth';
 import { firebase } from './firebase/firebase';
-import './index.css';
+import './index.scss';
 import registerServiceWorker from './registerServiceWorker';
 
 const store = configureStore();
