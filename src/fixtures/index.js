@@ -16,6 +16,7 @@ export const collections = [
     photos: [
       {
         id: 'photo_1',
+        created_at: Date.now(),
         description: 'test description',
         photo_url:
           'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317339/food-regular_shipue.jpg',
@@ -23,8 +24,8 @@ export const collections = [
         tags: ['food'],
         likes: 12,
         liked_by_admin: true,
-        created_at: Date.now(),
-        location: 'Mexico'
+        location: 'Mexico',
+        isCover: false
       },
       {
         id: 'photo_2',
@@ -36,7 +37,8 @@ export const collections = [
         likes: 12,
         liked_by_admin: true,
         created_at: Date.now(),
-        location: 'Mexico'
+        location: 'Mexico',
+        isCover: false
       },
       {
         id: 'photo_3',
@@ -48,7 +50,8 @@ export const collections = [
         likes: 12,
         liked_by_admin: true,
         created_at: moment().unix(),
-        location: 'Mexico'
+        location: 'Mexico',
+        isCover: false
       }
     ]
   },
@@ -97,7 +100,8 @@ export const photos = [
     },
     photo_url:
       'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317339/food-regular_shipue.jpg',
-    photo_public_id: 'food-regular_shipue.jpg'
+    photo_public_id: 'food-regular_shipue.jpg',
+    isCover: false
   },
   {
     id: 'photo_2',
@@ -115,7 +119,8 @@ export const photos = [
     },
     photo_url:
       'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317162/cel-lisboa-60315-unsplash-regular_jyixo8.jpg',
-    photo_public_id: 'cel-lisboa-60315-unsplash-regular_jyixo8'
+    photo_public_id: 'cel-lisboa-60315-unsplash-regular_jyixo8',
+    isCover: false
   },
   {
     id: 'photo_3',
@@ -133,7 +138,8 @@ export const photos = [
     },
     photo_url:
       'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317147/edgar-castrejon-459807-unsplash-regular_wp1lyd.jpg',
-    photo_public_id: 'edgar-castrejon-459807-unsplash-regular_wp1lyd.jpg'
+    photo_public_id: 'edgar-castrejon-459807-unsplash-regular_wp1lyd.jpg',
+    isCover: false
   },
   {
     id: 'photo_4',
@@ -151,6 +157,7 @@ export const photos = [
     },
     photo_url:
       'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
-    photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw'
+    photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw',
+    isCover: false
   }
 ];

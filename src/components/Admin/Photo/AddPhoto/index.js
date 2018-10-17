@@ -210,7 +210,8 @@ let AddPhoto = class extends Component {
       likes: 0,
       liked_by_admin: false,
       photo_url: this.state.secure_url,
-      photo_public_id: this.state.public_id
+      photo_public_id: this.state.public_id,
+      isCover: false
     };
 
     this.props.dispatch(startAddPhoto(album, photoData));

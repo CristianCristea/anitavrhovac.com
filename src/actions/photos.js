@@ -42,7 +42,8 @@ export const startAddPhoto = (album = {}, photoData = {}) => {
     likes = 0,
     liked_by_admin = false,
     photo_url = '',
-    photo_public_id = ''
+    photo_public_id = '',
+    isCover = false
   } = photoData;
   const photo = {
     created_at,
@@ -52,7 +53,8 @@ export const startAddPhoto = (album = {}, photoData = {}) => {
     likes,
     liked_by_admin,
     photo_url,
-    photo_public_id
+    photo_public_id,
+    isCover
   };
   const {
     id,

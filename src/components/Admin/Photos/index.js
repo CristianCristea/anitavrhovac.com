@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 import { startEditAlbum } from './../../../actions/albums';
-import { startDeletePhoto } from './../../../actions/photos';
+import { startDeletePhoto, startEditPhoto } from './../../../actions/photos';
 import './AdminPhotos.scss';
 
 let AdminPhotos = ({ album, dispatch }) => {
@@ -32,6 +32,7 @@ let AdminPhotos = ({ album, dispatch }) => {
         const newCover = {
           cover: { photo_public_id, photo_url }
         };
+        const isCover = { isCover: true };
         return (
           <div key={id}>
             <div className="admin__photo">
@@ -56,7 +57,10 @@ let AdminPhotos = ({ album, dispatch }) => {
               <button
                 disabled={album.cover.photo_public_id === photo_public_id}
                 className="admin__photo--setCoverBtn"
-                onClick={() => dispatch(startEditAlbum(album.id, newCover))}
+                onClick={() => {
+                  dispatch(startEditAlbum(album.id, newCover));
+                  dispatch(startEditPhoto(id, album.id, isCover));
+                }}
               >
                 Set Cover
               </button>
