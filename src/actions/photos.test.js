@@ -33,15 +33,16 @@ describe('add photo', () => {
   // *********** add photo to photos - database ******************** //
   it('should add photo to firebase - photos', done => {
     const photo = {
+      created_at: moment().unix(),
       description: '********',
       tags: ['avocado', 'eggs', 'food'],
       likes: 12,
       liked_by_admin: true,
-      created_at: moment().unix(),
       location: 'Mexico',
       photo_url:
         'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
-      photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw'
+      photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw',
+      isCover: false
     };
 
     const { id, description, name, location } = collections[2];

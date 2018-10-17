@@ -61,7 +61,8 @@ beforeEach(done => {
       album,
       tags,
       photo_url,
-      photo_public_id
+      photo_public_id,
+      isCover
     }) => {
       // add photos to firebase
       updates[`${uid}/photos/${id}`] = {
@@ -73,7 +74,8 @@ beforeEach(done => {
         liked_by_admin,
         album,
         photo_url,
-        photo_public_id
+        photo_public_id,
+        isCover
       };
 
       albumPhotos[id] = {
@@ -84,7 +86,8 @@ beforeEach(done => {
         location,
         photo_url,
         photo_public_id,
-        tags
+        tags,
+        isCover
       };
     }
   );
@@ -95,10 +98,15 @@ beforeEach(done => {
   updates[`${uid}/collections`] = Object.assign({}, albumsData);
 
   // add data(collections and photos) to firebase;
-  database
+  return database
     .ref()
-    .update(updates)
-    .then(() => done());
+    .remove()
+    .then(() => {
+      return database
+        .ref()
+        .update(updates)
+        .then(() => done());
+    });
 });
 
 // *********** create album ******************** //
@@ -205,6 +213,194 @@ describe('update album', () => {
   });
 });
 
+// *********** add photo to album ******************** //
+describe('add photo to album', () => {
+  const photo = {
+    created_at: moment().unix(),
+    description: '********',
+    location: 'Mexico',
+    tags: ['avocado', 'eggs', 'food'],
+    likes: 12,
+    liked_by_admin: false,
+    photo_url:
+      'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
+    photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw',
+    isCover: false
+  };
+  it('should setup add photo to album action object', () => {
+    const albumId = collections[0].id;
+    const action = addAlbumPhoto(albumId, photo);
+
+    expect(action).toEqual({
+      type: 'ADD_ALBUM_PHOTO',
+      id: albumId,
+      photo
+    });
+  });
+
+  it('should add photo to firebase - album/photos', done => {
+    const store = createMockStore(defaultAuthState);
+    const album = collections[0];
+
+    store.dispatch(startAddPhoto(album, photo)).then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: 'ADD_ALBUM_PHOTO',
+        id: album.id,
+        photo: { id: expect.any(String), ...photo }
+      });
+
+      database
+        .ref(`${uid}/collections/${album.id}/photos/${actions[0].photo.id}`)
+        .once('value')
+        .then(snapshot => {
+          expect(snapshot.val()).toEqual({ ...photo });
+        });
+
+      done();
+    });
+  });
+});
+
+// *********** update album photo ******************** //
+describe('update album photo', () => {
+  const albumId = 'collection_1';
+  const photoId = 'photo_1';
+  it('should setup edit album photo action object', () => {
+    const updates = {
+      location: 'New location',
+      description: 'new description'
+    };
+    const action = editAlbumPhoto(albumId, photoId, updates);
+
+    expect(action).toEqual({
+      type: 'EDIT_ALBUM_PHOTO',
+      albumId,
+      photoId,
+      updates
+    });
+  });
+
+  it('should edit photo from firebase - album/photos', done => {
+    const store = createMockStore(defaultAuthState);
+    const updates = { description: '***********************' };
+
+    store.dispatch(startEditPhoto(photoId, albumId, updates)).then(() => {
+      // edit dispathes 2 actions - edit photo inside albums/photos and photos/
+      const actions = store.getActions();
+      expect(actions[1]).toEqual({
+        type: 'EDIT_ALBUM_PHOTO',
+        albumId,
+        photoId,
+        updates
+      });
+      database
+        .ref(`${uid}/collections/${albumId}/photos/${photoId}`)
+        .once('value')
+        .then(snapshot => {
+          expect(snapshot.val().description).toEqual(updates.description);
+          done();
+        });
+    });
+  });
+});
+
+// *********** delete one photo from album ******************** //
+describe('remove photo from album', () => {
+  const albumId = collections[0].id;
+  const photoId = collections[0].photos[2].id;
+
+  it('should setup delete album photo action object', () => {
+    const action = deleteAlbumPhoto(albumId, photoId);
+
+    expect(action).toEqual({
+      type: 'DELETE_ALBUM_PHOTO',
+      albumId,
+      photoId
+    });
+  });
+
+  it('should delete the photo from firebase - album/photos', done => {
+    const store = createMockStore(defaultAuthState);
+
+    store.dispatch(startDeletePhoto(albumId, photoId)).then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: 'DELETE_ALBUM_PHOTO',
+        albumId,
+        photoId
+      });
+
+      return database
+        .ref(`${uid}/collections/${albumId}/photos/${photoId}`)
+        .once('value')
+        .then(snapshot => {
+          expect(snapshot.val()).toBeFalsy();
+          done();
+        });
+    });
+  });
+});
+
+// *********** delete all photos ******************** //
+describe('delete all the photos from the album', () => {
+  it('should setup delete photos from an album action object', () => {
+    const album = collections[0];
+    const action = deleteAlbumPhotos(album);
+
+    expect(action).toEqual({
+      type: 'DELETE_ALBUM_PHOTOS',
+      album
+    });
+  });
+
+  it('should delete all the album photos from database', done => {
+    const store = createMockStore(defaultAuthState);
+    const album = collections[0];
+
+    store.dispatch(startDeleteAlbumPhotos(album)).then(() => {
+      const actions = store.getActions();
+
+      expect(actions[0]).toEqual({
+        type: 'DELETE_ALBUM_PHOTOS',
+        album
+      });
+
+      return database
+        .ref(`${uid}/collections/${album.id}/photos`)
+        .once('value')
+        .then(snapshot => {
+          expect(snapshot.val()).toBeFalsy();
+          done();
+        });
+    });
+  });
+});
+
+// *********** get albums from database ******************** //
+describe('fetch albums from databse', () => {
+  it('should setup set albums action object', () => {
+    const action = setAlbums(collections);
+    expect(action).toEqual({
+      type: 'SET_ALBUMS',
+      collections
+    });
+  });
+
+  it('should fetch the albums from firebase', done => {
+    const store = createMockStore(defaultAuthState);
+    store.dispatch(startSetAlbums()).then(() => {
+      const actions = store.getActions();
+      expect(actions[0]).toEqual({
+        type: 'SET_ALBUMS',
+        collections: actions[0].collections
+      });
+    });
+    // .catch(err => console.log(err));
+    done();
+  });
+});
+
 // *********** delete album ******************** //
 describe('remove album', () => {
   it('should setup delete album action object', () => {
@@ -236,194 +432,3 @@ describe('remove album', () => {
       });
   });
 });
-
-// *********** add photo to album ******************** //
-describe('add photo to album', () => {
-  it('should setup add photo to album action object', () => {
-    const action = addAlbumPhoto(collections[0].id, collections[0].photos[0]);
-
-    expect(action).toEqual({
-      type: 'ADD_ALBUM_PHOTO',
-      id: collections[0].id,
-      photo: collections[0].photos[0]
-    });
-  });
-
-  it('should add photo to firebase - album/photos', done => {
-    const photo = {
-      description: '********',
-      tags: ['avocado', 'eggs', 'food'],
-      likes: 12,
-      liked_by_admin: true,
-      created_at: moment().unix(),
-      location: 'Mexico',
-      photo_url:
-        'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317204/brooke-lark-229136-unsplash-regular_v2soiw.jpg',
-      photo_public_id: 'brooke-lark-229136-unsplash-regular_v2soiw'
-    };
-
-    const { id, description, name, location } = collections[2];
-    const albumData = { id, description, name, location };
-    const store = createMockStore(defaultAuthState);
-
-    store.dispatch(startAddPhoto(collections[2], photo)).then(() => {
-      const actions = store.getActions();
-
-      expect(actions[0]).toEqual({
-        type: 'ADD_ALBUM_PHOTO',
-        id: collections[2].id,
-        photo: { id: expect.any(String), ...photo }
-      });
-
-      database
-        .ref(`${uid}/collections/${albumData.id}/photos/${actions[0].photo.id}`)
-        .once('value')
-        .then(snapshot => {
-          expect(snapshot.val()).toEqual({ ...photo });
-        });
-
-      done();
-    });
-  });
-});
-
-// *********** update album photo ******************** //
-// describe('update album photo', () => {
-// it('should setup edit album photo action object', () => {
-//   const action = editAlbumPhoto('album_id', 'photo_id', {
-//     location: 'New location',
-//     tags: ['new tag'],
-//     description: 'new description'
-//   });
-//   expect(action).toEqual({
-//     type: 'EDIT_ALBUM_PHOTO',
-//     albumId: 'album_id',
-//     photoId: 'photo_id',
-//     updates: {
-//       location: 'New location',
-//       tags: ['new tag'],
-//       description: 'new description'
-//     }
-//   });
-// });
-// it('should edit photo from firebase - album/photos', done => {
-//   const store = createMockStore({});
-//   const albumId = collections[0].id;
-//   const photoId = collections[0].photos[1].id;
-//   const updates = { description: '***********************' };
-//   store.dispatch(startEditPhoto(photoId, albumId, updates)).then(() => {
-//     // edit dispathes 2 actions - edit photo inside albums/photos and photos/
-//     const actions = store.getActions();
-//     expect(actions[1]).toEqual({
-//       type: 'EDIT_ALBUM_PHOTO',
-//       albumId,
-//       photoId,
-//       updates
-//     });
-//     database
-//       .ref(`collections/${albumId}/photos/${photoId}`)
-//       .once('value')
-//       .then(snapshot => {
-//         expect(snapshot.val().description).toEqual(updates.description);
-//         done();
-//       });
-//   });
-// });
-// });
-
-// *********** delete one photo from album ******************** //
-// describe('remove photo from album', () => {
-//   it('should setup delete album photo action object', () => {
-//     const action = deleteAlbumPhoto('album_id', 'photo_id');
-
-//     expect(action).toEqual({
-//       type: 'DELETE_ALBUM_PHOTO',
-//       albumId: 'album_id',
-//       photoId: 'photo_id'
-//     });
-//   });
-
-//   it('should delete the photo from firebase - album/photos', done => {
-//     const store = createMockStore({});
-//     const albumId = collections[0].id;
-//     const photoId = collections[0].photos[2].id;
-
-//     store.dispatch(startDeletePhoto(albumId, photoId)).then(() => {
-//       const actions = store.getActions();
-//       expect(actions[0]).toEqual({
-//         type: 'DELETE_ALBUM_PHOTO',
-//         albumId,
-//         photoId
-//       });
-
-//       return database
-//         .ref(`collections/${albumId}/photos/${photoId}`)
-//         .once('value')
-//         .then(snapshot => {
-//           expect(snapshot.val()).toBeFalsy();
-//           done();
-//         });
-//     });
-//   });
-// });
-
-// // *********** delete all photos ******************** //
-// describe('delete all the photos from the album', () => {
-//   it('should setup delete photos from an album action object', () => {
-//     const album = collections[0];
-//     const action = deleteAlbumPhotos(album);
-
-//     expect(action).toEqual({
-//       type: 'DELETE_ALBUM_PHOTOS',
-//       album
-//     });
-//   });
-
-//   it('should delete all the album photos from database', done => {
-//     const store = createMockStore({});
-//     const album = collections[0];
-
-//     store.dispatch(startDeleteAlbumPhotos(album)).then(() => {
-//       const actions = store.getActions();
-
-//       expect(actions[0]).toEqual({
-//         type: 'DELETE_ALBUM_PHOTOS',
-//         album
-//       });
-
-//       return database
-//         .ref(`collections/${album.id}/photos`)
-//         .once('value')
-//         .then(snapshot => {
-//           expect(snapshot.val()).toBeFalsy();
-//           done();
-//         });
-//     });
-//   });
-// });
-
-// *********** get albums from database ******************** //
-// describe('fetch albums from databse', () => {
-//   it('should setup set albums action object', () => {
-//     const action = setAlbums(collections);
-//     expect(action).toEqual({
-//       type: 'SET_ALBUMS',
-//       collections
-//     });
-//   });
-
-//   it('should fetch the albums from firebase', done => {
-//     const store = createMockStore({});
-//     store
-//       .dispatch(startSetAlbums())
-//       .then(() => {
-//         const actions = store.getActions();
-//         expect(actions[0]).toEqual({
-//           type: 'SET_ALBUMS',
-//           collections
-//         });
-//       })
-//       .catch(err => console.log(err));
-//     done();
-//   });
-// });

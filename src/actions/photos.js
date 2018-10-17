@@ -84,8 +84,8 @@ export const startAddPhoto = (album = {}, photoData = {}) => {
       .child(`${uid}/photos`)
       .push().key;
 
-    photos[`${uid}/photos/${newPhotoKey}`] = singlePhoto;
     photos[`${uid}/collections/${album.id}/photos/${newPhotoKey}`] = photo;
+    photos[`${uid}/photos/${newPhotoKey}`] = singlePhoto;
 
     return database
       .ref()
