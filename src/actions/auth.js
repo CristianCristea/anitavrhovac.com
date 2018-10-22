@@ -1,4 +1,4 @@
-import { firebase, emailAuthProvider } from './../firebase/firebase';
+import { firebase } from './../firebase/firebase';
 
 // store user id in redux store
 export const login = uid => ({
