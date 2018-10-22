@@ -38,6 +38,12 @@ let AdminAlbums = ({ albums, dispatch }) => {
               >
                 Edit
               </Link>
+              <Link
+                to={`${process.env.PUBLIC_URL}/anita/${album.id}/add-photo`}
+                className="admin__album__edit"
+              >
+                Add Photo
+              </Link>
               <button
                 className="delete"
                 onClick={() => {
@@ -47,17 +53,18 @@ let AdminAlbums = ({ albums, dispatch }) => {
               >
                 Delete
               </button>
-              {/* render publish btn if the album is not public*/}
-              {!album.publicAlbum && (
-                <button
-                  className="publish"
-                  onClick={() =>
-                    dispatch(startEditAlbum(album.id, { publicAlbum: true }))
-                  }
-                >
-                  Publish
-                </button>
-              )}
+              {/* render publish btn if the album is not public and has at least one photo*/}
+              {!album.publicAlbum &&
+                album.photos && (
+                  <button
+                    className="publish"
+                    onClick={() =>
+                      dispatch(startEditAlbum(album.id, { publicAlbum: true }))
+                    }
+                  >
+                    Publish
+                  </button>
+                )}
             </div>
           </div>
         );
