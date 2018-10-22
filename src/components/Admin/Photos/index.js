@@ -28,11 +28,9 @@ let AdminPhotos = ({ album, dispatch }) => {
           location,
           tags
         } = photo;
+        // check if the photo is the album cover
+        let isCover = album.cover.photo_public_id === photo_public_id;
 
-        const newCover = {
-          cover: { photo_public_id, photo_url }
-        };
-        const isCover = { isCover: true };
         return (
           <div key={id}>
             <div className="admin__photo">
@@ -55,11 +53,13 @@ let AdminPhotos = ({ album, dispatch }) => {
                 Edit
               </Link>
               <button
-                disabled={album.cover.photo_public_id === photo_public_id}
+                disabled={isCover}
                 className="admin__photo--setCoverBtn"
                 onClick={() => {
+                  const newCover = {
+                    cover: { photo_public_id, photo_url }
+                  };
                   dispatch(startEditAlbum(album.id, newCover));
-                  dispatch(startEditPhoto(id, album.id, isCover));
                 }}
               >
                 Set Cover
@@ -67,7 +67,11 @@ let AdminPhotos = ({ album, dispatch }) => {
               <button
                 className="admin__photo--deleteBtn"
                 onClick={() => {
-                  dispatch(startDeletePhoto(album.id, photo.id));
+                  !isCover
+                    ? dispatch(startDeletePhoto(album.id, photo.id))
+                    : alert(
+                        "Can't delete photo cover, change the album cover first!"
+                      );
                 }}
               >
                 Delete
