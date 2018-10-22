@@ -23,6 +23,7 @@ export default (state = initialState, action) => {
     case 'ADD_ALBUM_PHOTO':
       return state.map(album => {
         if (album.id === action.id) {
+          album.photos = album.photos || [];
           return {
             ...album,
             photos: [...album.photos, action.photo]
