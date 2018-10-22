@@ -8,7 +8,7 @@ import { startDeleteAlbumPhotos } from '../../../../actions/albums';
 import './EditAlbum.scss';
 
 // *********** Edit album page ******************** //
-let AdminAlbum = ({ album, photos, history, dispatch }) => {
+let AdminAlbum = ({ album, history, dispatch }) => {
   // display each photo with edit, delete, set cover btn
   return (
     <div className="admin__album">
@@ -33,16 +33,11 @@ let AdminAlbum = ({ album, photos, history, dispatch }) => {
   );
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const album = state.collections.filter(
+const mapStateToProps = (state, ownProps) => ({
+  album: state.collections.filter(
     album => album.id === ownProps.match.params.id
-  )[0];
-  album.photos = album.photos || [];
-  return {
-    album,
-    photos: state.photos
-  };
-};
+  )[0]
+});
 
 AdminAlbum = connect(mapStateToProps)(AdminAlbum);
 export default AdminAlbum;
