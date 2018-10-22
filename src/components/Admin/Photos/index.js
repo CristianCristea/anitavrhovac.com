@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 import { startEditAlbum } from './../../../actions/albums';
-import { startDeletePhoto, startEditPhoto } from './../../../actions/photos';
+import { startDeletePhoto } from './../../../actions/photos';
 import './AdminPhotos.scss';
 
 let AdminPhotos = ({ album, dispatch }) => {
