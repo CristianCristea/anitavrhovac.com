@@ -65,13 +65,6 @@ export default (state = initialState, action) => {
 
         return album;
       });
-    case 'DELETE_ALBUM_PHOTOS':
-      return state.map(album => {
-        if (album.id === action.album.id) {
-          delete album.photos;
-        }
-        return album;
-      });
     default:
       return state;
   }

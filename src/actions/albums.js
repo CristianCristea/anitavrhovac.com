@@ -161,24 +161,3 @@ export const deleteAlbumPhotos = album => ({
   type: 'DELETE_ALBUM_PHOTOS',
   album
 });
-
-export const startDeleteAlbumPhotos = album => {
-  return (dispatch, getState) => {
-    const uid = getState().auth.uid;
-    const photosToDelete = {};
-    // delete all album photos from photos
-    album.photos.forEach(photo => {
-      photosToDelete[`${uid}/photos/${photo.id}`] = null;
-    });
-    // delete all photos from collection
-    photosToDelete[`${uid}/collections/${album.id}/photos`] = null;
-
-    return database
-      .ref()
-      .update(photosToDelete)
-      .then(() => {
-        dispatch(deleteAlbumPhotos(album));
-        dispatch(deletePhotos(album.photos));
-      });
-  };
-};

@@ -8,7 +8,7 @@ import { startDeletePhoto } from './../../../actions/photos';
 import './AdminPhotos.scss';
 
 let AdminPhotos = ({ album, dispatch }) => {
-  if (album.photos.length === 0) {
+  if (!album.photos) {
     return (
       <div>
         <p>No photos</p>
@@ -65,6 +65,7 @@ let AdminPhotos = ({ album, dispatch }) => {
                 Set Cover
               </button>
               <button
+                disabled={isCover}
                 className="admin__photo--deleteBtn"
                 onClick={() => {
                   !isCover

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 import AlbumForm from '../Form';
 import AdminPhotos from '../../Photos';
-import { startDeleteAlbumPhotos } from '../../../../actions/albums';
 import './EditAlbum.scss';
 
 // *********** Edit album page ******************** //
@@ -25,9 +24,7 @@ let AdminAlbum = ({ album, history, dispatch }) => {
       <Link to={`${process.env.PUBLIC_URL}/anita/dashboard`}>
         Back to dashboard
       </Link>
-      <button onClick={() => dispatch(startDeleteAlbumPhotos(album))}>
-        Delete all photos
-      </button>
+
       <AdminPhotos album={album} />
     </div>
   );
