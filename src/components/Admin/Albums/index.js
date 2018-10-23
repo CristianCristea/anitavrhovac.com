@@ -16,6 +16,9 @@ let AdminAlbums = ({ albums, dispatch }) => {
   return (
     <Grid container className="admin__albums">
       {albums.map(album => {
+        let hasPhotos = album.photos.length > 0;
+        let isPublic = album.publicAlbum;
+
         return (
           <div key={album.id}>
             <div className="admin__album">
@@ -46,15 +49,18 @@ let AdminAlbums = ({ albums, dispatch }) => {
                 Delete
               </button>
               {/* render publish btn if the album is not public and has at least one photo*/}
-              <button
-                className="publish"
-                disabled={!album.publicAlbum && !album.photos}
-                onClick={() =>
-                  dispatch(startEditAlbum(album.id, { publicAlbum: true }))
-                }
-              >
-                Publish
-              </button>
+              {!isPublic &&
+                hasPhotos && (
+                  <button
+                    className="publish"
+                    onClick={() => {
+                      dispatch(startEditAlbum(album.id, { publicAlbum: true }));
+                      isPublic = !isPublic;
+                    }}
+                  >
+                    Publish
+                  </button>
+                )}
             </div>
           </div>
         );

@@ -88,6 +88,7 @@ export const startAddAlbum = (albumData = {}) => {
         dispatch(
           addAlbum({
             id: ref.key,
+            photos: [],
             ...album
           })
         );
