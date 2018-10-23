@@ -41,9 +41,7 @@ let AdminAlbums = ({ albums, dispatch }) => {
               </Link>
               <button
                 className="delete"
-                onClick={() => {
-                  dispatch(startDeleteAlbum(album));
-                }}
+                onClick={() => dispatch(startDeleteAlbum(album))}
               >
                 Delete
               </button>

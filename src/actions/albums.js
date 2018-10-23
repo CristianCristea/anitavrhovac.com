@@ -20,6 +20,7 @@ export const startSetAlbums = () => {
         snapshot.forEach(childSnapshot => {
           collections.push({
             id: childSnapshot.key,
+            photos: [],
             ...childSnapshot.val()
           });
         });
@@ -120,20 +121,6 @@ export const deleteAlbum = id => ({
   id
 });
 
-export const startDeleteAlbum = album => {
-  return (dispatch, getState) => {
-    const uid = getState().auth.uid;
-
-    return database
-      .ref(`${uid}/collections/${album.id}`)
-      .remove()
-      .then(() => {
-        dispatch(deleteAlbum(album.id));
-        dispatch(deletePhotos(album.photos));
-      });
-  };
-};
-
 // add photo to album
 export const addAlbumPhoto = (id, photo) => ({
   type: 'ADD_ALBUM_PHOTO',
@@ -156,8 +143,23 @@ export const deleteAlbumPhoto = (albumId, photoId) => ({
   photoId
 });
 
-// delete all photos from an album
-export const deleteAlbumPhotos = album => ({
-  type: 'DELETE_ALBUM_PHOTOS',
-  album
-});
+export const startDeleteAlbum = album => {
+  return (dispatch, getState) => {
+    const uid = getState().auth.uid;
+    const photosToDelete = {};
+    // delete all album photos from photos
+    album.photos.forEach(photo => {
+      photosToDelete[`${uid}/photos/${photo.id}`] = null;
+    });
+    // delete album
+    photosToDelete[`${uid}/collections/${album.id}`] = null;
+
+    return database
+      .ref()
+      .update(photosToDelete)
+      .then(() => {
+        dispatch(deletePhotos(album.photos));
+        dispatch(deleteAlbum(album.id));
+      });
+  };
+};
