@@ -40,23 +40,23 @@ describe('photos reducer', () => {
   });
 
   // edit photo
-  it('should edit a photo', () => {
-    const updates = {
-      location: 'Edited location',
-      description: 'Edited description',
-      tags: ['new tag']
-    };
-    const action = {
-      type: 'EDIT_PHOTO',
-      id: photos[0].id,
-      updates
-    };
-    const state = photosReducer(photos, action);
+  // it('should edit a photo', () => {
+  //   const updates = {
+  //     location: 'Edited location',
+  //     description: 'Edited description',
+  //     tags: ['new tag']
+  //   };
+  //   const action = {
+  //     type: 'EDIT_PHOTO',
+  //     id: photos[0].id,
+  //     updates
+  //   };
+  //   const state = photosReducer(photos, action);
 
-    expect(state[0].tags).toEqual(updates.tags);
-    expect(state[0].location).toEqual(updates.location);
-    expect(state[0].description).toEqual(updates.description);
-  });
+  //   expect(state[0].tags).toEqual(updates.tags);
+  //   expect(state[0].location).toEqual(updates.location);
+  //   expect(state[0].description).toEqual(updates.description);
+  // });
 
   it('should delete a photo', () => {
     const id = photos[0].id;
