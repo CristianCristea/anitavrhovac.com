@@ -192,6 +192,7 @@ let AddPhoto = class extends Component {
       tags: `${album.name}`,
       photo: {},
       deletedUpload: true,
+      uploadComplete: false,
       photoValid: false,
       formValid: false
     });
@@ -260,6 +261,7 @@ let AddPhoto = class extends Component {
             type="file"
             id="fileElem"
             accept="image/*"
+            disabled={this.state.uploadComplete}
             ref={this.setPhotoInputRef}
             onChange={() => this.uploadFile(this.photoInput.files[0])}
           />
