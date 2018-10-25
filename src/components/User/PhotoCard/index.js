@@ -11,10 +11,12 @@ const PhotoCard = ({ photo, photoLink }) => {
     <Link to={photoLink} className="photo__card">
       <div className="photo__card__container">
         <Image
-          cloudName="dmz84tdv1"
+          cloudName={process.env.REACT_APP_CLOUD_NAME}
           publicId={photo_public_id}
+          dpr="auto"
           crop="scale"
-          width="500"
+          width="auto"
+          responsive
           className="photo__card__image"
         />
         <div className="photo__card__overlay" />
