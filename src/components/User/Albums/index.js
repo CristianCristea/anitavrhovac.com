@@ -6,8 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import PhotoCard from './../PhotoCard';
 import './Albums.scss';
 
-// display a list of albums
-// display only if published
+// display a list of albums - covers
+// display only if published and has at least one photo
 let Albums = ({ albums }) => {
   const noAlbums = (
     <div>
