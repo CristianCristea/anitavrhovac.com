@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
 import Photos from './../Photos';
 import Typography from '@material-ui/core/Typography';
 import './Homepage.scss';
@@ -18,16 +17,18 @@ let Homepage = ({ latestPhotos, publicAlbums }) => {
   });
 
   return (
-    <Grid container spacing={8} className="latest-photos" justify="flex-start">
-      <Grid item xs={12}>
-        <Typography variant="display2" className="latest-photos__headline">
-          Recent photos
-        </Typography>
-      </Grid>
-      <Grid item xs={12}>
-        <Photos photos={latestPublicPhotos} />
-      </Grid>
-    </Grid>
+    <div
+      container
+      spacing={8}
+      className="latest-photos container"
+      justify="flex-start"
+    >
+      <Typography variant="display2" className="latest-photos__headline">
+        Recent photos
+      </Typography>
+
+      <Photos photos={latestPublicPhotos} />
+    </div>
   );
 };
 

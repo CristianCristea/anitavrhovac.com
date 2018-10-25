@@ -1,15 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
 import StackGrid from 'react-stack-grid';
+import sizeMe from 'react-sizeme';
 import PhotoCard from './../PhotoCard';
 import './Photos.scss';
 
 // *********** User list photos  ******************** //
-const Photos = ({ photos }) => {
+const Photos = ({ photos, size }) => {
   return (
     <section className="photos">
-      <StackGrid columnWidth={400} gutterHeight={15} gutterWidth={15}>
+      <StackGrid
+        monitorImagesLoaded={true}
+        columnWidth={
+          size.width <= 768
+            ? '100%'
+            : size.width > 768 && size.width <= 980
+              ? '40%'
+              : '33.3%'
+        }
+        gutterHeight={15}
+        gutterWidth={15}
+      >
         {photos.map(photo => {
           return (
             <PhotoCard
@@ -26,7 +37,7 @@ const Photos = ({ photos }) => {
   );
 };
 
-export default Photos;
+export default sizeMe()(Photos);
 
 Photos.propTypes = {
   photos: PropTypes.array
