@@ -7,13 +7,17 @@ import { startSetAlbums } from './actions/albums';
 import { startSetPhotos } from './actions/photos';
 import { login, logout } from './actions/auth';
 import { firebase } from './firebase/firebase';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import './index.scss';
 import registerServiceWorker from './registerServiceWorker';
+import theme from './components/Themes/defaultTheme';
 
 const store = configureStore();
 const jsx = (
   <Provider store={store}>
-    <AppRouter />
+    <MuiThemeProvider theme={theme}>
+      <AppRouter />
+    </MuiThemeProvider>
   </Provider>
 );
 
