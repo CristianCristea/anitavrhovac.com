@@ -1,14 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Typography,
-  Button
-} from '@material-ui/core';
-import SearchIcon from './../Icons/Search';
+import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
 import { startLogout } from './../../../actions/auth';
 import './Navbar.scss';
 
@@ -26,38 +21,35 @@ const Navbar = ({ isAuthenticated }) => {
   );
 
   return (
-    <nav className="Navbar">
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <Typography variant="title" color="inherit" className="Navbar__logo">
-            <Link to="/">AV</Link>
-          </Typography>
-          <IconButton
-            color="inherit"
-            aria-label="Menu"
-            className="Navbar__menu-button"
-          >
-            <SearchIcon />
+    <AppBar color="primary" position="fixed" className="Navbar">
+      <Toolbar className="Navbar__menu">
+        <Link to="/" className="Navbar__logo">
+          <IconButton color="inherit" aria-label="Menu">
+            <HomeIcon />
           </IconButton>
-          <Button color="inherit" component={albumsLink}>
-            Albums
+        </Link>
+
+        <IconButton color="inherit" aria-label="Menu">
+          <SearchIcon />
+        </IconButton>
+        <Button color="inherit" component={albumsLink}>
+          Albums
+        </Button>
+        {isAuthenticated && (
+          <Button color="inherit" component={dashboardLink}>
+            Dashboard
           </Button>
-          {isAuthenticated && (
-            <Button color="inherit" component={dashboardLink}>
-              Dashboard
-            </Button>
-          )}
-          <Button color="inherit" component={aboutLink}>
-            About
+        )}
+        <Button color="inherit" component={aboutLink}>
+          About
+        </Button>
+        {isAuthenticated && (
+          <Button color="inherit" onClick={startLogout()}>
+            Log out
           </Button>
-          {isAuthenticated && (
-            <Button color="inherit" onClick={startLogout()}>
-              Log out
-            </Button>
-          )}
-        </Toolbar>
-      </AppBar>
-    </nav>
+        )}
+      </Toolbar>
+    </AppBar>
   );
 };
 
