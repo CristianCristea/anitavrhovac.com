@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import AlbumThumbnail from './AlbumThumbnail';
+import PhotoCard from './../PhotoCard';
 import './Albums.scss';
 
 // display a list of albums
@@ -28,7 +28,10 @@ let Albums = ({ albums }) => {
         ? noAlbums
         : publicAlbums.map(album => (
             <Grid item xs={12} sm={6} md={4} key={album.id}>
-              <AlbumThumbnail album={album} />
+              <PhotoCard
+                photo={album.cover}
+                photoLink={`${process.env.PUBLIC_URL}/albums/${album.id}`}
+              />
             </Grid>
           ))}
     </Grid>

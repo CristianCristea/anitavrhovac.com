@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import { Image } from 'cloudinary-react';
-import PhotoThumbnail from './../../PhotoThumbnail';
+import PhotoCard from './../../PhotoCard';
 import './Album.scss';
 
 // display a single album
@@ -62,9 +61,12 @@ let Album = class extends Component {
                 className="photo-album"
                 key={photo.id}
               >
-                <Link to={`${process.env.PUBLIC_URL}/${album.id}/${photo.id}`}>
-                  <PhotoThumbnail photo={photo} />
-                </Link>
+                <PhotoCard
+                  photo={photo}
+                  photoLink={`${process.env.PUBLIC_URL}/${album.id}/${
+                    photo.id
+                  }`}
+                />
               </Grid>
             );
           })}

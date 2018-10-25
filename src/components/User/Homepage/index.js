@@ -21,7 +21,7 @@ let Homepage = ({ latestPhotos, publicAlbums }) => {
     <Grid container spacing={8} className="latest-photos" justify="flex-start">
       <Grid item xs={12}>
         <Typography variant="display2" className="latest-photos__headline">
-          Homepage
+          Recent photos
         </Typography>
       </Grid>
       <Grid item xs={12}>
