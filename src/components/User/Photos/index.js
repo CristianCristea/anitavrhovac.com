@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StackGrid from 'react-stack-grid';
 import sizeMe from 'react-sizeme';
-import PhotoCard from './../PhotoCard';
+import PhotoCard from './../../common/PhotoCard';
 import './Photos.scss';
 
 // *********** User list photos  ******************** //
