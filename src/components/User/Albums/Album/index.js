@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Grid from '@material-ui/core/Grid';
 import { Image } from 'cloudinary-react';
-import PhotoCard from './../../PhotoCard';
+import LocationIcon from './../../../common/Icons/LocationIcon';
+import sizeMe from 'react-sizeme';
+import StackGrid from 'react-stack-grid';
+import Typography from '@material-ui/core/Typography';
+import PhotoCard from './../../../common/PhotoCard';
 import './Album.scss';
 
 // display a single album
-let Album = class extends Component {
+export const Album = class extends Component {
   // scroll to top on update
   componentDidMount() {
     window.scrollTo(0, 0);
@@ -19,79 +22,84 @@ let Album = class extends Component {
   }
 
   render() {
-    const { album, photo, isSinglePhoto } = this.props;
-    const { name, description, location, cover } = album;
-    const albumLikes = album.photos.reduce((likes, photo) => {
-      return (likes += photo.likes);
-    }, 0);
-    const heroPhoto = isSinglePhoto
-      ? photo.photo_public_id
-      : cover.photo_public_id;
+    const {
+      size,
+      album: { id, name, description, location, cover, photos }
+    } = this.props;
+
     return (
-      <section className="album-page">
-        <Grid container spacing={8}>
-          <Grid item xs={12}>
-            <h2 className="album-page__heading">{name}</h2>
-          </Grid>
-        </Grid>
-        <div className="album-page__hero">
+      <section className="album-page container">
+        <div className="album-page__banner">
           <Image
-            cloudName="dmz84tdv1"
-            publicId={heroPhoto}
+            cloudName={process.env.REACT_APP_CLOUD_NAME}
+            publicId={cover.photo_public_id}
             crop="scale"
-            width="1000"
+            width="auto"
+            heigth="600"
+            dpr="auto"
+            responsive
           />
         </div>
-        <Grid container spacing={8} className="album-page">
-          <Grid item xs={12}>
-            <div className="album-page__hero-details">
-              <h2>{name}</h2>
-              <h2>{location}</h2>
-              <h2>{description}</h2>
-              <h2>Likes: {albumLikes}</h2>
-            </div>
-          </Grid>
-          {album.photos.map(photo => {
+        <div className="album-page__banner-details">
+          <Typography
+            variant="subheading"
+            component="h3"
+            color="textPrimary"
+            className="album-page__banner-details__name"
+          >
+            {name}
+          </Typography>
+
+          <div className="album-page__banner-details__location">
+            <LocationIcon text={location} />
+          </div>
+          {description && (
+            <Typography
+              variant="subheading"
+              component="h3"
+              color="textPrimary"
+              className="album-page__banner-details__description"
+            >
+              {description}
+            </Typography>
+          )}
+        </div>
+        <StackGrid
+          monitorImagesLoaded={true}
+          columnWidth={
+            size.width <= 768
+              ? '100%'
+              : size.width > 768 && size.width <= 980
+                ? '40%'
+                : '33.3%'
+          }
+          gutterHeight={15}
+          gutterWidth={15}
+          className="container"
+        >
+          {photos.map(photo => {
             return (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
+              <PhotoCard
                 className="photo-album"
                 key={photo.id}
-              >
-                <PhotoCard
-                  photo={photo}
-                  photoLink={`${process.env.PUBLIC_URL}/${album.id}/${
-                    photo.id
-                  }`}
-                />
-              </Grid>
+                photo={photo}
+                photoLink={`${process.env.PUBLIC_URL}/${id}/${photo.id}`}
+              />
             );
           })}
-        </Grid>
+        </StackGrid>
       </section>
     );
   }
 };
 
-const mapStateToProps = (state, ownProps) => {
-  const album = state.collections.filter(
+const mapStateToProps = (state, ownProps) => ({
+  album: state.collections.filter(
     album => album.id === ownProps.match.params.album_id
-  )[0];
-  album.photos = album.photos || [];
-  return {
-    album,
-    photo: state.photos.filter(
-      photo => photo.id === ownProps.match.params.photo_id
-    )[0],
-    isSinglePhoto: !!ownProps.match.params.photo_id
-  };
-};
+  )[0]
+});
 
-Album = connect(mapStateToProps)(Album);
-export default Album;
+export default connect(mapStateToProps)(sizeMe()(Album));
 
 Album.propTypes = {
   album: PropTypes.object

@@ -2,13 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import PhotoCard from './../PhotoCard';
+import sizeMe from 'react-sizeme';
+import StackGrid from 'react-stack-grid';
+import PhotoCard from './../../common/PhotoCard';
 import './Albums.scss';
 
 // display a list of albums - covers
 // display only if published and has at least one photo
-let Albums = ({ albums }) => {
+export let Albums = ({ albums, size }) => {
   const noAlbums = (
     <div>
       <Typography variant="display3">No albums added</Typography>
@@ -18,23 +19,33 @@ let Albums = ({ albums }) => {
   const publicAlbums = albums.filter(album => album.publicAlbum);
 
   return (
-    <Grid container spacing={8} justify="flex-start">
-      <Grid item xs={12}>
-        <Typography variant="display2" className="albums__heading">
-          Albums
-        </Typography>
-      </Grid>
-      {publicAlbums.length === 0
-        ? noAlbums
-        : publicAlbums.map(album => (
-            <Grid item xs={12} sm={6} md={4} key={album.id}>
+    <section className="container albums">
+      <Typography variant="display2" className="albums__heading">
+        Albums
+      </Typography>
+      <StackGrid
+        monitorImagesLoaded={true}
+        columnWidth={
+          size.width <= 768
+            ? '100%'
+            : size.width > 768 && size.width <= 980
+              ? '40%'
+              : '33.3%'
+        }
+        gutterHeight={15}
+        gutterWidth={15}
+      >
+        {publicAlbums.length === 0
+          ? noAlbums
+          : publicAlbums.map(album => (
               <PhotoCard
+                key={album.id}
                 photo={album.cover}
                 photoLink={`${process.env.PUBLIC_URL}/albums/${album.id}`}
               />
-            </Grid>
-          ))}
-    </Grid>
+            ))}
+      </StackGrid>
+    </section>
   );
 };
 
@@ -42,5 +53,4 @@ const mapStateToProps = state => ({
   albums: state.collections
 });
 
-Albums = connect(mapStateToProps)(Albums);
-export default Albums;
+export default connect(mapStateToProps)(sizeMe()(Albums));

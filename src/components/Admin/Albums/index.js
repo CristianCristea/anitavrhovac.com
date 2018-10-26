@@ -1,80 +1,109 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import sizeMe from 'react-sizeme';
+import StackGrid from 'react-stack-grid';
+import Typography from '@material-ui/core/Typography';
 import { Link } from 'react-router-dom';
-import Grid from '@material-ui/core/Grid';
-import { Image } from 'cloudinary-react';
 import { startDeleteAlbum, startEditAlbum } from './../../../actions/albums';
+import PhotoCard from './../../common/PhotoCard';
+import LocationIcon from './../../common/Icons/LocationIcon';
 import './AdminAlbums.scss';
 
 // *********** Album thumbnails  ******************** //
-let AdminAlbums = ({ albums, dispatch }) => {
+let AdminAlbums = ({ albums, dispatch, size }) => {
   if (albums.length === 0) {
-    return <p>No albums</p>;
+    return (
+      <Typography variant="display2" className="admin__albums__heading">
+        No Albums
+      </Typography>
+    );
   }
 
   return (
-    <Grid container className="admin__albums">
-      {albums.map(album => {
-        let hasPhotos = album.photos.length > 0;
-        let isPublic = album.publicAlbum;
+    <section className="admin__albums container">
+      <Typography variant="display2" className="admin__albums__heading">
+        Albums
+      </Typography>
+      <StackGrid
+        monitorImagesLoaded={true}
+        columnWidth={
+          size.width <= 768
+            ? '100%'
+            : size.width > 768 && size.width <= 980
+              ? '40%'
+              : '33.3%'
+        }
+        gutterHeight={15}
+        gutterWidth={15}
+      >
+        {albums.map(album => {
+          let hasPhotos = album.photos.length > 0;
+          let isPublic = album.publicAlbum;
 
-        return (
-          <div key={album.id}>
-            <div className="admin__album">
-              <Image
-                cloudName={process.env.REACT_APP_CLOUD_NAME}
-                publicId={album.cover.photo_public_id}
-                crop="scale"
-                width="400"
-              />
-              <h3>{album.name}</h3>
-              <h3>{album.description}</h3>
-              <h3>{album.location}</h3>
-              <Link
-                to={`${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`}
-                className="admin__album__edit"
-              >
-                Edit
-              </Link>
-              <Link
-                to={`${process.env.PUBLIC_URL}/anita/${album.id}/add-photo`}
-              >
-                Add Photo
-              </Link>
-              <button
-                className="delete"
-                onClick={() => dispatch(startDeleteAlbum(album))}
-              >
-                Delete
-              </button>
-              {/* render publish btn if the album is not public and has at least one photo*/}
-              {!isPublic &&
-                hasPhotos && (
-                  <button
-                    className="publish"
-                    onClick={() => {
-                      dispatch(startEditAlbum(album.id, { publicAlbum: true }));
-                      isPublic = !isPublic;
-                    }}
-                  >
-                    Publish
-                  </button>
-                )}
+          return (
+            <div key={album.id}>
+              <div className="admin__album">
+                <PhotoCard
+                  key={album.id}
+                  photo={album.cover}
+                  photoLink={`${process.env.PUBLIC_URL}/albums/${album.id}`}
+                />
+                <Typography
+                  variant="subheading"
+                  component="h3"
+                  color="textPrimary"
+                >
+                  {album.name}
+                </Typography>
+                <LocationIcon text={album.location} />
+
+                <Link
+                  to={`${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`}
+                  className="admin__album__edit"
+                >
+                  Edit
+                </Link>
+                <Link
+                  to={`${process.env.PUBLIC_URL}/anita/${album.id}/add-photo`}
+                >
+                  Add Photo
+                </Link>
+                <button
+                  className="delete"
+                  onClick={() => dispatch(startDeleteAlbum(album))}
+                >
+                  Delete
+                </button>
+                {/* render publish btn if the album is not public and has at least one photo*/}
+                {!isPublic &&
+                  hasPhotos && (
+                    <button
+                      className="publish"
+                      onClick={() => {
+                        dispatch(
+                          startEditAlbum(album.id, { publicAlbum: true })
+                        );
+                        isPublic = !isPublic;
+                      }}
+                    >
+                      Publish
+                    </button>
+                  )}
+              </div>
             </div>
-          </div>
-        );
-      })}
-    </Grid>
+          );
+        })}
+      </StackGrid>
+    </section>
   );
 };
 
 const mapStateToProps = state => ({
   albums: state.collections
 });
-AdminAlbums = connect(mapStateToProps)(AdminAlbums);
 
-export default AdminAlbums;
+export default connect(mapStateToProps)(sizeMe()(AdminAlbums));
 
 AdminAlbums.propTypes = {
   albums: PropTypes.array

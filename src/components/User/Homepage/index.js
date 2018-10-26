@@ -17,18 +17,13 @@ let Homepage = ({ latestPhotos, publicAlbums }) => {
   });
 
   return (
-    <div
-      container
-      spacing={8}
-      className="latest-photos container"
-      justify="flex-start"
-    >
-      <Typography variant="display2" className="latest-photos__headline">
+    <section className="homepage container">
+      <Typography variant="display2" className="homepage__headline">
         Recent photos
       </Typography>
 
       <Photos photos={latestPublicPhotos} />
-    </div>
+    </section>
   );
 };
 
