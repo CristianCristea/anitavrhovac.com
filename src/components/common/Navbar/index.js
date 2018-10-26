@@ -21,7 +21,7 @@ const Navbar = ({ isAuthenticated }) => {
   );
 
   return (
-    <AppBar color="primary" position="fixed" className="Navbar">
+    <AppBar color="white" position="fixed" className="Navbar">
       <Toolbar className="Navbar__menu">
         <Link to="/" className="Navbar__logo">
           <IconButton color="inherit" aria-label="Menu">
