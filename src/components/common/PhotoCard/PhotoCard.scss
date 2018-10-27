@@ -3,7 +3,7 @@
 
   .photo__card__overlay {
     width: 100%;
-    height: auto;
+    height: calc(100% - 4px);
     position: absolute;
     top: 0;
     right: 0;
