@@ -1,14 +1,26 @@
-.Navbar {
-  flex-grow: 1;
+.navbar {
 }
-// .Navbar__menu {
+// .navbar__menu {
 //   color: #fff;
 // }
 
-.Navbar__logo {
+.navbar__left {
   flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.Navbar__logo {
+.navbar__homeBtn {
   color: inherit;
+  margin-right: auto;
+}
+
+.navbar__logo {
+  width: 25px;
+  height: 25px;
+  margin-right: auto;
+}
+
+.navbar__right {
 }

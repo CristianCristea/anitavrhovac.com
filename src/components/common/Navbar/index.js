@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { startLogout } from './../../../actions/auth';
 import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
-import { startLogout } from './../../../actions/auth';
+import logo from './../../../images/av-logo.png';
 import './Navbar.scss';
 
 const Navbar = ({ isAuthenticated }) => {
@@ -21,33 +22,38 @@ const Navbar = ({ isAuthenticated }) => {
   );
 
   return (
-    <AppBar color="white" position="fixed" className="Navbar">
-      <Toolbar className="Navbar__menu">
-        <Link to="/" className="Navbar__logo">
-          <IconButton color="inherit" aria-label="Menu">
-            <HomeIcon />
-          </IconButton>
-        </Link>
+    <AppBar color="default" position="fixed" className="navbar">
+      <Toolbar className="navbar__menu">
+        <div className="navbar__left">
+          <Link to="/" className="navbar__homeBtn">
+            <IconButton color="inherit" aria-label="Menu">
+              <HomeIcon />
+            </IconButton>
+          </Link>
+          <img src={logo} alt="logo" className="navbar__logo" />
+        </div>
 
-        <IconButton color="inherit" aria-label="Menu">
-          <SearchIcon />
-        </IconButton>
-        <Button color="inherit" component={albumsLink}>
-          Albums
-        </Button>
-        {isAuthenticated && (
-          <Button color="inherit" component={dashboardLink}>
-            Dashboard
+        <div className="navbar__right">
+          <IconButton color="inherit" aria-label="Menu">
+            <SearchIcon />
+          </IconButton>
+          <Button color="inherit" component={albumsLink}>
+            Albums
           </Button>
-        )}
-        <Button color="inherit" component={aboutLink}>
-          About
-        </Button>
-        {isAuthenticated && (
-          <Button color="inherit" onClick={startLogout()}>
-            Log out
+          {isAuthenticated && (
+            <Button color="inherit" component={dashboardLink}>
+              Dashboard
+            </Button>
+          )}
+          <Button color="inherit" component={aboutLink}>
+            About
           </Button>
-        )}
+          {isAuthenticated && (
+            <Button color="inherit" onClick={startLogout()}>
+              Log out
+            </Button>
+          )}
+        </div>
       </Toolbar>
     </AppBar>
   );
