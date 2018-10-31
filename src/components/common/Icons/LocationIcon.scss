@@ -1,9 +1,16 @@
+@import './../../../scss/config';
+
 .icon__location {
-  // margin-left: auto;
   display: flex;
   align-items: center;
+  color: $pantone;
+  margin-bottom: 2rem;
 
   svg {
     font-size: inherit;
   }
+}
+
+.icon__location__title {
+  color: $gray !important;
 }

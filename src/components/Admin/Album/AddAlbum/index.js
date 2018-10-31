@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AlbumForm from './../Form';
+import './AddAblum.scss';
 
 // *********** Add album page ******************** //
 let AddAlbum = ({ history }) => {

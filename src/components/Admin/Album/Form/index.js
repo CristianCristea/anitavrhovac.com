@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import { connect } from 'react-redux';
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 import { startAddAlbum, startEditAlbum } from './../../../../actions/albums';
 import FormErrors from './../../../common/FormErrors';
 import './AlbumForm.scss';
@@ -114,14 +118,12 @@ let AlbumForm = class extends Component {
     // update the state
     if (!edit) {
       // add album and redirect to dashboard
-      // TODO: refactor redirect to edit album based on id from firebase
       this.props.dispatch(startAddAlbum(newAlbum));
-      // this.props.history.push(`${process.env.PUBLIC_URL}/anita/edit-album/${newAlbum.id}`);
       this.props.history.push(`${process.env.PUBLIC_URL}/anita/dashboard`);
       this.resetForm();
     } else {
       this.props.dispatch(startEditAlbum(albumToEdit.id, albumUpdates));
-      // display info - album updated
+      // TODO: display info - album updated
       alert('Album updated!');
     }
   };
@@ -140,41 +142,144 @@ let AlbumForm = class extends Component {
   }
 
   render() {
+    //   <section className="login">
+    //   <div className="login__container">
+    //     <img src={logo} alt="logo" className="login__logo" />
+
+    //     <div className="login__form__container">
+    //       <form onSubmit={loginSubmit} className="login__form">
+    //         <div className="login__form__control">
+    //           <AccountCircle />
+    //           <TextField
+    //             required
+    //             id="email"
+    //             label="Email"
+    //             type="email"
+    //             name="email"
+    //             margin="normal"
+    //             variant="outlined"
+    //             autoComplete="email"
+    //           />
+    //         </div>
+
+    //         <div className="login__form__control">
+    //           <Lock />
+    //           <TextField
+    //             required
+    //             id="password"
+    //             label="Password"
+    //             type="password"
+    //             margin="normal"
+    //             variant="outlined"
+    //             autoComplete="current-password"
+    //           />
+    //         </div>
+
+    //         <Button
+    //           type="submit"
+    //           variant="contained"
+    //           color="primary"
+    //           className="login__form__submitBtn"
+    //         >
+    //           Login
+    //         </Button>
+    //       </form>
+    //     </div>
+    //   </div>
+    // </section>
+
+    //   <input
+    //   className={`${this.hasError(this.state.formErrors.name)}`}
+    //   type="text"
+    //   name="name"
+    //   placeholder="name"
+    //   required
+    //   value={this.state.name}
+    //   onChange={this.handleTextInput}
+    // />
+
+    //   <input
+    //   type="text"
+    //   name="description"
+    //   placeholder="description"
+    //   value={this.state.description}
+    //   onChange={this.handleTextInput}
+    // />
+
+    //   <input
+    //   type="text"
+    //   name="location"
+    //   placeholder="location"
+    //   required
+    //   value={this.state.location}
+    //   onChange={this.handleTextInput}
+    // />
+
     return (
       // render form validation errors
-      <div className="add-album">
-        <FormErrors formErrors={this.state.formErrors} />
-        <form onSubmit={this.handleFormSubmit}>
-          <input
-            className={`${this.hasError(this.state.formErrors.name)}`}
-            type="text"
-            name="name"
-            placeholder="name"
-            required
-            value={this.state.name}
-            onChange={this.handleTextInput}
-          />
-          <input
-            type="text"
-            name="description"
-            placeholder="description"
-            value={this.state.description}
-            onChange={this.handleTextInput}
-          />
-          <input
-            type="text"
-            name="location"
-            placeholder="location"
-            required
-            value={this.state.location}
-            onChange={this.handleTextInput}
-          />
+      <section className="container">
+        <Paper className="album__form">
+          <Typography variant="h6" gutterBottom>
+            Update Album
+          </Typography>
+          <FormErrors formErrors={this.state.formErrors} />
+          <form onSubmit={this.handleFormSubmit}>
+            <div className="form-control">
+              <TextField
+                className={`${this.hasError(this.state.formErrors.name)}`}
+                value={this.state.name}
+                onChange={this.handleTextInput}
+                required
+                type="text"
+                id="name"
+                label="Name"
+                name="name"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+              />
+            </div>
+            <div className="form-control">
+              <TextField
+                className={`${this.hasError(this.state.formErrors.location)}`}
+                value={this.state.location}
+                onChange={this.handleTextInput}
+                required
+                type="text"
+                id="location"
+                label="Location"
+                name="location"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+              />
+            </div>
+            <TextField
+              className={`${this.hasError(this.state.formErrors.description)}`}
+              value={this.state.description}
+              onChange={this.handleTextInput}
+              required
+              multiline
+              type="text"
+              id="description"
+              label="Description"
+              name="description"
+              margin="normal"
+              variant="outlined"
+              fullWidth
+            />
 
-          <button type="submit" disabled={!this.state.formValid}>
-            Submit
-          </button>
-        </form>
-      </div>
+            <Button
+              color="primary"
+              type="submit"
+              variant="contained"
+              disabled={!this.state.formValid}
+            >
+              Update
+            </Button>
+          </form>
+        </Paper>
+      </section>
     );
   }
 };

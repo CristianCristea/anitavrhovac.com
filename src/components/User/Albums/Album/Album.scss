@@ -1,21 +1,5 @@
 .album-page__banner {
-  max-height: 400px;
-  max-width: 100%;
-  overflow: hidden;
-  margin: 10em auto 1em;
-}
-.album-page__banner-details {
-  display: flex;
-  flex-flow: row wrap;
-  justify-content: space-between;
-  margin-bottom: 7em;
-}
-// .album-page__banner-details__name
-.album-page__banner-details__location {
-  margin-left: auto;
-}
-
-.album-page__banner-details__description {
-  padding-top: 1em;
-  width: 100%;
+  width: fit-content;
+  min-width: 1000px;
+  margin: 10em auto 10rem;
 }

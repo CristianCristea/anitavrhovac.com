@@ -15,14 +15,15 @@ let Homepage = ({ latestPhotos, publicAlbums }) => {
     }
     return false;
   });
+  const lastAddedPhotos = latestPublicPhotos.slice(0, 10);
 
   return (
     <section className="homepage container">
-      <Typography variant="display2" className="homepage__headline">
+      <Typography variant="h2" className="homepage__headline">
         Recent photos
       </Typography>
 
-      <Photos photos={latestPublicPhotos} />
+      <Photos photos={lastAddedPhotos} />
     </section>
   );
 };

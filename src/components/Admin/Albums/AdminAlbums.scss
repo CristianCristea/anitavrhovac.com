@@ -1,4 +1,25 @@
+@import './../../../scss/config';
+
+.admin__album__details {
+  margin-top: 1rem;
+  margin-left: 1rem;
+  padding-bottom: 1rem;
+}
 .admin__albums__heading {
-  margin-top: 1em !important;
-  margin-bottom: 0.6em !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.1rem !important;
+}
+
+.admin__album__buttons {
+  display: flex;
+  justify-content: flex-start;
+  a,
+  button {
+    margin-right: 1rem;
+    color: #fff;
+  }
+}
+
+.admin__album__deleteAlbumBtn {
+  background-color: $danger !important;
 }

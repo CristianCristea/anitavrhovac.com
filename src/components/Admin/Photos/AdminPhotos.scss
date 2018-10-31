@@ -1,0 +1,56 @@
+@import './../../../scss/config';
+
+.admin__photo__tags {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 2rem;
+}
+
+.admin__photo__tag {
+  margin-left: 1rem !important;
+  padding: 5px 10px;
+  background-color: $light-gray;
+  color: $gray !important;
+
+  &:first-of-type {
+    margin-left: 0 !important;
+  }
+}
+
+.admin__photo__details {
+  position: relative;
+  margin-top: 1rem;
+  margin-left: 1rem;
+  padding-bottom: 1rem;
+}
+
+.admin__photo__buttons {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 1rem;
+  a,
+  button {
+    margin-right: 1rem;
+    color: #fff;
+  }
+}
+
+.admin__photo__deleteBtn {
+  background-color: $danger !important;
+}
+
+.admin__photo__coverTag {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  background: $primary-color;
+  padding: 8px 16px;
+  min-width: 64px;
+  min-height: 36px;
+  border-radius: 4px;
+  color: #fff !important;
+
+  &:hover {
+    cursor: default;
+  }
+}

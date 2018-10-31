@@ -7,7 +7,7 @@ export default function LocationIcon({ text }) {
   return (
     <div className="icon__location">
       <Icon />
-      <Typography variant="subheading" component="h3" color="textPrimary">
+      <Typography variant="subtitle2" className="icon__location__title">
         {text}
       </Typography>
     </div>

@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Image } from 'cloudinary-react';
-import LocationIcon from './../../../common/Icons/LocationIcon';
+
 import sizeMe from 'react-sizeme';
 import StackGrid from 'react-stack-grid';
-import Typography from '@material-ui/core/Typography';
 import PhotoCard from './../../../common/PhotoCard';
+import Jumbotron from './../../../common/Jumbotron';
+
+import { getAlbumTags } from './../../../../helpers/album';
 import './Album.scss';
 
 // display a single album
@@ -22,47 +23,17 @@ export const Album = class extends Component {
   }
 
   render() {
-    const {
-      size,
-      album: { id, name, description, location, cover, photos }
-    } = this.props;
+    const { size, album } = this.props;
+    const { id, name, description, location, cover, photos } = album;
+    const tags = getAlbumTags(album);
 
     return (
       <section className="album-page container">
         <div className="album-page__banner">
-          <Image
-            cloudName={process.env.REACT_APP_CLOUD_NAME}
-            publicId={cover.photo_public_id}
-            crop="scale"
-            width="auto"
-            heigth="600"
-            dpr="auto"
-            responsive
+          <Jumbotron
+            imageId={cover.photo_public_id}
+            details={{ name, description, location, tags }}
           />
-        </div>
-        <div className="album-page__banner-details">
-          <Typography
-            variant="subheading"
-            component="h3"
-            color="textPrimary"
-            className="album-page__banner-details__name"
-          >
-            {name}
-          </Typography>
-
-          <div className="album-page__banner-details__location">
-            <LocationIcon text={location} />
-          </div>
-          {description && (
-            <Typography
-              variant="subheading"
-              component="h3"
-              color="textPrimary"
-              className="album-page__banner-details__description"
-            >
-              {description}
-            </Typography>
-          )}
         </div>
         <StackGrid
           monitorImagesLoaded={true}

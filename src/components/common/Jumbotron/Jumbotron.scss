@@ -1,0 +1,40 @@
+@import './../../../scss/config';
+
+.jumbotron {
+  display: flex;
+  align-items: flex-start;
+  max-width: 800px;
+}
+
+.jumbotron__details {
+  margin-left: 5em;
+  flex-grow: 1;
+}
+
+.jumbotron__image {
+  width: 200px;
+  height: 200px;
+
+  img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 50%;
+  }
+}
+
+.jumbotron__tags {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 2rem;
+}
+
+.jumbotron__tag {
+  margin-left: 1rem !important;
+  padding: 5px 10px;
+  background-color: $light-gray;
+  color: $gray !important;
+
+  &:first-of-type {
+    margin-left: 0 !important;
+  }
+}

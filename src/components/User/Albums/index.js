@@ -12,7 +12,7 @@ import './Albums.scss';
 export let Albums = ({ albums, size }) => {
   const noAlbums = (
     <div>
-      <Typography variant="display3">No albums added</Typography>
+      <Typography variant="h2">No albums added</Typography>
       <Link to={`${process.env.PUBLIC_URL}/`}>Back</Link>
     </div>
   );
@@ -20,7 +20,7 @@ export let Albums = ({ albums, size }) => {
 
   return (
     <section className="container albums">
-      <Typography variant="display2" className="albums__heading">
+      <Typography variant="h2" className="albums__heading">
         Albums
       </Typography>
       <StackGrid

@@ -33,6 +33,7 @@ export const Login = ({ dispatch }) => {
                 name="email"
                 margin="normal"
                 variant="outlined"
+                autoComplete="email"
               />
             </div>
 
@@ -45,6 +46,7 @@ export const Login = ({ dispatch }) => {
                 type="password"
                 margin="normal"
                 variant="outlined"
+                autoComplete="current-password"
               />
             </div>
 
@@ -64,19 +66,3 @@ export const Login = ({ dispatch }) => {
 };
 
 export default connect()(Login);
-// <label htmlFor="name" />
-// <input
-//   type="text"
-//   id="name"
-//   name="name"
-//   placeholder="Username"
-//   autoComplete="username"
-// />
-// <label htmlFor="password" />
-// <input
-//   type="password"
-//   id="password"
-//   name="password"
-//   placeholder="Password"
-//   autoComplete="current-password"
-// />

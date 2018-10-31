@@ -1,46 +1,74 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { Image } from 'cloudinary-react';
+import Jumbotron from './../../../common/Jumbotron';
+import Tooltip from '@material-ui/core/Tooltip';
+import Button from '@material-ui/core/Button';
+import DoneIcon from '@material-ui/icons/Done';
 import AlbumForm from '../Form';
 import AdminPhotos from '../../Photos';
 import { startEditAlbum } from './../../../../actions/albums';
+import { getAlbumTags } from './../../../../helpers/album';
 import './EditAlbum.scss';
 
 // *********** Edit album page ******************** //
 let AdminAlbum = ({ album, history, dispatch }) => {
   // display each photo with edit, delete, set cover btn
-  let hasPhotos = album.photos.length > 0;
-  let isPublic = album.publicAlbum;
+  const { name, description, location, cover, publicAlbum, photos } = album;
+  const AddPhotoLink = props => (
+    <Link
+      to={`${process.env.PUBLIC_URL}/anita/${album.id}/add-photo`}
+      {...props}
+    />
+  );
+  const tags = getAlbumTags(album);
+  let hasPhotos = photos.length > 0;
+  let isPublic = publicAlbum;
+
   return (
-    <div className="admin__album">
-      <Image
-        cloudName="dmz84tdv1"
-        publicId={album.cover.photo_public_id}
-        crop="scale"
-        width="1000"
-      />
+    <section className="albumPage container">
+      <div className="albumPage__banner">
+        <Jumbotron
+          imageId={cover.photo_public_id}
+          details={{ name, description, location, tags }}
+        />
+      </div>
+
       <AlbumForm album={album} edit history={history} />
-      <Link to={`${process.env.PUBLIC_URL}/anita/${album.id}/add-photo`}>
-        Add Photo
-      </Link>
+
+      <Tooltip title="Add photo" enterDelay={500}>
+        <Button
+          component={AddPhotoLink}
+          color="primary"
+          variant="fab"
+          className="albumPage__addPhotoBtn"
+          aria-label="Add photo"
+        >
+          +
+        </Button>
+      </Tooltip>
 
       {/* render publish btn if the album is not public and has at least one photo*/}
       {!isPublic &&
         hasPhotos && (
-          <button
-            className="publish"
-            onClick={() => {
-              dispatch(startEditAlbum(album.id, { publicAlbum: true }));
-              isPublic = !isPublic;
-            }}
-          >
-            Publish
-          </button>
+          <Tooltip title="Publish album" enterDelay={500}>
+            <Button
+              color="primary"
+              variant="fab"
+              className="albumPage__publishAlbumBtn"
+              aria-label="Publish album"
+              onClick={() => {
+                dispatch(startEditAlbum(album.id, { publicAlbum: true }));
+                isPublic = !isPublic;
+              }}
+            >
+              <DoneIcon />
+            </Button>
+          </Tooltip>
         )}
 
       <AdminPhotos album={album} />
-    </div>
+    </section>
   );
 };
 

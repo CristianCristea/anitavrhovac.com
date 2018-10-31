@@ -139,7 +139,7 @@ let AddPhoto = class extends Component {
     switch (fieldName) {
       case 'location':
         locationValid = !!(
-          value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3
+          value.match(/^[a-zA-Z\s\d#]+$/gi) && value.length > 3
         );
         fieldValidationErrors.location = locationValid
           ? ''
