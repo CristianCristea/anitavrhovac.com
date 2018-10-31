@@ -1,54 +1,12 @@
 // colors
-$honolulu-blue: #0070AF;
-$prussion-blue: #0A3A56;
+$honolulu-blue: #0070af;
+$prussion-blue: #0a3a56;
 $pantone: #08a045;
 $bottle-green: #0b6e4f;
 $pastel-green: #7ae582;
-$gray: #75758B;
-$light-gray: #F7F7F7;
+$gray: #75758b;
+$light-gray: #ddd;
+$danger: #ff0000;
 
-$primary-color: $honolulu-blue;
-$primary-accent-color: $prussion-blue;
-$secondary-color: $pantone;
-$secondary-accent-color: $bottle-green;
-
-// btns
-.btn-warning,
-.btn-success {
-  background-color: $secondary-color;
-  border-color: $secondary-color;
-
-  &:hover {
-    background-color: $secondary-accent-color;
-    border-color: $secondary-accent-color;
-  }
-}
-
-.btn-primary {
-  background-color: $primary-color;
-  border-color: $primary-color;
-
-  &:hover {
-    background-color: $primary-accent-color;
-    border-color: $primary-accent-color;
-  }
-
-  &:disabled {
-    background-color: $primary-color;
-    border-color: $primary-color;
-  }
-}
-
-// alerts
-.alert-info {
-  color: $secondary-accent-color;
-  background-color: $pastel-green;
-  border-color: $pastel-green;
-}
-
-// disable link
-.isDisabled {
-  pointer-events: none;
-  opacity: 0.5;
-  text-decoration: none;
-}
+$primary-color: $pantone;
+$primary-accent-color: $bottle-green;
