@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Photos from './../Photos';
 import Typography from '@material-ui/core/Typography';
+import Photos from './../Photos';
 import './Homepage.scss';
 
 // *********** Homepage - last added photos  ******************** //

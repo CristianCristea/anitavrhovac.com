@@ -1,5 +1,8 @@
 .album-page__banner {
   width: fit-content;
-  min-width: 1000px;
   margin: 10em auto 10rem;
+
+  @media screen and (min-width: 850px) {
+    min-width: 1000px;
+  }
 }

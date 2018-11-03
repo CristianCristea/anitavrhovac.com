@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import sizeMe from 'react-sizeme';
 import StackGrid from 'react-stack-grid';
-import PhotoCard from './../../../common/PhotoCard';
+import PhotoModal from './../../../common/PhotoModal';
 import Jumbotron from './../../../common/Jumbotron';
 
 import { getAlbumTags } from './../../../../helpers/album';
@@ -50,7 +50,7 @@ export const Album = class extends Component {
         >
           {photos.map(photo => {
             return (
-              <PhotoCard
+              <PhotoModal
                 className="photo-album"
                 key={photo.id}
                 photo={photo}

@@ -1,0 +1,67 @@
+.photo__card {
+  &:hover {
+    cursor: pointer;
+  }
+}
+.photo__card__container {
+  position: relative;
+
+  .photo__card__overlay {
+    width: 100%;
+    height: calc(100% - 4px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.2s;
+    background-image: linear-gradient(
+      180deg,
+      rgba(0, 0, 0, 0.2) 0,
+      transparent 40%,
+      transparent 60%,
+      rgba(0, 0, 0, 0.4)
+    );
+    pointer-events: none;
+  }
+
+  &:hover {
+    .photo__card__overlay {
+      opacity: 1;
+    }
+  }
+}
+
+.single__photo__image {
+  display: block;
+  max-width: 900px;
+  max-height: 90vh;
+  margin: 2rem auto 0;
+}
+
+.MuiDialog-paperWidthLg-136.MuiDialog-paperScrollBody-132 {
+  margin-top: 1rem !important;
+}
+
+.single__photo__details {
+  margin: 2rem 2rem 0;
+}
+
+.single__photo__buttons {
+  // justify-content: flex-start !important;
+  margin-right: 2rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.single__photo__closeBtn {
+  position: absolute !important;
+  top: 0;
+  right: 0;
+}
+
+.single__photo__albumBtn {
+  position: absolute !important;
+  right: 2rem;
+  bottom: 5rem;
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StackGrid from 'react-stack-grid';
 import sizeMe from 'react-sizeme';
-import PhotoCard from './../../common/PhotoCard';
+import PhotoModal from './../../common/PhotoModal';
 import './Photos.scss';
 
 // *********** User list photos  ******************** //
@@ -23,7 +23,7 @@ const Photos = ({ photos, size }) => {
       >
         {photos.map(photo => {
           return (
-            <PhotoCard
+            <PhotoModal
               key={photo.id}
               photo={photo}
               photoLink={`${process.env.PUBLIC_URL}/${photo.album.id}/${
