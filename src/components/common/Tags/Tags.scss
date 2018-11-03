@@ -1,0 +1,15 @@
+@import './../../../scss/config';
+
+.tags {
+  display: flex;
+  flex-flow: row wrap;
+  margin-top: 2rem;
+}
+
+.tag {
+  margin-right: 1rem !important;
+  margin-bottom: 1rem !important;
+  padding: 5px 10px;
+  background-color: $light-gray;
+  color: $gray !important;
+}

@@ -1,14 +1,22 @@
 @import './../../../scss/config';
 
 .jumbotron {
-  display: flex;
-  align-items: flex-start;
+  width: 80%;
   max-width: 800px;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+    align-items: flex-start;
+  }
 }
 
 .jumbotron__details {
-  margin-left: 5em;
-  flex-grow: 1;
+  margin-top: 3rem;
+  @media screen and (min-width: 768px) {
+    margin-top: 0;
+    margin-left: 5em;
+    flex-grow: 1;
+  }
 }
 
 .jumbotron__image {
@@ -19,22 +27,5 @@
     max-width: 200px;
     max-height: 200px;
     border-radius: 50%;
-  }
-}
-
-.jumbotron__tags {
-  display: flex;
-  flex-flow: row wrap;
-  margin-top: 2rem;
-}
-
-.jumbotron__tag {
-  margin-left: 1rem !important;
-  padding: 5px 10px;
-  background-color: $light-gray;
-  color: $gray !important;
-
-  &:first-of-type {
-    margin-left: 0 !important;
   }
 }

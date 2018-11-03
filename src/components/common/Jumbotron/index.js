@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@material-ui/core/Typography';
 import { Image, Transformation } from 'cloudinary-react';
+import Tags from './../Tags';
 import LocationIcon from './../Icons/LocationIcon';
 import './Jumbotron.scss';
 
@@ -46,17 +47,7 @@ export default function Jumbotron({
           </Typography>
         )}
 
-        <div className="jumbotron__tags">
-          {tags.map(tag => (
-            <Typography
-              variant="subtitle2"
-              className="jumbotron__tag"
-              key={tag}
-            >
-              {tag}
-            </Typography>
-          ))}
-        </div>
+        <Tags tags={tags} />
       </div>
     </section>
   );
