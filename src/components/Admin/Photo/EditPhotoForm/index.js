@@ -1,5 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import { startEditPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../common/FormErrors';
 import './EditPhotoForm.scss';
@@ -75,9 +80,11 @@ let EditPhotoForm = class extends Component {
       tags: tags.split(',').map(tag => tag.trim())
     };
     // update the state
-    this.props.dispatch(
-      startEditPhoto(this.props.photo.id, this.props.albumId, photoUpdates)
-    );
+    this.props
+      .dispatch(
+        startEditPhoto(this.props.photo.id, this.props.albumId, photoUpdates)
+      )
+      .then(() => alert('Photo updated'));
   };
 
   // *********** add has-error css class if the field has an error ******************** //
@@ -86,38 +93,88 @@ let EditPhotoForm = class extends Component {
   }
 
   render() {
+    const { formErrors, description, tags, location, formValid } = this.state;
+    const LinkToAlbum = props => (
+      <Link
+        to={`${process.env.PUBLIC_URL}/anita/edit-album/${this.props.albumId}`}
+        {...props}
+      >
+        Back to album
+      </Link>
+    );
     return (
       // render form validation errors
-      <div className="photo-form">
-        <FormErrors formErrors={this.state.formErrors} />
-        <form onSubmit={this.handleFormSubmit}>
-          <input
-            type="text"
-            name="description"
-            placeholder="description"
-            value={this.state.description}
-            onChange={this.handleTextInput}
-          />
-          <input
-            type="text"
-            name="tags"
-            placeholder="tags"
-            value={this.state.tags}
-            onChange={this.handleTextInput}
-          />
-          <input
-            type="text"
-            name="location"
-            placeholder="location"
-            required
-            value={this.state.location}
-            onChange={this.handleTextInput}
-          />
-          <button type="submit" disabled={!this.state.formValid}>
-            Submit
-          </button>
-        </form>
-      </div>
+      <section className="edit__photo container">
+        <Paper className="edit__photo__form">
+          <Typography variant="h4" gutterBottom>
+            Edit photo
+          </Typography>
+          <FormErrors formErrors={formErrors} />
+          <form onSubmit={this.handleFormSubmit}>
+            <div className="form-control">
+              <TextField
+                value={tags}
+                onChange={this.handleTextInput}
+                required
+                type="text"
+                id="tags"
+                label="Tags"
+                name="tags"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+              />
+            </div>
+            <div className="form-control">
+              <TextField
+                value={location}
+                onChange={this.handleTextInput}
+                required
+                type="text"
+                id="location"
+                label="Location"
+                name="location"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+              />
+            </div>
+
+            <TextField
+              value={description}
+              onChange={this.handleTextInput}
+              multiline
+              type="text"
+              id="description"
+              label="Description"
+              name="description"
+              margin="normal"
+              variant="outlined"
+              fullWidth
+            />
+
+            <Button
+              style={{ marginBottom: '1rem' }}
+              color="primary"
+              type="submit"
+              variant="contained"
+              disabled={!formValid}
+              size="large"
+            >
+              Update photo
+            </Button>
+          </form>
+
+          <Button
+            component={LinkToAlbum}
+            color="secondary"
+            variant="contained"
+            style={{ color: 'white' }}
+          >
+            Back to album
+          </Button>
+        </Paper>
+      </section>
     );
   }
 };

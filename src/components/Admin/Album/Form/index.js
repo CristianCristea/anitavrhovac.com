@@ -142,85 +142,13 @@ let AlbumForm = class extends Component {
   }
 
   render() {
-    //   <section className="login">
-    //   <div className="login__container">
-    //     <img src={logo} alt="logo" className="login__logo" />
-
-    //     <div className="login__form__container">
-    //       <form onSubmit={loginSubmit} className="login__form">
-    //         <div className="login__form__control">
-    //           <AccountCircle />
-    //           <TextField
-    //             required
-    //             id="email"
-    //             label="Email"
-    //             type="email"
-    //             name="email"
-    //             margin="normal"
-    //             variant="outlined"
-    //             autoComplete="email"
-    //           />
-    //         </div>
-
-    //         <div className="login__form__control">
-    //           <Lock />
-    //           <TextField
-    //             required
-    //             id="password"
-    //             label="Password"
-    //             type="password"
-    //             margin="normal"
-    //             variant="outlined"
-    //             autoComplete="current-password"
-    //           />
-    //         </div>
-
-    //         <Button
-    //           type="submit"
-    //           variant="contained"
-    //           color="primary"
-    //           className="login__form__submitBtn"
-    //         >
-    //           Login
-    //         </Button>
-    //       </form>
-    //     </div>
-    //   </div>
-    // </section>
-
-    //   <input
-    //   className={`${this.hasError(this.state.formErrors.name)}`}
-    //   type="text"
-    //   name="name"
-    //   placeholder="name"
-    //   required
-    //   value={this.state.name}
-    //   onChange={this.handleTextInput}
-    // />
-
-    //   <input
-    //   type="text"
-    //   name="description"
-    //   placeholder="description"
-    //   value={this.state.description}
-    //   onChange={this.handleTextInput}
-    // />
-
-    //   <input
-    //   type="text"
-    //   name="location"
-    //   placeholder="location"
-    //   required
-    //   value={this.state.location}
-    //   onChange={this.handleTextInput}
-    // />
+    const { edit } = this.props;
 
     return (
-      // render form validation errors
       <section className="container">
         <Paper className="album__form">
-          <Typography variant="h6" gutterBottom>
-            Update Album
+          <Typography variant="h4" gutterBottom>
+            {!edit ? 'Create' : 'Update'} Album
           </Typography>
           <FormErrors formErrors={this.state.formErrors} />
           <form onSubmit={this.handleFormSubmit}>
@@ -275,7 +203,7 @@ let AlbumForm = class extends Component {
               variant="contained"
               disabled={!this.state.formValid}
             >
-              Update
+              {!edit ? 'Create' : 'Update'} Album
             </Button>
           </form>
         </Paper>

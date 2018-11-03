@@ -1,0 +1,22 @@
+.edit__photo {
+  margin-top: 5rem !important;
+}
+
+.edit__photo__form {
+  padding: 30px;
+
+  @media screen and (min-width: 768px) {
+    .form-control {
+      width: 49%;
+      display: inline-block;
+
+      &:first-of-type {
+        margin-right: 2%;
+      }
+    }
+  }
+
+  button {
+    margin-top: 1rem;
+  }
+}

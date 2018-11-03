@@ -4,6 +4,10 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import { Image } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import { startAddPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../common/FormErrors';
 import './AddPhoto.scss';
@@ -229,67 +233,144 @@ let AddPhoto = class extends Component {
 
   render() {
     const { album } = this.props;
-    const { public_id } = this.state;
+    const {
+      description,
+      tags,
+      location,
+      uploadComplete,
+      public_id,
+      deletedUpload,
+      delete_token,
+      formErrors,
+      formValid,
+      cloudName
+    } = this.state;
+
+    const LinkToAlbum = props => (
+      <Link
+        to={`${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`}
+        {...props}
+      >
+        Back to album
+      </Link>
+    );
     return (
       // *********** render form validation errors ******************** //
-      <div className="photo-form">
-        <FormErrors formErrors={this.state.formErrors} />
-        <form onSubmit={this.handleFormSubmit}>
-          <input
-            type="text"
-            name="description"
-            placeholder="description"
-            value={this.state.description}
-            onChange={this.handleTextInput}
-          />
-          <input
-            type="text"
-            name="tags"
-            placeholder="tags"
-            value={this.state.tags}
-            onChange={this.handleTextInput}
-          />
-          <input
-            type="text"
-            name="location"
-            placeholder="location"
-            required
-            value={this.state.location}
-            onChange={this.handleTextInput}
-          />
-          <input
-            type="file"
-            id="fileElem"
-            accept="image/*"
-            disabled={this.state.uploadComplete}
-            ref={this.setPhotoInputRef}
-            onChange={() => this.uploadFile(this.photoInput.files[0])}
-          />
-          <button type="submit" disabled={!this.state.formValid}>
-            Submit
-          </button>
-        </form>
-        {this.state.public_id &&
-          !this.state.deletedUpload && (
-            <div id="photoPreview">
-              <Image
-                cloudName="dmz84tdv1"
-                publicId={public_id}
-                crop="scale"
-                width="300"
+      <section className="add__photo__page container">
+        <Paper className="photo__form">
+          <Typography variant="h4" gutterBottom>
+            Add Photo
+          </Typography>
+          <FormErrors formErrors={formErrors} />
+          <form onSubmit={this.handleFormSubmit}>
+            <div className="form-control">
+              <TextField
+                value={tags}
+                onChange={this.handleTextInput}
+                required
+                type="text"
+                id="tags"
+                label="Tags"
+                name="tags"
+                margin="normal"
+                variant="outlined"
+                fullWidth
               />
-              <button
-                onClick={() => this.deleteUploadedFile(this.state.delete_token)}
-              >
-                Delete
-              </button>
             </div>
-          )}
-        <Link to={`${process.env.PUBLIC_URL}/anita/dashboard`}>Dashboard</Link>
-        <Link to={`${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`}>
-          Back to edit album
-        </Link>
-      </div>
+            <div className="form-control">
+              <TextField
+                value={location}
+                onChange={this.handleTextInput}
+                required
+                type="text"
+                id="location"
+                label="Location"
+                name="location"
+                margin="normal"
+                variant="outlined"
+                fullWidth
+              />
+            </div>
+
+            <TextField
+              value={description}
+              onChange={this.handleTextInput}
+              multiline
+              type="text"
+              id="description"
+              label="Description"
+              name="description"
+              margin="normal"
+              variant="outlined"
+              fullWidth
+            />
+            {/*********** hide default input ********************/}
+            <input
+              style={{ display: 'none' }}
+              type="file"
+              id="fileElem"
+              accept="image/*"
+              disabled={uploadComplete}
+              ref={this.setPhotoInputRef}
+              onChange={() => this.uploadFile(this.photoInput.files[0])}
+            />
+            <Button
+              style={{ display: 'block' }}
+              onClick={() => this.photoInput.click()}
+              disabled={uploadComplete}
+              color="primary"
+              variant="fab"
+            >
+              +
+            </Button>
+
+            <Button
+              style={{ marginBottom: '1rem' }}
+              color="primary"
+              type="submit"
+              variant="contained"
+              disabled={!formValid}
+              size="large"
+            >
+              Upload photo
+            </Button>
+          </form>
+
+          <Button
+            component={LinkToAlbum}
+            color="secondary"
+            variant="contained"
+            style={{ color: 'white' }}
+          >
+            Back to album
+          </Button>
+
+          {public_id &&
+            !deletedUpload && (
+              <div id="photoPreview" className="add__photo__page__photoPreview">
+                <Image
+                  cloudName={cloudName}
+                  publicId={public_id}
+                  crop="scale"
+                  width="300"
+                />
+                <Button
+                  style={{
+                    display: 'block',
+                    background: 'red',
+                    color: 'white'
+                  }}
+                  onClick={() => this.deleteUploadedFile(delete_token)}
+                  color="secondary"
+                  variant="contained"
+                  mini
+                >
+                  Delete
+                </Button>
+              </div>
+            )}
+        </Paper>
+      </section>
     );
   }
 };
@@ -302,3 +383,59 @@ const mapStateToProps = (state, ownProps) => ({
 
 AddPhoto = connect(mapStateToProps)(AddPhoto);
 export default AddPhoto;
+// <div className="photo-form">
+//         <FormErrors formErrors={formErrors} />
+//         <form onSubmit={this.handleFormSubmit}>
+//           <input
+//             type="text"
+//             name="description"
+//             placeholder="description"
+//             value={description}
+//             onChange={this.handleTextInput}
+//           />
+//           <input
+//             type="text"
+//             name="tags"
+//             placeholder="tags"
+//             value={tags}
+//             onChange={this.handleTextInput}
+//           />
+//           <input
+//             type="text"
+//             name="location"
+//             placeholder="location"
+//             required
+//             value={location}
+//             onChange={this.handleTextInput}
+//           />
+//           <input
+//             type="file"
+//             id="fileElem"
+//             accept="image/*"
+//             disabled={uploadComplete}
+//             ref={this.setPhotoInputRef}
+//             onChange={() => this.uploadFile(this.photoInput.files[0])}
+//           />
+//           <button type="submit" disabled={!formValid}>
+//             Submit
+//           </button>
+//         </form>
+//         {public_id &&
+//           !deletedUpload && (
+//             <div id="photoPreview">
+//               <Image
+//                 cloudName="dmz84tdv1"
+//                 publicId={public_id}
+//                 crop="scale"
+//                 width="300"
+//               />
+//               <button onClick={() => this.deleteUploadedFile(delete_token)}>
+//                 Delete
+//               </button>
+//             </div>
+//           )}
+//         <Link to={`${process.env.PUBLIC_URL}/anita/dashboard`}>Dashboard</Link>
+//         <Link to={`${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`}>
+//           Back to edit album
+//         </Link>
+//       </div>

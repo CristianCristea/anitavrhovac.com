@@ -1,26 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { Image } from 'cloudinary-react';
 import EditPhotoForm from './EditPhotoForm';
+import './Photo.scss';
 
 // *********** render edit photo  ******************** //
 let AdminPhoto = ({ albumId, photo, history }) => {
   return (
-    <div className="admin__photo">
-      <Image
-        cloudName="dmz84tdv1"
-        publicId={photo.photo_public_id}
-        crop="scale"
-        width="800"
-      />
+    <div className="admin__photo container">
       <EditPhotoForm photo={photo} edit history={history} albumId={albumId} />
-      <Link to={`${process.env.PUBLIC_URL}/anita/edit-album/${albumId}`}>
-        Back to album
-      </Link>
-      <Link to={`${process.env.PUBLIC_URL}/anita/dashboard`}>
-        Back to dashboard
-      </Link>
+      <div className="admin__photo__imageContainer">
+        <Image
+          cloudName={process.env.REACT_APP_CLOUD_NAME}
+          publicId={photo.photo_public_id}
+          crop="scale"
+          width="auto"
+          responsive
+        />
+      </div>
     </div>
   );
 };
