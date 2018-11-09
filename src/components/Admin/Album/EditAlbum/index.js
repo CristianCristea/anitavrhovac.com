@@ -36,13 +36,13 @@ let AdminAlbum = ({ album, history, dispatch }) => {
 
       <AlbumForm album={album} edit history={history} />
 
-      <Tooltip title="Add photo" enterDelay={500}>
+      <Tooltip title="Neues Album" enterDelay={500}>
         <Button
           component={AddPhotoLink}
           color="primary"
           variant="fab"
           className="albumPage__addPhotoBtn"
-          aria-label="Add photo"
+          aria-label="Add album"
         >
           +
         </Button>
@@ -51,7 +51,7 @@ let AdminAlbum = ({ album, history, dispatch }) => {
       {/* render publish btn if the album is not public and has at least one photo*/}
       {!isPublic &&
         hasPhotos && (
-          <Tooltip title="Publish album" enterDelay={500}>
+          <Tooltip title="Album veröffentlichen" enterDelay={500}>
             <Button
               color="primary"
               variant="fab"

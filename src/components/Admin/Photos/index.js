@@ -80,7 +80,8 @@ let AdminPhotos = ({ album, dispatch, size }) => {
                 <LocationIcon text={location} />
                 {isCover && (
                   <Tooltip
-                    title="The photo is used as album cover"
+                    title="
+                    Das Foto wird als Albumcover verwendet"
                     enterDelay={500}
                   >
                     <Typography
@@ -106,7 +107,7 @@ let AdminPhotos = ({ album, dispatch, size }) => {
                 </div>
 
                 <div className="admin__photo__buttons">
-                  <Tooltip title="Edit photo" enterDelay={500}>
+                  <Tooltip title="Foto bearbeiten" enterDelay={500}>
                     <Button
                       component={EditPhotoLink}
                       variant="fab"
@@ -120,7 +121,7 @@ let AdminPhotos = ({ album, dispatch, size }) => {
                   </Tooltip>
 
                   {!isCover && (
-                    <Tooltip title="Set cover photo" enterDelay={500}>
+                    <Tooltip title="Als Albumcover einstellen" enterDelay={500}>
                       <Button
                         className="admin__photo__setCoverBtn"
                         variant="fab"

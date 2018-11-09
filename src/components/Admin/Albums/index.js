@@ -78,7 +78,7 @@ let AdminAlbums = ({ albums, dispatch, size }) => {
                 <LocationIcon text={album.location} />
 
                 <div className="admin__album__buttons">
-                  <Tooltip title="Add Photo" enterDelay={500}>
+                  <Tooltip title="Neues Foto" enterDelay={500}>
                     <Button
                       component={AddPhotoLink}
                       variant="fab"
@@ -90,7 +90,7 @@ let AdminAlbums = ({ albums, dispatch, size }) => {
                       <AddIcon />
                     </Button>
                   </Tooltip>
-                  <Tooltip title="Edit album" enterDelay={500}>
+                  <Tooltip title="Album bearbeiten" enterDelay={500}>
                     <Button
                       component={EditAlbumLink}
                       variant="fab"
@@ -110,13 +110,13 @@ let AdminAlbums = ({ albums, dispatch, size }) => {
                     actionOnConfirm={startDeleteAlbum}
                     classNames="admin__album__deleteAlbumBtn"
                     title="Bist du sicher dass du das Album löschen willst?"
-                    tooltip="Delete album"
+                    tooltip="Album löschen"
                   />
 
                   {/* render publish btn if the album is not public and has at least one photo */}
                   {!isPublic &&
                     hasPhotos && (
-                      <Tooltip title="Publish album" enterDelay={500}>
+                      <Tooltip title="Album veröffentlichen" enterDelay={500}>
                         <Button
                           variant="fab"
                           color="primary"

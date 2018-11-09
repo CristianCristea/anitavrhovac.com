@@ -67,13 +67,17 @@ let AlbumForm = class extends Component {
     switch (fieldName) {
       case 'name':
         nameValid = !!(value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3);
-        fieldValidationErrors.name = nameValid ? '' : ' is invalid';
+        fieldValidationErrors.name = nameValid
+          ? ''
+          : ' ist invalid, nur Buchstaben, Zahlen und Leerzeichen - minimum 3.';
         break;
       case 'location':
         locationValid = !!(
           value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3
         );
-        fieldValidationErrors.location = locationValid ? '' : ' is invalid';
+        fieldValidationErrors.location = locationValid
+          ? ''
+          : ' ist invalid, nur Buchstaben, Zahlen und Leerzeichen - minimum 3.';
         break;
       default:
         break;
@@ -124,7 +128,7 @@ let AlbumForm = class extends Component {
     } else {
       this.props.dispatch(startEditAlbum(albumToEdit.id, albumUpdates));
       // TODO: display info - album updated
-      alert('Album updated!');
+      alert('Album bearbeitet!');
     }
   };
 
@@ -148,7 +152,7 @@ let AlbumForm = class extends Component {
       <section className="container">
         <Paper className="album__form">
           <Typography variant="h4" gutterBottom>
-            {!edit ? 'Create' : 'Update'} Album
+            {!edit ? 'Neue Album' : 'Album bearbeiten'}
           </Typography>
           <FormErrors formErrors={this.state.formErrors} />
           <form onSubmit={this.handleFormSubmit}>
@@ -175,7 +179,7 @@ let AlbumForm = class extends Component {
                 required
                 type="text"
                 id="location"
-                label="Location"
+                label="Ort"
                 name="location"
                 margin="normal"
                 variant="outlined"
@@ -189,7 +193,7 @@ let AlbumForm = class extends Component {
               multiline
               type="text"
               id="description"
-              label="Description"
+              label="Beschreibung"
               name="description"
               margin="normal"
               variant="outlined"
@@ -202,7 +206,7 @@ let AlbumForm = class extends Component {
               variant="contained"
               disabled={!this.state.formValid}
             >
-              {!edit ? 'Create' : 'Update'} Album
+              {!edit ? ' Album erstellen' : 'Speichern'}
             </Button>
           </form>
         </Paper>

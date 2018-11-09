@@ -12,7 +12,7 @@ const Dashboard = () => {
   );
   return (
     <section className="dashboard container">
-      <Tooltip title="Create album" enterDelay={500}>
+      <Tooltip title="Neue Album" enterDelay={500}>
         <Button
           component={AddAlbumLink}
           color="primary"

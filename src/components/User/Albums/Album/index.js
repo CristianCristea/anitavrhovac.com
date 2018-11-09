@@ -24,7 +24,7 @@ export const Album = class extends Component {
 
   render() {
     const { size, album } = this.props;
-    const { id, name, description, location, cover, photos } = album;
+    const { id: albumId, name, description, location, cover, photos } = album;
     const tags = getAlbumTags(album);
 
     return (
@@ -54,7 +54,7 @@ export const Album = class extends Component {
                 className="photo-album"
                 key={photo.id}
                 photo={photo}
-                photoLink={`${process.env.PUBLIC_URL}/${id}/${photo.id}`}
+                albumId={albumId}
               />
             );
           })}

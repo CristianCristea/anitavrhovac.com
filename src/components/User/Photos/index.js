@@ -26,6 +26,7 @@ const Photos = ({ photos, size }) => {
             <PhotoModal
               key={photo.id}
               photo={photo}
+              albumId={photo.album.id}
               photoLink={`${process.env.PUBLIC_URL}/${photo.album.id}/${
                 photo.id
               }`}

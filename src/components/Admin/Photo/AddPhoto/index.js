@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import { startAddPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../common/FormErrors';
@@ -147,7 +148,7 @@ let AddPhoto = class extends Component {
         );
         fieldValidationErrors.location = locationValid
           ? ''
-          : ' is invalid, use only letters, numbers and space';
+          : ' ist invalid, nur Buchstaben, Zahlen und Leerzeichen - minimum 3.';
         break;
       case 'photo':
         // check image type and size < 3MB
@@ -156,7 +157,7 @@ let AddPhoto = class extends Component {
           (value.size / 1048576).toFixed(1) < 3;
         fieldValidationErrors['cover photo'] = photoValid
           ? ''
-          : ' is invalid, use only photos smaller then 10MB';
+          : ' ist invalid, das Foto muss kleiner als 10MB sein.';
         break;
       default:
         break;
@@ -193,7 +194,7 @@ let AddPhoto = class extends Component {
     this.setState({
       description: '',
       location: `${album.location}`,
-      tags: `${album.name}`,
+      tags: `#${this.props.album.name.toLowerCase()}, #${this.props.album.location.toLowerCase()}`,
       photo: {},
       deletedUpload: true,
       uploadComplete: false,
@@ -250,7 +251,7 @@ let AddPhoto = class extends Component {
         to={`${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`}
         {...props}
       >
-        Back to album
+        Zurück zu album
       </Link>
     );
     return (
@@ -258,7 +259,7 @@ let AddPhoto = class extends Component {
       <section className="add__photo__page container">
         <Paper className="photo__form">
           <Typography variant="h4" gutterBottom>
-            Add Photo
+            Neues Foto
           </Typography>
           <FormErrors formErrors={formErrors} />
           <form onSubmit={this.handleFormSubmit}>
@@ -283,7 +284,7 @@ let AddPhoto = class extends Component {
                 required
                 type="text"
                 id="location"
-                label="Location"
+                label="Ort"
                 name="location"
                 margin="normal"
                 variant="outlined"
@@ -297,7 +298,7 @@ let AddPhoto = class extends Component {
               multiline
               type="text"
               id="description"
-              label="Description"
+              label="Beschreibung"
               name="description"
               margin="normal"
               variant="outlined"
@@ -313,15 +314,17 @@ let AddPhoto = class extends Component {
               ref={this.setPhotoInputRef}
               onChange={() => this.uploadFile(this.photoInput.files[0])}
             />
-            <Button
-              style={{ display: 'block' }}
-              onClick={() => this.photoInput.click()}
-              disabled={uploadComplete}
-              color="primary"
-              variant="fab"
-            >
-              +
-            </Button>
+            <Tooltip title="Foto wählen">
+              <Button
+                style={{ display: 'block' }}
+                onClick={() => this.photoInput.click()}
+                disabled={uploadComplete}
+                color="primary"
+                variant="fab"
+              >
+                +
+              </Button>
+            </Tooltip>
 
             <Button
               style={{ marginBottom: '1rem' }}
@@ -331,7 +334,7 @@ let AddPhoto = class extends Component {
               disabled={!formValid}
               size="large"
             >
-              Upload photo
+              Foto hochladen
             </Button>
           </form>
 
@@ -341,7 +344,7 @@ let AddPhoto = class extends Component {
             variant="contained"
             style={{ color: 'white' }}
           >
-            Back to album
+            Zurück zu album
           </Button>
 
           {public_id &&
@@ -364,7 +367,7 @@ let AddPhoto = class extends Component {
                   variant="contained"
                   mini
                 >
-                  Delete
+                  Löschen
                 </Button>
               </div>
             )}

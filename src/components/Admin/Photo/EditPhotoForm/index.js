@@ -99,7 +99,7 @@ let EditPhotoForm = class extends Component {
         to={`${process.env.PUBLIC_URL}/anita/edit-album/${this.props.albumId}`}
         {...props}
       >
-        Back to album
+        Zurück zu Album
       </Link>
     );
     return (
@@ -107,7 +107,7 @@ let EditPhotoForm = class extends Component {
       <section className="edit__photo container">
         <Paper className="edit__photo__form">
           <Typography variant="h4" gutterBottom>
-            Edit photo
+            Photo bearbeiten
           </Typography>
           <FormErrors formErrors={formErrors} />
           <form onSubmit={this.handleFormSubmit}>
@@ -132,7 +132,7 @@ let EditPhotoForm = class extends Component {
                 required
                 type="text"
                 id="location"
-                label="Location"
+                label="Ort"
                 name="location"
                 margin="normal"
                 variant="outlined"
@@ -146,7 +146,7 @@ let EditPhotoForm = class extends Component {
               multiline
               type="text"
               id="description"
-              label="Description"
+              label="Beschreibung"
               name="description"
               margin="normal"
               variant="outlined"
@@ -161,7 +161,7 @@ let EditPhotoForm = class extends Component {
               disabled={!formValid}
               size="large"
             >
-              Update photo
+              Speichern
             </Button>
           </form>
 
@@ -171,7 +171,7 @@ let EditPhotoForm = class extends Component {
             variant="contained"
             style={{ color: 'white' }}
           >
-            Back to album
+            Zurück zu Album
           </Button>
         </Paper>
       </section>
