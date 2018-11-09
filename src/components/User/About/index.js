@@ -11,7 +11,7 @@ const About = () => {
   };
   return (
     <section className="about container">
-      <Jumbotron imageId="about_me_s9e5ro" details={details} />
+      <Jumbotron imageId="about_me" details={details} />
       <div className="about_details">
         <Typography variant="body1">
           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laborum,
