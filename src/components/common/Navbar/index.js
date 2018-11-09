@@ -25,7 +25,7 @@ const Navbar = ({ isAuthenticated }) => {
     <AppBar color="default" position="fixed" className="navbar">
       <Toolbar className="navbar__menu">
         <div className="navbar__left">
-          <Link to="/" className="navbar__homeBtn">
+          <Link to={`${process.env.PUBLIC_URL}/`} className="navbar__homeBtn">
             <IconButton color="inherit" aria-label="Menu">
               <HomeIcon />
             </IconButton>
