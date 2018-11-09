@@ -33,7 +33,6 @@ store.dispatch(startSetAlbums()).then(() => {
 // track auth status
 firebase.auth().onAuthStateChanged(user => {
   if (user) {
-    console.log('logged in');
     // do stuff when logged in
     // store user id in store
     store.dispatch(login(user.uid));
