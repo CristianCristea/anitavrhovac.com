@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/anitavrhovac/precache-manifest.42b2c2fe2dc524235fe3af05c65862cd.js"
+  "/anitavrhovac.com/precache-manifest.4ffbc1377240566853b750593c85f2a6.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/anitavrhovac/index.html", {
+workbox.routing.registerNavigationRoute("/anitavrhovac.com/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

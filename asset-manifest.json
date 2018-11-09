@@ -1,13 +1,13 @@
 {
-  "main.css": "/anitavrhovac/static/css/main.7095ebd1.chunk.css",
-  "main.js": "/anitavrhovac/static/js/main.593751ee.chunk.js",
-  "main.js.map": "/anitavrhovac/static/js/main.593751ee.chunk.js.map",
-  "static/js/1.98e943ed.chunk.js": "/anitavrhovac/static/js/1.98e943ed.chunk.js",
-  "static/js/1.98e943ed.chunk.js.map": "/anitavrhovac/static/js/1.98e943ed.chunk.js.map",
-  "runtime~main.js": "/anitavrhovac/static/js/runtime~main.bf42f8f1.js",
-  "runtime~main.js.map": "/anitavrhovac/static/js/runtime~main.bf42f8f1.js.map",
-  "static/css/main.7095ebd1.chunk.css.map": "/anitavrhovac/static/css/main.7095ebd1.chunk.css.map",
-  "index.html": "/anitavrhovac/index.html",
-  "precache-manifest.42b2c2fe2dc524235fe3af05c65862cd.js": "/anitavrhovac/precache-manifest.42b2c2fe2dc524235fe3af05c65862cd.js",
-  "service-worker.js": "/anitavrhovac/service-worker.js"
+  "main.css": "/anitavrhovac.com/static/css/main.7095ebd1.chunk.css",
+  "main.js": "/anitavrhovac.com/static/js/main.b64e8e88.chunk.js",
+  "main.js.map": "/anitavrhovac.com/static/js/main.b64e8e88.chunk.js.map",
+  "static/js/1.0b1cbff8.chunk.js": "/anitavrhovac.com/static/js/1.0b1cbff8.chunk.js",
+  "static/js/1.0b1cbff8.chunk.js.map": "/anitavrhovac.com/static/js/1.0b1cbff8.chunk.js.map",
+  "runtime~main.js": "/anitavrhovac.com/static/js/runtime~main.63286cb3.js",
+  "runtime~main.js.map": "/anitavrhovac.com/static/js/runtime~main.63286cb3.js.map",
+  "static/css/main.7095ebd1.chunk.css.map": "/anitavrhovac.com/static/css/main.7095ebd1.chunk.css.map",
+  "index.html": "/anitavrhovac.com/index.html",
+  "precache-manifest.4ffbc1377240566853b750593c85f2a6.js": "/anitavrhovac.com/precache-manifest.4ffbc1377240566853b750593c85f2a6.js",
+  "service-worker.js": "/anitavrhovac.com/service-worker.js"
 }
