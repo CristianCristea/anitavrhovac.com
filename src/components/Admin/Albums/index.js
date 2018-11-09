@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import AddIcon from '@material-ui/icons/Add';
 import EditIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AlertBox from './../../common/AlertBox';
 import DoneIcon from '@material-ui/icons/Done';
 import Paper from '@material-ui/core/Paper';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -102,18 +103,15 @@ let AdminAlbums = ({ albums, dispatch, size }) => {
                     </Button>
                   </Tooltip>
 
-                  <Tooltip title="Delete album" enterDelay={500}>
-                    <Button
-                      variant="fab"
-                      color="default"
-                      aria-label="Delete"
-                      mini
-                      className="admin__album__deleteAlbumBtn"
-                      onClick={() => dispatch(startDeleteAlbum(album))}
-                    >
-                      <DeleteIcon />
-                    </Button>
-                  </Tooltip>
+                  <AlertBox
+                    args={[album]}
+                    dispatch={dispatch}
+                    icon={<DeleteIcon />}
+                    actionOnConfirm={startDeleteAlbum}
+                    classNames="admin__album__deleteAlbumBtn"
+                    title="Bist du sicher dass du das Album löschen willst?"
+                    tooltip="Delete album"
+                  />
 
                   {/* render publish btn if the album is not public and has at least one photo */}
                   {!isPublic &&
