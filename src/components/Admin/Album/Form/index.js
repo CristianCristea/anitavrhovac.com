@@ -186,7 +186,6 @@ let AlbumForm = class extends Component {
               className={`${this.hasError(this.state.formErrors.description)}`}
               value={this.state.description}
               onChange={this.handleTextInput}
-              required
               multiline
               type="text"
               id="description"
