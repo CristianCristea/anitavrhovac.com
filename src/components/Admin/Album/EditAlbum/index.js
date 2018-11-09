@@ -36,7 +36,7 @@ let AdminAlbum = ({ album, history, dispatch }) => {
 
       <AlbumForm album={album} edit history={history} />
 
-      <Tooltip title="Neues Album" enterDelay={500}>
+      <Tooltip title="Neues Photo" enterDelay={500}>
         <Button
           component={AddPhotoLink}
           color="primary"
