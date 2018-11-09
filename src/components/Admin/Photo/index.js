@@ -7,7 +7,7 @@ import './Photo.scss';
 // *********** render edit photo  ******************** //
 let AdminPhoto = ({ albumId, photo, history }) => {
   return (
-    <div className="admin__photo container">
+    <section className="container">
       <EditPhotoForm photo={photo} edit history={history} albumId={albumId} />
       <div className="admin__photo__imageContainer">
         <Image
@@ -18,7 +18,7 @@ let AdminPhoto = ({ albumId, photo, history }) => {
           responsive
         />
       </div>
-    </div>
+    </section>
   );
 };
 
