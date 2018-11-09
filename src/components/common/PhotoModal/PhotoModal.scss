@@ -45,11 +45,11 @@
 }
 
 .single__photo__details {
+  position: relative !important;
   margin: 2rem 2rem 0;
 }
 
 .single__photo__buttons {
-  // justify-content: flex-start !important;
   margin-right: 2rem !important;
   margin-bottom: 2rem !important;
 }
@@ -62,6 +62,6 @@
 
 .single__photo__albumBtn {
   position: absolute !important;
-  right: 2rem;
-  bottom: 5rem;
+  top: -0.5rem;
+  right: -0.5rem;
 }

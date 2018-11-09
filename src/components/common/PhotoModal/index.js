@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Image } from 'cloudinary-react';
+import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import CancelIcon from '@material-ui/icons/Cancel';
 import Tags from './../Tags';
@@ -32,7 +32,12 @@ class PhotoModal extends Component {
   render() {
     const { photo } = this.props;
     // TODO: link to album
-    // const AlbumLink =
+    const AlbumLink = props => (
+      <Link
+        to={`${process.env.PUBLIC_URL}/albums/${photo.album.id}`}
+        {...props}
+      />
+    );
     return (
       <section className="recent__photos">
         <span onClick={this.handleClickOpen('body')} className="photo__card">
@@ -68,6 +73,13 @@ class PhotoModal extends Component {
             />
             <div className="single__photo__details">
               <LocationIcon text={photo.location} />
+              <Button
+                component={AlbumLink}
+                className="single__photo__albumBtn"
+                color="primary"
+              >
+                More
+              </Button>
               {photo.description && (
                 <Typography variant="body1">{photo.description}</Typography>
               )}
@@ -80,14 +92,6 @@ class PhotoModal extends Component {
               <CancelIcon />
             </IconButton>
           </DialogContent>
-          <Button
-            onClick={this.handleClose}
-            className="single__photo__albumBtn"
-            color="primary"
-            variant="contained"
-          >
-            Album
-          </Button>
         </Dialog>
       </section>
     );
