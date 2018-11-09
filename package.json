@@ -1,7 +1,7 @@
 {
-  "name": "anitavrhovac.com",
+  "name": "anitavrhovac",
   "version": "0.1.0",
-  "homepage": "https://cristiancristea.com/anitavrhovac.com",
+  "homepage": "http://cristiancristea.github.io/anitavrhovac",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.3.1",
@@ -30,13 +30,16 @@
   "devDependencies": {
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
+    "gh-pages": "^2.0.1",
     "react-scripts": "2.0.4"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "browserslist": [
     ">0.2%",
