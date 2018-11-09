@@ -1,7 +1,7 @@
 {
   "name": "anitavrhovac",
   "version": "0.1.0",
-  "homepage": "http://cristiancristea.github.io/anitavrhovac",
+  "homepage": "https://cristiancristea.github.io/anitavrhovac",
   "private": true,
   "dependencies": {
     "@material-ui/core": "^3.3.1",
