@@ -14,6 +14,7 @@ import AdminAddAlbum from './../components/Admin/Album/AddAlbum';
 import AdminPhoto from './../components/Admin/Photo';
 import AdminDashboard from './../components/Admin/Dashboard';
 import AdminLogin from './../components/Admin/Login';
+import Footer from './../components/common/Footer';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
@@ -26,65 +27,73 @@ const AppRouter = () => (
   <Router history={history}>
     <CssBaseline>
       <Navbar />
-      <Switch>
-        {/*  admin routes */}
-        <PublicRoute
-          exact
-          path={`${process.env.PUBLIC_URL}/anita`}
-          component={AdminLogin}
-        />
-        <PrivateRoute
-          exact
-          path={`${process.env.PUBLIC_URL}/anita/dashboard`}
-          component={AdminDashboard}
-        />
-        <PrivateRoute
-          exact
-          path={`${process.env.PUBLIC_URL}/anita/add-album`}
-          component={AdminAddAlbum}
-        />
-        <PrivateRoute
-          exact
-          path={`${process.env.PUBLIC_URL}/anita/edit-album/:id`}
-          component={AdminAlbum}
-        />
-        <PrivateRoute
-          exact
-          path={`${process.env.PUBLIC_URL}/anita/:album_id/add-photo`}
-          component={AdminAddPhoto}
-        />
-        <PrivateRoute
-          exact
-          path={`${
-            process.env.PUBLIC_URL
-          }/anita/:album_id/edit-photo/:photo_id`}
-          component={AdminPhoto}
-        />
+      <main style={{ minHeight: '70vh' }}>
+        <Switch>
+          {/*  admin routes */}
+          <PublicRoute
+            exact
+            path={`${process.env.PUBLIC_URL}/anita`}
+            component={AdminLogin}
+          />
+          <PrivateRoute
+            exact
+            path={`${process.env.PUBLIC_URL}/anita/dashboard`}
+            component={AdminDashboard}
+          />
+          <PrivateRoute
+            exact
+            path={`${process.env.PUBLIC_URL}/anita/add-album`}
+            component={AdminAddAlbum}
+          />
+          <PrivateRoute
+            exact
+            path={`${process.env.PUBLIC_URL}/anita/edit-album/:id`}
+            component={AdminAlbum}
+          />
+          <PrivateRoute
+            exact
+            path={`${process.env.PUBLIC_URL}/anita/:album_id/add-photo`}
+            component={AdminAddPhoto}
+          />
+          <PrivateRoute
+            exact
+            path={`${
+              process.env.PUBLIC_URL
+            }/anita/:album_id/edit-photo/:photo_id`}
+            component={AdminPhoto}
+          />
 
-        {/*  public routes */}
-        <Route exact path={`${process.env.PUBLIC_URL}/`} component={Homepage} />
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/albums`}
-          component={Albums}
-        />
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/albums/:album_id`}
-          component={Album}
-        />
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/about`}
-          component={About}
-        />
-        <Route
-          exact
-          path={`${process.env.PUBLIC_URL}/:album_id/:photo_id`}
-          component={Album}
-        />
-        <Route component={PageNotFound} />
-      </Switch>
+          {/*  public routes */}
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/`}
+            component={Homepage}
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/albums`}
+            component={Albums}
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/albums/:album_id`}
+            component={Album}
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/about`}
+            component={About}
+          />
+          <Route
+            exact
+            path={`${process.env.PUBLIC_URL}/:album_id/:photo_id`}
+            component={Album}
+          />
+          <Route component={PageNotFound} />
+        </Switch>
+      </main>
+
+      <Footer />
     </CssBaseline>
   </Router>
 );
