@@ -8,9 +8,10 @@ import { startSetPhotos } from './actions/photos';
 import { login, logout } from './actions/auth';
 import { firebase } from './firebase/firebase';
 import { MuiThemeProvider } from '@material-ui/core/styles';
+import theme from './components/Themes/defaultTheme';
+import LoadingPage from './components/common/LoadingPage';
 import './index.scss';
 import registerServiceWorker from './registerServiceWorker';
-import theme from './components/Themes/defaultTheme';
 
 const store = configureStore();
 const jsx = (
@@ -21,7 +22,7 @@ const jsx = (
   </Provider>
 );
 
-ReactDOM.render(<p>Loading...</p>, document.getElementById('root'));
+ReactDOM.render(<LoadingPage />, document.getElementById('root'));
 
 store.dispatch(startSetAlbums()).then(() => {
   store.dispatch(startSetPhotos()).then(() => {
