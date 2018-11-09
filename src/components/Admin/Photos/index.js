@@ -14,6 +14,7 @@ import LocationIcon from './../../common/Icons/LocationIcon';
 import PhotoIcon from '@material-ui/icons/Photo';
 import EditIcon from '@material-ui/icons/Create';
 import DeleteIcon from '@material-ui/icons/Delete';
+import AlertBox from './../../common/AlertBox';
 import { startEditAlbum } from './../../../actions/albums';
 import { startDeletePhoto } from './../../../actions/photos';
 import './AdminPhotos.scss';
@@ -137,28 +138,16 @@ let AdminPhotos = ({ album, dispatch, size }) => {
                       </Button>
                     </Tooltip>
                   )}
-
                   {!isCover && (
-                    <Tooltip title="Delete photo" enterDelay={500}>
-                      <Button
-                        variant="fab"
-                        aria-label="Delete"
-                        mini
-                        className="admin__photo__deleteBtn"
-                        style={{
-                          background: isCover ? '#eee !important' : 'inherit'
-                        }}
-                        onClick={() => {
-                          !isCover
-                            ? dispatch(startDeletePhoto(album.id, photo.id))
-                            : alert(
-                                "Can't delete photo cover, change the album cover first!"
-                              );
-                        }}
-                      >
-                        <DeleteIcon />
-                      </Button>
-                    </Tooltip>
+                    <AlertBox
+                      args={[album.id, photo.id]}
+                      dispatch={dispatch}
+                      icon={<DeleteIcon />}
+                      actionOnConfirm={startDeletePhoto}
+                      classNames="admin__photo__deleteBtn"
+                      title="Bist du sicher dass du das Foto löschen willst?"
+                      tooltip="Foto löschen"
+                    />
                   )}
                 </div>
               </div>
@@ -178,3 +167,17 @@ export default connect()(sizeMe()(AdminPhotos));
 AdminPhotos.propTypes = {
   album: PropTypes.object
 };
+
+// <Tooltip title="Delete photo" enterDelay={500}>
+// <Button
+//   variant="fab"
+//   aria-label="Delete"
+//   mini
+//   className="admin__photo__deleteBtn"
+//   onClick={() => {
+//     dispatch(startDeletePhoto(album.id, photo.id));
+//   }}
+// >
+//   <DeleteIcon />
+// </Button>
+// </Tooltip>
