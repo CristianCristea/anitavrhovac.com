@@ -3,21 +3,21 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { startLogout } from './../../../actions/auth';
 import { AppBar, Toolbar, IconButton, Button } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
+// import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
 import logo from './../../../images/av-logo.png';
 import './Navbar.scss';
 
 const Navbar = ({ isAuthenticated }) => {
-  const albumsLink = props => (
+  const AlbumsLink = props => (
     <Link to={`${process.env.PUBLIC_URL}/albums`} {...props} />
   );
 
-  const aboutLink = props => (
+  const AboutLink = props => (
     <Link to={`${process.env.PUBLIC_URL}/about`} {...props} />
   );
 
-  const dashboardLink = props => (
+  const DashboardLink = props => (
     <Link to={`${process.env.PUBLIC_URL}/anita/dashboard`} {...props} />
   );
 
@@ -34,18 +34,15 @@ const Navbar = ({ isAuthenticated }) => {
         </div>
 
         <div className="navbar__right">
-          <IconButton color="inherit" aria-label="Menu">
-            <SearchIcon />
-          </IconButton>
-          <Button color="inherit" component={albumsLink}>
+          <Button color="inherit" component={AlbumsLink}>
             Albums
           </Button>
           {isAuthenticated && (
-            <Button color="inherit" component={dashboardLink}>
+            <Button color="inherit" component={DashboardLink}>
               Dashboard
             </Button>
           )}
-          <Button color="inherit" component={aboutLink}>
+          <Button color="inherit" component={AboutLink}>
             About
           </Button>
           {isAuthenticated && (
@@ -64,3 +61,7 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(Navbar);
+
+// <IconButton color="inherit" aria-label="Menu">
+// <SearchIcon />
+// </IconButton>
