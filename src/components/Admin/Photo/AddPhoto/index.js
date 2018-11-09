@@ -151,13 +151,13 @@ let AddPhoto = class extends Component {
           : ' ist invalid, nur Buchstaben, Zahlen und Leerzeichen - minimum 3.';
         break;
       case 'photo':
-        // check image type and size < 3MB
+        // check image type and size < 5MB
         photoValid =
           fileTypes.indexOf(value.type) !== -1 &&
-          (value.size / 1048576).toFixed(1) < 3;
+          (value.size / 1048576).toFixed(1) < 5;
         fieldValidationErrors['cover photo'] = photoValid
           ? ''
-          : ' ist invalid, das Foto muss kleiner als 10MB sein.';
+          : ' ist invalid, das Foto muss kleiner als 5MB sein.';
         break;
       default:
         break;
