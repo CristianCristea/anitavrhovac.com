@@ -6,10 +6,18 @@ const Footer = () => (
   <section className="footer">
     <div className="copywrite">
       &copy;
-      <Typography variant="caption">Anita Vrhovac</Typography>
+      <Typography variant="caption">
+        Anita Vrhovac - All rights reserved
+      </Typography>
     </div>
     <Typography variant="caption">
-      created by <a href="https://cristiancristea.com">Cristian Cristea</a>
+      Made with{' '}
+      <span
+        style={{ color: '#e25555' }}
+        dangerouslySetInnerHTML={{ __html: '&#9829;' }}
+      />{' '}
+      by
+      <a href="https://cristiancristea.com"> Cristian Cristea</a>
     </Typography>
   </section>
 );
