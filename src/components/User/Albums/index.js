@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import sizeMe from 'react-sizeme';
 import StackGrid from 'react-stack-grid';
@@ -10,12 +9,7 @@ import './Albums.scss';
 // display a list of albums - covers
 // display only if published and has at least one photo
 export let Albums = ({ albums, size }) => {
-  const noAlbums = (
-    <div>
-      <Typography variant="h2">No albums added</Typography>
-      <Link to={`${process.env.PUBLIC_URL}/`}>Back</Link>
-    </div>
-  );
+  const noAlbums = <Typography variant="h4">No albums</Typography>;
   const publicAlbums = albums.filter(album => album.publicAlbum);
 
   return (
