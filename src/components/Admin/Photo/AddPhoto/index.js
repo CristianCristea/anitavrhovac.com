@@ -31,7 +31,7 @@ let AddPhoto = class extends Component {
       uploadComplete: false,
       // photo
       description: '',
-      tags: `${this.props.album.name}, ${this.props.album.location}`,
+      tags: `#${this.props.album.name.toLowerCase()}, #${this.props.album.location.toLowerCase()}`,
       location: this.props.album.location,
       photo: {},
       // form validation
@@ -211,8 +211,7 @@ let AddPhoto = class extends Component {
       created_at: moment().unix(),
       description: description.trim(),
       location: location.trim(),
-      tags: tags.split(',').map(tag => tag.trim()),
-      likes: 0,
+      tags: tags.split(',').map(tag => tag),
       liked_by_admin: false,
       photo_url: this.state.secure_url,
       photo_public_id: this.state.public_id,
@@ -381,61 +380,4 @@ const mapStateToProps = (state, ownProps) => ({
   )[0]
 });
 
-AddPhoto = connect(mapStateToProps)(AddPhoto);
-export default AddPhoto;
-// <div className="photo-form">
-//         <FormErrors formErrors={formErrors} />
-//         <form onSubmit={this.handleFormSubmit}>
-//           <input
-//             type="text"
-//             name="description"
-//             placeholder="description"
-//             value={description}
-//             onChange={this.handleTextInput}
-//           />
-//           <input
-//             type="text"
-//             name="tags"
-//             placeholder="tags"
-//             value={tags}
-//             onChange={this.handleTextInput}
-//           />
-//           <input
-//             type="text"
-//             name="location"
-//             placeholder="location"
-//             required
-//             value={location}
-//             onChange={this.handleTextInput}
-//           />
-//           <input
-//             type="file"
-//             id="fileElem"
-//             accept="image/*"
-//             disabled={uploadComplete}
-//             ref={this.setPhotoInputRef}
-//             onChange={() => this.uploadFile(this.photoInput.files[0])}
-//           />
-//           <button type="submit" disabled={!formValid}>
-//             Submit
-//           </button>
-//         </form>
-//         {public_id &&
-//           !deletedUpload && (
-//             <div id="photoPreview">
-//               <Image
-//                 cloudName="dmz84tdv1"
-//                 publicId={public_id}
-//                 crop="scale"
-//                 width="300"
-//               />
-//               <button onClick={() => this.deleteUploadedFile(delete_token)}>
-//                 Delete
-//               </button>
-//             </div>
-//           )}
-//         <Link to={`${process.env.PUBLIC_URL}/anita/dashboard`}>Dashboard</Link>
-//         <Link to={`${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`}>
-//           Back to edit album
-//         </Link>
-//       </div>
+export default connect(mapStateToProps)(AddPhoto);
