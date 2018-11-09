@@ -39,7 +39,6 @@ export const startAddPhoto = (album = {}, photoData = {}) => {
     description = '',
     location = '',
     tags = [],
-    likes = 0,
     liked_by_admin = false,
     photo_url = '',
     photo_public_id = ''
@@ -49,7 +48,6 @@ export const startAddPhoto = (album = {}, photoData = {}) => {
     description,
     location,
     tags,
-    likes,
     liked_by_admin,
     photo_url,
     photo_public_id
