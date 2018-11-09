@@ -30,13 +30,10 @@ class PhotoModal extends Component {
   };
 
   render() {
-    const { photo } = this.props;
+    const { photo, albumId } = this.props;
     // TODO: link to album
     const AlbumLink = props => (
-      <Link
-        to={`${process.env.PUBLIC_URL}/albums/${photo.album.id}`}
-        {...props}
-      />
+      <Link to={`${process.env.PUBLIC_URL}/albums/${albumId}`} {...props} />
     );
     return (
       <section className="recent__photos">
@@ -73,13 +70,17 @@ class PhotoModal extends Component {
             />
             <div className="single__photo__details">
               <LocationIcon text={photo.location} />
-              <Button
-                component={AlbumLink}
-                className="single__photo__albumBtn"
-                color="primary"
-              >
-                More
-              </Button>
+              {// more btn - link to album only if not on album page
+              photo.album && (
+                <Button
+                  component={AlbumLink}
+                  className="single__photo__albumBtn"
+                  color="primary"
+                >
+                  More
+                </Button>
+              )}
+
               {photo.description && (
                 <Typography variant="body1">{photo.description}</Typography>
               )}
@@ -101,5 +102,6 @@ class PhotoModal extends Component {
 export default PhotoModal;
 
 PhotoModal.propTypes = {
-  photo: PropTypes.object.isRequired
+  photo: PropTypes.object.isRequired,
+  albumId: PropTypes.string.isRequired
 };
