@@ -17,6 +17,7 @@ import AdminLogin from './../components/Admin/Login';
 import Footer from './../components/common/Footer';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import './AppRouter.scss';
 
 export const history = createHistory();
 
@@ -27,7 +28,7 @@ const AppRouter = () => (
   <Router history={history}>
     <CssBaseline>
       <Navbar />
-      <main style={{ minHeight: '70vh' }}>
+      <main>
         <Switch>
           {/*  admin routes */}
           <PublicRoute

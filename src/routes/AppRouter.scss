@@ -1,0 +1,8 @@
+main {
+  margin-top: 16rem;
+  min-height: 70vh;
+
+  @media screen and (min-width: 510px) {
+    margin-top: 10rem;
+  }
+}
