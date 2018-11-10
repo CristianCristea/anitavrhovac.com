@@ -11,7 +11,7 @@ const styles = theme => ({
 
 class CircularLoaderDeterminate extends React.Component {
   state = {
-    completed: 0
+    completed: this.props.uploadProgress
   };
 
   componentDidMount() {
@@ -24,7 +24,9 @@ class CircularLoaderDeterminate extends React.Component {
 
   progress = () => {
     const { completed } = this.state;
-    this.setState({ completed: completed >= 100 ? 0 : completed + 1 });
+    this.setState({
+      completed: completed >= 100 ? 0 : this.props.uploadProgress
+    });
   };
 
   render() {
@@ -33,24 +35,7 @@ class CircularLoaderDeterminate extends React.Component {
       <div>
         <CircularProgress
           className={classes.progress}
-          variant="determinate"
-          value={this.state.completed}
-        />
-        <CircularProgress
-          className={classes.progress}
-          variant="determinate"
-          size={50}
-          value={this.state.completed}
-        />
-        <CircularProgress
-          className={classes.progress}
-          color="secondary"
-          variant="determinate"
-          value={this.state.completed}
-        />
-        <CircularProgress
-          className={classes.progress}
-          color="secondary"
+          color="primary"
           variant="determinate"
           size={50}
           value={this.state.completed}
