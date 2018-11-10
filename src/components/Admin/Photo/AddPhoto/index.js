@@ -11,7 +11,9 @@ import Tooltip from '@material-ui/core/Tooltip';
 import Button from '@material-ui/core/Button';
 import { startAddPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../common/FormErrors';
+import CircularLoaderDeterminate from './../../../common/CircularLoaderDeterminate';
 import './AddPhoto.scss';
+import ConfirmationBox from '../../ConfirmationBox';
 
 /*
 add to coresp album
@@ -30,6 +32,8 @@ let AddPhoto = class extends Component {
       delete_token: '',
       deletedUpload: false,
       uploadComplete: false,
+      percentCompleted: 0,
+      photoAdded: false,
       // photo
       description: '',
       tags: `#${this.props.album.name.toLowerCase()}, #${this.props.album.location.toLowerCase()}`,
@@ -78,7 +82,9 @@ let AddPhoto = class extends Component {
         this.setState({
           uploadComplete: percentCompleted === 100 ? true : false
         });
-        console.log(percentCompleted + '%');
+        this.setState({
+          percentCompleted: percentCompleted >= 100 ? 0 : percentCompleted
+        });
       }
     };
 
@@ -222,9 +228,12 @@ let AddPhoto = class extends Component {
     this.props.dispatch(startAddPhoto(album, photoData));
     this.resetForm();
 
-    // TODO: Add alertbar to confirm upload
-    alert('Photo added to album');
+    this.setState({ photoAdded: true });
   };
+
+  handleCloseConfirmationBox() {
+    this.setState({ photoAdded: false });
+  }
 
   // *********** add has-error css class if the field has an error ******************** //
   hasError(error) {
@@ -255,9 +264,15 @@ let AddPhoto = class extends Component {
       </Link>
     );
     return (
-      // *********** render form validation errors ******************** //
       <section className="add__photo__page container">
-        <Paper className="photo__form">
+        {this.state.photoAdded && (
+          <ConfirmationBox
+            data="Das Foto wurde hinzugefügt."
+            handleClose={this.handleCloseConfirmationBox.bind(this)}
+          />
+        )}
+
+        <Paper className="photo__form" style={{ minHeight: '470px' }}>
           <Typography variant="h4" gutterBottom>
             Neues Foto
           </Typography>
@@ -339,22 +354,27 @@ let AddPhoto = class extends Component {
           </form>
 
           <Button
+            style={{ color: 'white', display: 'block', width: 'fit-content' }}
             component={LinkToAlbum}
             color="secondary"
             variant="contained"
-            style={{ color: 'white' }}
           >
             Zurück zu album
           </Button>
 
-          {public_id &&
-            !deletedUpload && (
-              <div id="photoPreview" className="add__photo__page__photoPreview">
+          <div id="photoPreview" className="add__photo__page__photoPreview">
+            <CircularLoaderDeterminate
+              uploadProgress={this.state.percentCompleted}
+            />
+            {public_id && !deletedUpload && (
+              <div>
                 <Image
                   cloudName={cloudName}
                   publicId={public_id}
                   crop="scale"
                   width="300"
+                  quality="auto"
+                  fetchFormat="auto"
                 />
                 <Button
                   style={{
@@ -371,6 +391,7 @@ let AddPhoto = class extends Component {
                 </Button>
               </div>
             )}
+          </div>
         </Paper>
       </section>
     );
