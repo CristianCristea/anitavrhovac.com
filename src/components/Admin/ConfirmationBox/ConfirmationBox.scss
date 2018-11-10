@@ -1,0 +1,16 @@
+.confirmation-box__content {
+  width: 400px;
+  padding: 20px;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmation-box__checkBtn {
+  margin-right: 1rem;
+}
+
+.confirmation-box__closeBtn {
+  margin-left: auto !important;
+}

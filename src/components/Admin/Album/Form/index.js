@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { startAddAlbum, startEditAlbum } from './../../../../actions/albums';
 import FormErrors from './../../../common/FormErrors';
+import ConfirmationBox from './../../ConfirmationBox';
 import './AlbumForm.scss';
 
 // *********** Album form - use for add and edit album ******************** //
@@ -20,6 +21,7 @@ let AlbumForm = class extends Component {
     description: this.props.album.description,
     location: this.props.album.location,
     publicAlbum: false,
+    albumEdited: false,
     // form validation
     formErrors: {
       name: '',
@@ -127,8 +129,7 @@ let AlbumForm = class extends Component {
       this.resetForm();
     } else {
       this.props.dispatch(startEditAlbum(albumToEdit.id, albumUpdates));
-      // TODO: display info - album updated
-      alert('Album bearbeitet!');
+      this.setState({ albumEdited: true });
     }
   };
 
@@ -145,11 +146,21 @@ let AlbumForm = class extends Component {
     return error.length === 0 ? '' : 'has-error';
   }
 
+  handleCloseConfirmationBox() {
+    this.setState({ albumEdited: false });
+  }
+
   render() {
     const { edit } = this.props;
 
     return (
       <section className="container">
+        {this.state.albumEdited && (
+          <ConfirmationBox
+            data="Änderungen gespeichert."
+            handleClose={this.handleCloseConfirmationBox.bind(this)}
+          />
+        )}
         <Paper className="album__form">
           <Typography variant="h4" gutterBottom>
             {!edit ? 'Neue Album' : 'Album bearbeiten'}
