@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.2/workbox-sw.js");
 
 importScripts(
-  "/anitavrhovac.com/precache-manifest.515c9653c7bd0738df4138da8c166eb6.js"
+  "/anitavrhovac.com/precache-manifest.9b4719f3e08f6b32b16ff4aea5cae641.js"
 );
 
 workbox.clientsClaim();
