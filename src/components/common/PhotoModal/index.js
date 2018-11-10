@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Image } from 'cloudinary-react';
+import { Image, Transformation } from 'cloudinary-react';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -46,8 +46,12 @@ class PhotoModal extends Component {
               crop="scale"
               width="auto"
               responsive
+              fetchFormat="auto"
               className="photo__card__image"
-            />
+            >
+              <Transformation flags="progressive:semi" quality="50" />
+              <Transformation quality="60" />
+            </Image>
             <div className="photo__card__overlay" />
           </div>
         </span>
@@ -66,8 +70,13 @@ class PhotoModal extends Component {
               crop="scale"
               width="auto"
               responsive
+              fetchFormat="auto"
               className="single__photo__image"
-            />
+              onError={() => console.log('image missing')}
+            >
+              <Transformation flags="progressive:semi" />
+              <Transformation quality="auto" />
+            </Image>
             <div className="single__photo__details">
               <LocationIcon text={photo.location} />
               {// more btn - link to album only if not on album page
