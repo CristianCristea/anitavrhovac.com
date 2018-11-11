@@ -1,48 +1,15 @@
-.navbar {
-}
 .navbar__menu {
-  display: block !important;
-
   @media screen and (min-width: 510px) {
     display: flex !important;
-  }
-}
-
-.navbar__left {
-  @media screen and (min-width: 510px) {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-.navbar__homeBtn {
-  color: inherit;
-  display: block;
-
-  @media screen and (min-width: 510px) {
-    margin-right: auto;
   }
 }
 
 .navbar__logo {
   width: 25px;
   height: 25px;
-  display: none;
+  margin-left: auto;
 
   @media screen and (min-width: 510px) {
     display: block;
-    margin-right: auto;
-  }
-}
-
-.navbar__right {
-  a {
-    display: block;
-
-    @media screen and (min-width: 510px) {
-      display: inline-block;
-    }
   }
 }
