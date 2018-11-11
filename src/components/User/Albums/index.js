@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import sizeMe from 'react-sizeme';
 import StackGrid from 'react-stack-grid';
-import PhotoCard from './../../common/PhotoCard';
+import AlbumCard from './../AlbumCard';
 import './Albums.scss';
 
 // display a list of albums - covers
@@ -23,8 +23,8 @@ export let Albums = ({ albums, size }) => {
           size.width <= 768
             ? '100%'
             : size.width > 768 && size.width <= 980
-              ? '40%'
-              : '33.3%'
+            ? '40%'
+            : '33.3%'
         }
         gutterHeight={15}
         gutterWidth={15}
@@ -32,9 +32,10 @@ export let Albums = ({ albums, size }) => {
         {publicAlbums.length === 0
           ? noAlbums
           : publicAlbums.map(album => (
-              <PhotoCard
+              <AlbumCard
                 key={album.id}
-                photo={album.cover}
+                albumCover={album.cover}
+                albumDetails={{ name: album.name, location: album.location }}
                 photoLink={`${process.env.PUBLIC_URL}/albums/${album.id}`}
               />
             ))}
