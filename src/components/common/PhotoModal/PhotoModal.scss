@@ -1,3 +1,11 @@
+.photo__modal__content {
+  padding: 0 0 24px !important;
+
+  @media screen and (min-width: 510px) {
+    padding: 0 24px 24px !important;
+  }
+}
+
 .photo__card {
   &:hover {
     cursor: pointer;
@@ -35,9 +43,9 @@
 
 .single__photo__image {
   display: block;
-  max-width: 900px;
+  max-width: 100%;
   max-height: 85vh;
-  margin: 2rem auto 0;
+  margin: 4rem auto 0;
 }
 
 .MuiDialog-paperWidthLg-136.MuiDialog-paperScrollBody-132 {

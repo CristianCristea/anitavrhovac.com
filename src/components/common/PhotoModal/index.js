@@ -56,13 +56,14 @@ class PhotoModal extends Component {
           </div>
         </span>
         <Dialog
+          className="photo__modal"
           open={this.state.open}
           onClose={this.handleClose}
           scroll={this.state.scroll}
           aria-labelledby="photo"
           maxWidth="lg"
         >
-          <DialogContent>
+          <DialogContent className="photo__modal__content">
             <Image
               cloudName={process.env.REACT_APP_CLOUD_NAME}
               publicId={photo.photo_public_id}
@@ -71,6 +72,7 @@ class PhotoModal extends Component {
               width="auto"
               responsive
               fetchFormat="auto"
+              flags="progressive:semi"
               className="single__photo__image"
               onError={() => console.log('image missing')}
             >
