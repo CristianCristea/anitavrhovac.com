@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/anitavrhovac.com/static/js/runtime~main.63286cb3.js"
   },
   {
-    "revision": "dc2df48037fe2484857a",
-    "url": "/anitavrhovac.com/static/js/main.dc2df480.chunk.js"
+    "revision": "c4e649ee9780d17a0e48",
+    "url": "/anitavrhovac.com/static/js/main.c4e649ee.chunk.js"
   },
   {
     "revision": "477750ad0cbdb7d1a1a4",
     "url": "/anitavrhovac.com/static/js/1.477750ad.chunk.js"
   },
   {
-    "revision": "dc2df48037fe2484857a",
-    "url": "/anitavrhovac.com/static/css/main.5ce6bb59.chunk.css"
+    "revision": "c4e649ee9780d17a0e48",
+    "url": "/anitavrhovac.com/static/css/main.5e566dc1.chunk.css"
   },
   {
-    "revision": "e5bcd32564a7286eac0a3908cccc6e1a",
+    "revision": "2cea668c0272b4282daed457e8bc42a0",
     "url": "/anitavrhovac.com/index.html"
   }
 ];
