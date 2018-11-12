@@ -1,6 +1,7 @@
 import React from 'react';
 import { Router, Switch, Route } from 'react-router-dom';
 import createHistory from 'history/createBrowserHistory';
+import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Navbar from './../components/common/Navbar';
 import Albums from './../components/User/Albums';
@@ -17,9 +18,15 @@ import AdminLogin from './../components/Admin/Login';
 import Footer from './../components/common/Footer';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import PrivacyPolicy from '../components/User/PrivacyPolicy';
+import CookieConset from 'react-cookie-consent';
+import ReactGA from 'react-ga';
 import './AppRouter.scss';
 
 export const history = createHistory();
+ReactGA.initialize('UA-78116734-3');
+ReactGA.set({ anonymizeIp: true });
+history.listen(location => ReactGA.pageview(location.pathname));
 
 const AppRouter = () => (
   // add history manually
@@ -90,11 +97,62 @@ const AppRouter = () => (
             path={`${process.env.PUBLIC_URL}/:album_id/:photo_id`}
             component={Album}
           />
+          <Route
+            exact
+            path={`${
+              process.env.PUBLIC_URL
+            }/datenschutzerklaerung-privacy-policy`}
+            component={PrivacyPolicy}
+          />
           <Route component={PageNotFound} />
         </Switch>
       </main>
 
       <Footer />
+      <CookieConset
+        location="bottom"
+        buttonText=" Accept"
+        style={{ background: '#fff', color: 'inherit' }}
+        buttonStyle={{
+          background: '#08a045',
+          color: '#fff',
+          fontSize: '13px'
+        }}
+      >
+        <div className="cookie__content" style={{ display: 'flex' }}>
+          <Typography variant="caption">
+            This website uses cookies. We inform you that this site uses own,
+            technical and third parties cookies to make sure our web page is
+            user-friendly and to guarantee a high functionality of the webpage.
+            By continuing to browse this website, you declare to accept the use
+            of cookies.
+          </Typography>
+          <a
+            style={{
+              minWidth: '78px',
+              color: 'inherit',
+              fontSize: '13px',
+              marginLeft: '5px',
+              marginRight: '5px'
+            }}
+            href={`${
+              process.env.PUBLIC_URL
+            }/datenschutzerklaerung-privacy-policy`}
+          >
+            Privacy Policy
+          </a>
+          <a
+            style={{
+              color: 'inherit',
+              fontSize: '13px',
+              paddingLeft: '5px'
+            }}
+            href={`${process.env.PUBLIC_URL}/about`}
+          >
+            Impressum
+          </a>
+        </div>
+      </CookieConset>
     </CssBaseline>
   </Router>
 );
