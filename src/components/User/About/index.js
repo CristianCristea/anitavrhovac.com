@@ -21,7 +21,7 @@ const About = () => {
           <div className="about__contact__mail">
             <MailIcon />
             <Typography variant="body1" gutterBottom>
-              persona@gmail.com
+              anitavrhovac192@gmail.com
             </Typography>
           </div>
         </div>

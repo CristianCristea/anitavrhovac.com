@@ -132,7 +132,7 @@ export default function PrivacyPolicy() {
         Anita Vrhovac
       </Typography>
       <Typography variant="body2" gutterBottom>
-        E-mail:
+        E-mail: anitavrhovac192@gmail.com
       </Typography>
       <Typography variant="body2" gutterBottom>
         Verantwortliche Stelle ist die natürliche oder juristische Person, die
@@ -449,7 +449,7 @@ export default function PrivacyPolicy() {
         Anita Vrhovac
       </Typography>
       <Typography variant="body2" gutterBottom>
-        E-mail:
+        E-mail: anitavrhovac192@gmail.com
       </Typography>
       <Typography variant="body2" gutterBottom>
         The responsible party is the natural or legal person who alone or
