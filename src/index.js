@@ -41,7 +41,6 @@ firebase.auth().onAuthStateChanged(user => {
       history.push(`${process.env.PUBLIC_URL}/anita/dashboard`);
     }
   } else {
-    console.log('logged out');
     // do stuff when logged out
     // remove user id from store
     store.dispatch(logout());
