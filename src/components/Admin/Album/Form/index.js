@@ -163,7 +163,7 @@ let AlbumForm = class extends Component {
         )}
         <Paper className="album__form">
           <Typography variant="h4" gutterBottom>
-            {!edit ? 'Neue Album' : 'Album bearbeiten'}
+            {!edit ? 'Neues Album' : 'Album bearbeiten'}
           </Typography>
           <FormErrors formErrors={this.state.formErrors} />
           <form onSubmit={this.handleFormSubmit}>
@@ -217,7 +217,7 @@ let AlbumForm = class extends Component {
               variant="contained"
               disabled={!this.state.formValid}
             >
-              {!edit ? ' Album erstellen' : 'Speichern'}
+              {!edit ? ' Album erstellen' : 'Änderungen speichern'}
             </Button>
           </form>
         </Paper>
