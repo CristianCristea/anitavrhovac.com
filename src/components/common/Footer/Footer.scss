@@ -3,9 +3,13 @@
 .footer {
   padding-top: 1rem;
   padding-bottom: 1rem;
-  display: flex;
-  justify-content: space-around;
   margin-top: 3rem;
+  text-align: center;
+
+  @media screen and (min-width: 510px) {
+    display: flex;
+    justify-content: space-around;
+  }
 
   a {
     text-decoration: none;
@@ -14,5 +18,7 @@
 }
 
 .copywrite {
-  display: flex;
+  @media screen and (min-width: 510px) {
+    display: flex;
+  }
 }

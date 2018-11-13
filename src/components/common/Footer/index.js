@@ -5,20 +5,21 @@ import './Footer.scss';
 const Footer = () => (
   <section className="footer">
     <div className="copywrite">
-      &copy;
       <Typography variant="caption">
-        Anita Vrhovac - All rights reserved
+        &copy; Anita Vrhovac - All rights reserved
       </Typography>
     </div>
-    <Typography variant="caption">
-      Made with{' '}
-      <span
-        style={{ color: '#e25555' }}
-        dangerouslySetInnerHTML={{ __html: '&#9829;' }}
-      />{' '}
-      by
-      <a href="https://cristiancristea.com"> Cristian Cristea</a>
-    </Typography>
+    <div className="creator">
+      <Typography variant="caption">
+        Made with
+        <span
+          style={{ color: '#e25555', paddingLeft: '5px', paddingRight: '5px' }}
+          dangerouslySetInnerHTML={{ __html: '&#9829;' }}
+        />
+        by
+        <a href="https://cristiancristea.com"> Cristian Cristea</a>
+      </Typography>
+    </div>
   </section>
 );
 
