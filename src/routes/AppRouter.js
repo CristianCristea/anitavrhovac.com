@@ -116,10 +116,14 @@ const AppRouter = () => (
         buttonStyle={{
           background: '#08a045',
           color: '#fff',
-          fontSize: '13px'
+          fontFamily: 'Roboto, sans serif',
+          fontSize: '12px',
+          fontWeight: '500',
+          textTransform: 'uppercase',
+          cursor: 'pointer'
         }}
       >
-        <div className="cookie__content" style={{ display: 'flex' }}>
+        <div className="cookie__content">
           <Typography variant="caption">
             This website uses cookies. We inform you that this site uses own,
             technical and third parties cookies to make sure our web page is
@@ -128,29 +132,13 @@ const AppRouter = () => (
             of cookies.
           </Typography>
           <a
-            style={{
-              minWidth: '78px',
-              color: 'inherit',
-              fontSize: '13px',
-              marginLeft: '5px',
-              marginRight: '5px'
-            }}
             href={`${
               process.env.PUBLIC_URL
             }/datenschutzerklaerung-privacy-policy`}
           >
             Privacy Policy
           </a>
-          <a
-            style={{
-              color: 'inherit',
-              fontSize: '13px',
-              paddingLeft: '5px'
-            }}
-            href={`${process.env.PUBLIC_URL}/about`}
-          >
-            Impressum
-          </a>
+          <a href={`${process.env.PUBLIC_URL}/about`}>Impressum</a>
         </div>
       </CookieConset>
     </CssBaseline>

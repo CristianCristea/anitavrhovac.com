@@ -2,3 +2,17 @@ main {
   margin-top: 10rem;
   min-height: 70vh;
 }
+
+// coockie bar
+.cookie__content {
+  @media screen and(min-width: 1024px) {
+    display: flex;
+  }
+
+  a {
+    min-width: 78px;
+    color: inherit;
+    font-size: 13px;
+    margin-left: 5px;
+  }
+}
