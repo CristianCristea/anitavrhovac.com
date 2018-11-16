@@ -25,7 +25,6 @@ let AlbumForm = class extends Component {
     // form validation
     formErrors: {
       name: '',
-      description: '',
       location: ''
     },
     nameValid: false,
@@ -89,7 +88,7 @@ let AlbumForm = class extends Component {
         nameValid: nameValid,
         locationValid: locationValid
       },
-      () => this.validateForm()
+      this.validateForm
     );
   }
 
@@ -126,7 +125,7 @@ let AlbumForm = class extends Component {
       this.resetForm();
     } else {
       this.props.dispatch(startEditAlbum(albumToEdit.id, albumUpdates));
-      this.setState({ albumEdited: true });
+      this.setState({ albumEdited: true }, this.validateForm);
     }
   };
 
@@ -196,7 +195,6 @@ let AlbumForm = class extends Component {
               />
             </div>
             <TextField
-              className={`${this.hasError(this.state.formErrors.description)}`}
               value={this.state.description}
               onChange={this.handleTextInput}
               multiline
@@ -209,9 +207,11 @@ let AlbumForm = class extends Component {
               fullWidth
             />
 
-            <Typography variant="subtitle2">
-              Der Name kann nicht geändert werden.
-            </Typography>
+            {edit && (
+              <Typography variant="subtitle2">
+                Der Name kann nicht geändert werden.
+              </Typography>
+            )}
 
             <Button
               color="primary"
