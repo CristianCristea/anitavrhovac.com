@@ -114,7 +114,6 @@ let AlbumForm = class extends Component {
     };
 
     const albumUpdates = {
-      name: name.trim(),
       description: description.trim(),
       location: location.trim()
     };
@@ -167,6 +166,7 @@ let AlbumForm = class extends Component {
           <form onSubmit={this.handleFormSubmit}>
             <div className="form-control">
               <TextField
+                disabled={edit}
                 className={`${this.hasError(this.state.formErrors.name)}`}
                 value={this.state.name}
                 onChange={this.handleTextInput}
@@ -208,6 +208,10 @@ let AlbumForm = class extends Component {
               variant="outlined"
               fullWidth
             />
+
+            <Typography variant="subtitle2">
+              Der Name kann nicht geändert werden.
+            </Typography>
 
             <Button
               color="primary"

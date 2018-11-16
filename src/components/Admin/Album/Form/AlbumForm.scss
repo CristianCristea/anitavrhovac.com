@@ -15,4 +15,10 @@
   button {
     margin-top: 1rem;
   }
+
+  input[type='text']:disabled {
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
 }
