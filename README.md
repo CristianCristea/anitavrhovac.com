@@ -1,3 +1,3 @@
 # anitavrhovac.com
 
-Photography WebApp
+Photography Personal Portfolio
