@@ -12,8 +12,8 @@ import Button from '@material-ui/core/Button';
 import { startAddPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../common/FormErrors';
 import CircularLoaderDeterminate from './../../../common/CircularLoaderDeterminate';
-import './AddPhoto.scss';
 import ConfirmationBox from '../../ConfirmationBox';
+import './AddPhoto.scss';
 
 /*
 add to coresp album
@@ -258,7 +258,7 @@ let AddPhoto = class extends Component {
         to={`${process.env.PUBLIC_URL}/anita/edit-album/${album.id}`}
         {...props}
       >
-        Zurück zu album
+        Album
       </Link>
     );
     return (
@@ -357,7 +357,7 @@ let AddPhoto = class extends Component {
             color="secondary"
             variant="contained"
           >
-            Zurück zu album
+            Album
           </Button>
 
           <div id="photoPreview" className="add__photo__page__photoPreview">
