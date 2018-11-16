@@ -66,8 +66,8 @@ export const startAddAlbum = (albumData = {}) => {
       created_at = '',
       cover = {
         photo_url:
-          'https://res.cloudinary.com/dmz84tdv1/image/upload/v1538317221/image-placeholder_bkadyj.jpg',
-        photo_public_id: 'image-placeholder_bkadyj'
+          'https://res.cloudinary.com/dvccsckoy/image/upload/v1542122711/image-placeholder.jpg',
+        photo_public_id: 'image-placeholder'
       }
     } = albumData;
     const album = {
