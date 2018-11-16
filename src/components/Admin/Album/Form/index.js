@@ -68,18 +68,16 @@ let AlbumForm = class extends Component {
 
     switch (fieldName) {
       case 'name':
-        nameValid = !!(value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3);
+        nameValid = value.length > 2;
         fieldValidationErrors.name = nameValid
           ? ''
-          : ' ist invalid, nur Buchstaben, Zahlen und Leerzeichen - minimum 3.';
+          : ' ist invalid, minimum 3 Buchstaben.';
         break;
       case 'location':
-        locationValid = !!(
-          value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3
-        );
+        locationValid = value.length > 2;
         fieldValidationErrors.location = locationValid
           ? ''
-          : ' ist invalid, nur Buchstaben, Zahlen und Leerzeichen - minimum 3.';
+          : ' ist invalid, minimum 3 Buchstaben.';
         break;
       default:
         break;
