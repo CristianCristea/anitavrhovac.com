@@ -7,9 +7,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { startEditPhoto } from './../../../../actions/photos';
 import FormErrors from './../../../common/FormErrors';
+import ConfirmationBox from '../../ConfirmationBox';
 import './EditPhotoForm.scss';
-
-// TODO: in validateForm - do not submit form if nothing is changed
 
 let EditPhotoForm = class extends Component {
   state = {
@@ -17,6 +16,9 @@ let EditPhotoForm = class extends Component {
     description: this.props.photo.description,
     tags: this.props.photo.tags.toString(),
     location: this.props.photo.location,
+    // validate if the form data was changed
+    formChanged: false,
+    photoEdited: false,
     // form validation
     formErrors: {
       location: ''
@@ -42,8 +44,10 @@ let EditPhotoForm = class extends Component {
     let { formErrors: fieldValidationErrors, locationValid } = this.state;
 
     if (fieldName === 'location') {
-      locationValid = !!(value.match(/^[a-zA-Z\s\d]+$/gi) && value.length > 3);
-      fieldValidationErrors.location = locationValid ? '' : ' is invalid';
+      locationValid = value.length > 2;
+      fieldValidationErrors.location = locationValid
+        ? ''
+        : ' ist invalid, minimum 3 Buchstaben.';
     }
 
     this.setState(
@@ -51,13 +55,22 @@ let EditPhotoForm = class extends Component {
         formErrors: fieldValidationErrors,
         locationValid: locationValid
       },
-      this.validateForm
+      () => this.validateForm()
     );
   }
 
   validateForm() {
+    const { photo: initialPhoto } = this.props;
+    const { description, location, tags } = this.state;
+    if (
+      initialPhoto.description !== description ||
+      initialPhoto.location !== location ||
+      initialPhoto.tags.length !== tags.length
+    ) {
+      this.setState({ formChanged: true });
+    }
     this.setState({
-      formValid: this.state.locationValid
+      formValid: this.state.locationValid && this.state.formChanged
     });
   }
 
@@ -67,9 +80,14 @@ let EditPhotoForm = class extends Component {
       {
         locationValid: true
       },
-      this.validateForm
+      () => this.validateForm()
     );
   };
+
+  // reset form related state
+  handleCloseConfirmationBox() {
+    this.setState({ photoEdited: false, formChanged: false });
+  }
 
   handleFormSubmit = e => {
     e.preventDefault();
@@ -84,7 +102,7 @@ let EditPhotoForm = class extends Component {
       .dispatch(
         startEditPhoto(this.props.photo.id, this.props.albumId, photoUpdates)
       )
-      .then(() => alert('Photo updated'));
+      .then(() => this.handleCloseConfirmationBox());
   };
 
   // *********** add has-error css class if the field has an error ******************** //
@@ -99,12 +117,18 @@ let EditPhotoForm = class extends Component {
         to={`${process.env.PUBLIC_URL}/anita/edit-album/${this.props.albumId}`}
         {...props}
       >
-        Zurück zu Album
+        Album
       </Link>
     );
     return (
       // render form validation errors
       <section className="edit__photo container">
+        {this.state.photoEdited && (
+          <ConfirmationBox
+            data="Das Foto wurde geändert."
+            handleClose={this.handleCloseConfirmationBox.bind(this)}
+          />
+        )}
         <Paper className="edit__photo__form">
           <Typography variant="h4" gutterBottom>
             Photo bearbeiten
@@ -171,7 +195,7 @@ let EditPhotoForm = class extends Component {
             variant="contained"
             style={{ color: 'white' }}
           >
-            Zurück zu Album
+            Album
           </Button>
         </Paper>
       </section>
