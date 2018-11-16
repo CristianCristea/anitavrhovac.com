@@ -152,7 +152,7 @@ let AddPhoto = class extends Component {
         locationValid = value.length > 2;
         fieldValidationErrors.location = locationValid
           ? ''
-          : 'Minimum 3 Buchstaben.';
+          : ' ist invalid, minimum 3 Buchstaben.';
         break;
       case 'photo':
         // check image type and size < 5MB
