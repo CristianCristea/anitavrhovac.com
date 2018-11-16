@@ -55,13 +55,14 @@ let EditPhotoForm = class extends Component {
         formErrors: fieldValidationErrors,
         locationValid: locationValid
       },
-      () => this.validateForm()
+      this.validateForm
     );
   }
 
   validateForm() {
     const { photo: initialPhoto } = this.props;
     const { description, location, tags } = this.state;
+
     if (
       initialPhoto.description !== description ||
       initialPhoto.location !== location ||
@@ -80,7 +81,7 @@ let EditPhotoForm = class extends Component {
       {
         locationValid: true
       },
-      () => this.validateForm()
+      this.validateForm
     );
   };
 
@@ -102,7 +103,12 @@ let EditPhotoForm = class extends Component {
       .dispatch(
         startEditPhoto(this.props.photo.id, this.props.albumId, photoUpdates)
       )
-      .then(() => this.handleCloseConfirmationBox());
+      .then(() =>
+        this.setState(
+          { photoEdited: true, formChanged: false },
+          this.validateForm
+        )
+      );
   };
 
   // *********** add has-error css class if the field has an error ******************** //
@@ -125,7 +131,7 @@ let EditPhotoForm = class extends Component {
       <section className="edit__photo container">
         {this.state.photoEdited && (
           <ConfirmationBox
-            data="Das Foto wurde geändert."
+            data="Änderungen gespeichert."
             handleClose={this.handleCloseConfirmationBox.bind(this)}
           />
         )}
